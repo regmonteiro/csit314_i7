@@ -1,23 +1,67 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# === Java ===
+*.class
+*.log
+*.jar
+*.war
+*.ear
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
+# === Maven ===
+/target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
 
-# testing
-/coverage
+# === Gradle (if ever used) ===
+.gradle/
+build/
 
-# production
-/build
+# === IDEs ===
+# IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
 
-# misc
+# Eclipse
+.project
+.classpath
+.settings/
+bin/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# === OS Specific ===
+# macOS
 .DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# Windows
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# === Logs, temp & test ===
+*.log
+logs/
+*.tmp
+*.swp
+*.bak
+*.orig
+*.rej
+
+# === Spring Boot ===
+spring.log
+
+# === Environment / Config ===
+.env
+application.properties
+application.yml
+*.db
+
+# === XAMPP / PHP Related (if mixed) ===
+htdocs/

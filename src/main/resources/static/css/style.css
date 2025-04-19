@@ -1,0 +1,125 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f8f8;
+    color: #333;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 240px;
+    background-color: #ffffff;
+    padding: 30px 20px;
+    border-right: 1px solid #ddd;
+}
+
+.sidebar h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.sidebar a {
+    display: block;
+    margin: 10px 0;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #333;
+    border-radius: 6px;
+}
+
+.sidebar a.active {
+    background-color: #d0d0d0;
+    font-weight: bold;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content h1 {
+    font-size: 24px;
+    margin-bottom: 30px;
+    color: #666;
+}
+
+/* Form */
+.form-box {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 30px;
+    max-width: 500px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eee;
+}
+
+.form-box label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #444;
+}
+
+.form-box input {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Buttons */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.button {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 6px;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.button:hover {
+    background-color: #555;
+}
+
+/* Top Navbar */
+.navbar {
+    background-color: #e0e0e0;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar span {
+    font-weight: 500;
+}
+
+.logout-btn {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    background-color: #555;
+}

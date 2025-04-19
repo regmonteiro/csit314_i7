@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+
+    <div class="navbar">
+        <span th:text="'Logged in as: ' + ${role}">Logged in as: [role]</span>
+        <form th:action="@{/login}" method="get" style="margin: 0;">
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <h2>Navigation</h2>
+            <a class="active" href="#">Dashboard</a>
+            <a href="#">View Account</a>
+            <a href="#">Settings</a>
+            <a href="#">Support</a>
+        </div>
+
+        <div class="main-content">
+            <h1>Welcome to Your Dashboard</h1>
+            <p>This is a generic dashboard. You are currently logged in with the role:</p>
+            <p><strong th:text="${role}">[role]</strong></p>
+        </div>
+    </div>
+
+</body>
+</html>
