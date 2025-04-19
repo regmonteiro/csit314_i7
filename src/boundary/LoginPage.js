@@ -1,21 +1,36 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import '../styles/Login.css';
+import { useNavigate, Link } from 'react-router-dom';
+import { LoginController } from '../controllers/LoginController';
+import '../styles/general.css';
 
-function Login() {
+function LoginPage() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
 
-  const togglePassword = () => setShowPassword(prev => !prev);
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const success = LoginController.processLogin(email, password);
+    if (success) {
+      navigate('/dashboard'); // or wherever your post-login page is
+    } else {
+      setError('Invalid email or password.');
+    }
+  };
 
   return (
     <div className="login-container">
       <h2 className="login-title">Login</h2>
-      <form className="login-form">
+      <form className="login-form" onSubmit={handleLogin}>
         <div className="login-form-group">
           <label htmlFor="email">Email</label>
           <input
             id="email"
             type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
             required
             autoComplete="email"
@@ -27,6 +42,8 @@ function Login() {
           <input
             id="password"
             type={showPassword ? 'text' : 'password'}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter your password"
             required
             autoComplete="current-password"
@@ -34,12 +51,13 @@ function Login() {
           <button
             type="button"
             className="toggle-password"
-            onClick={togglePassword}
-            aria-label="Toggle password visibility"
+            onClick={() => setShowPassword((prev) => !prev)}
           >
             {showPassword ? 'Hide' : 'Show'}
           </button>
         </div>
+
+        {error && <p style={{ color: 'red', fontSize: '14px' }}>{error}</p>}
 
         <button type="submit" className="login-button">Login</button>
 
@@ -56,4 +74,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginPage;
