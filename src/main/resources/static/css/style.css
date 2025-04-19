@@ -123,3 +123,41 @@ body {
 .logout-btn:hover {
     background-color: #555;
 }
+
+/* Home Page Styling */
+.login-subtitle {
+    font-size: 1rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .primary-button,
+  .secondary-button {
+    padding: 10px 25px;
+    font-size: 1rem;
+    margin: 0 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .primary-button {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .primary-button:hover {
+    background-color: #45a049;
+  }
+  
+  .secondary-button {
+    background-color: #f0f0f0;
+    color: #333;
+  }
+  
+  .secondary-button:hover {
+    background-color: #ddd;
+  }
+  

@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <title>Welcome to CleanConnect</title>
-  <link rel="stylesheet" href="/css/general.css" />
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
   <div class="login-container">
     <h2 class="login-title">Welcome to CleanConnect</h2>
-    <p class="login-subtitle">Your trusted freelance home cleaning platform.</p>
+    <p class="login-subtitle">A clean and simple way to find reliable home cleaners.</p>
 
-    <div class="button-group">
-      <a href="/login"><button class="primary-button">Login</button></a>
+    <div class="login-form-group" style="text-align: center; margin-top: 30px;">
+      <a href="/login"><button class="primary-button">Log In</button></a>
       <a href="/signup"><button class="secondary-button">Sign Up</button></a>
     </div>
   </div>
