@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>View User Account</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<!-- Top Navbar -->
+<div class="navbar">
+  <span>Logged in as User Admin</span>
+  <form th:action="@{/login}" method="get">
+    <button type="submit" class="logout-btn">Logout</button>
+  </form>
+</div>
+
+<!-- Page Layout -->
+<div class="container">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>User Accounts</h2>
+    <a href="/admin/createUser">Create User Account</a>
+    <a class="active" href="/admin/viewUserAccounts">View User Account</a>
+    <a href="#">Update User Account</a>
+    <a href="#">Suspend User Account</a>
+    <a href="#">Search User Account</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <h1 class="view-account-header">View User Account</h1>
+    <div class="user-list-box">
+      <div th:each="user : ${users}" class="user-entry">
+        <span th:text="${user.username} + ' - ' + ${user.email}"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
