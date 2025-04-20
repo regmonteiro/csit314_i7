@@ -16,7 +16,7 @@ public class LogoutController {
         if (success) {
             return "redirect:/login"; // Redirect to login page
         } else {
-            return "error"; // Optional: Handle unexpected logout issues
+            return "error";
         }
     }
 }
