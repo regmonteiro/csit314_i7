@@ -8,9 +8,9 @@
 
     <div class="navbar">
         <span th:text="'Logged in as: ' + ${role}">Logged in as: [role]</span>
-        <form th:action="@{/login}" method="get" style="margin: 0;">
+        <form th:action="@{/logout}" method="get" style="margin: 0;">
             <button type="submit" class="logout-btn">Logout</button>
-        </form>
+          </form>
     </div>
 
     <div class="container">

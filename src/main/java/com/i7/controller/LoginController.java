@@ -14,25 +14,23 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String email,
-                        @RequestParam String password,
-                        Model model) {
+    public String validateLogin(@RequestParam String username,
+                                @RequestParam String password,
+                                Model model) {
 
-        UserAccount user = UserAccount.findByEmail(email); // Entity access
+        UserAccount user = UserAccount.authenticateLogin(username, password); // Entity call
 
-        if (user != null && user.checkPassword(password)) {
-            String role = user.getRole();
-            model.addAttribute("role", role);
-        
-            if (role.equalsIgnoreCase("admin") || role.equalsIgnoreCase("user admin")) {
-                return "adminDashboard"; // show admin dashboard view
-            } else {
-                return "dashboard"; // fallback to generic or role-specific dashboards
-            }
-        } else {
-            model.addAttribute("error", "Invalid email or password");
+        if (user == null) {
+            model.addAttribute("error", "Invalid credentials or suspended account.");
             return "login";
         }
-        
+
+        model.addAttribute("role", user.getRole());
+
+        if (user.getRole().equalsIgnoreCase("user admin") || user.getRole().equalsIgnoreCase("admin")) {
+            return "adminDashboard";
+        } else {
+            return "dashboard";
+        }
     }
 }

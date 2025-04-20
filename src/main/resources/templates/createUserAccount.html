@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create User Account</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="navbar">
+    <span>Logged in as: User Admin</span>
+    <form th:action="@{/login}" method="get">
+        <button type="submit" class="logout-btn">Logout</button>
+    </form>
+</div>
+
+<div class="container">
+    <div class="sidebar">
+        <h2>User Accounts</h2>
+        <a class="active" href="/admin/createUser">Create User Account</a>
+        <a href="/admin/viewUserAccounts">View User Account</a>
+        <a href="#">Update User Account</a>
+        <a href="#">Suspend User Account</a>
+        <a href="#">Search User Account</a>
+    </div>
+
+    <div class="main-content">
+        <h1>Create User Account</h1>
+        <div th:if="${error}" style="color: red;" th:text="${error}"></div>
+        <div th:if="${success}" style="color: green;" th:text="${success}"></div>
+
+        <form th:action="@{/admin/createUser}" method="post" class="form-box">
+            <label>First Name</label>
+            <input type="text" name="firstName" required>
+
+            <label>Last Name</label>
+            <input type="text" name="lastName" required>
+
+            <label>Email</label>
+            <input type="email" name="email" required>
+
+            <label>Username</label>
+            <input type="text" name="username" required>
+
+            <label>Password</label>
+            <input type="password" name="password" required>
+
+            <label>Role</label>
+            <select name="role" required>
+                <option value="cleaner">Cleaner</option>
+                <option value="homeowner">Homeowner</option>
+                <option value="pm">PM</option>
+            </select>
+
+            <div class="button-group">
+                <button type="submit" class="button">Create</button>
+                <a href="/admin" class="button secondary-button">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
