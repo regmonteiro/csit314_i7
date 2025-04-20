@@ -2,43 +2,38 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>View User Account</title>
+  <title>User Details</title>
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
-<!-- Top Navbar -->
 <div class="navbar">
-  <span>Logged in as User Admin</span>
+  <span>Logged in as: User Admin</span>
   <form th:action="@{/login}" method="get">
     <button type="submit" class="logout-btn">Logout</button>
   </form>
 </div>
 
-<!-- Page Layout -->
 <div class="container">
-  <!-- Sidebar -->
   <div class="sidebar">
     <h2>User Accounts</h2>
     <a href="/admin/createUser">Create User Account</a>
-    <a class="active" href="/admin/viewUserAccounts">View User Account</a>
+    <a href="/admin/viewUserAccounts">View User Account</a>
     <a href="#">Update User Account</a>
     <a href="#">Suspend User Account</a>
     <a href="#">Search User Account</a>
   </div>
 
-  <!-- Main Content -->
   <div class="main-content">
-    <h1 class="view-account-header">View User Account</h1>
-    <div class="user-list-box">
-      <div th:each="user : ${users}">
-        <a th:href="@{'/admin/viewUser'(username=${user.username})}" class="user-link">
-          <div class="user-entry-box">
-            <span th:text="${user.username} + ' - ' + ${user.email}"></span>
-          </div>
-        </a>
-      </div>
-        
+    <div class="header">
+        <h1>User Details</h1>
+        <a href="/admin/viewUserAccounts" class="back-button">← Back</a>
+    </div>
+
+    <div class="form-box">
+      <p><strong>Username:</strong> <span th:text="${user.username}">username</span></p>
+      <p><strong>Email:</strong> <span th:text="${user.email}">email</span></p>
+      <p><strong>Role:</strong> <span th:text="${user.role}">role</span></p>
     </div>
   </div>
 </div>

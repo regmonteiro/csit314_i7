@@ -14,7 +14,7 @@ public class UserManageController {
     @GetMapping("/viewUser")
     public String viewUserAccount(@RequestParam("username") String username, Model model) {
         UserAccount user = UserAccount.getUserAccount(username);
-
+        
         if (user != null) {
             model.addAttribute("user", user);
             return "viewUser";
