@@ -142,6 +142,41 @@ public class UserAccount {
         }
     }
 
+    public static boolean validateDetails(UserAccount updatedDetails) {
+        return updatedDetails != null &&
+               updatedDetails.getEmail() != null && !updatedDetails.getEmail().isEmpty() &&
+               updatedDetails.getFirstName() != null && !updatedDetails.getFirstName().isEmpty() &&
+               updatedDetails.getLastName() != null && !updatedDetails.getLastName().isEmpty();
+    }
+    
+    public static boolean saveUpdatedDetails(String userId, UserAccount updatedDetails) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/i7_db", "root", "1234")) {
+            PreparedStatement checkStmt = conn.prepareStatement("SELECT * FROM user_accounts WHERE username = ?");
+            checkStmt.setString(1, userId);
+            ResultSet rs = checkStmt.executeQuery();
+    
+            if (!rs.next()) {
+                return false; // User not found
+            }
+    
+            PreparedStatement stmt = conn.prepareStatement(
+                "UPDATE user_accounts SET email = ?, password = ?, role = ?, first_name = ?, last_name = ? WHERE username = ?");
+            stmt.setString(1, updatedDetails.getEmail());
+            stmt.setString(2, updatedDetails.getPassword());
+            stmt.setString(3, updatedDetails.getRole());
+            stmt.setString(4, updatedDetails.getFirstName());
+            stmt.setString(5, updatedDetails.getLastName());
+            stmt.setString(6, userId);
+    
+            return stmt.executeUpdate() > 0;
+    
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+
     public static UserAccount authenticateLogin(String email, String password) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/i7_db", "root", "1234")) {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM user_accounts WHERE email = ?");

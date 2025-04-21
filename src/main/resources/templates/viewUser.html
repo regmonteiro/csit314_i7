@@ -19,7 +19,6 @@
     <h2>User Accounts</h2>
     <a href="/admin/createUser">Create User Account</a>
     <a href="/admin/viewUserAccounts">View User Account</a>
-    <a href="#">Update User Account</a>
     <a href="#">Suspend User Account</a>
     <a href="#">Search User Account</a>
   </div>
@@ -34,6 +33,8 @@
       <p><strong>Username:</strong> <span th:text="${user.username}">username</span></p>
       <p><strong>Email:</strong> <span th:text="${user.email}">email</span></p>
       <p><strong>Role:</strong> <span th:text="${user.role}">role</span></p>
+    
+      <a th:href="@{'/admin/updateUser'(username=${user.username})}" class="button">Edit</a>
     </div>
   </div>
 </div>
