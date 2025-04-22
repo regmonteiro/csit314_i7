@@ -65,3 +65,4 @@ application.yml
 
 # === XAMPP / PHP Related (if mixed) ===
 htdocs/
+node_modules
