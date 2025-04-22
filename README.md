@@ -6,11 +6,22 @@ Requirements:
 -----------------------------------------------------------
 Database Setup
 1. Launch XAMPP and start MySQL
-2. Open phpMyAdmin http://localhost/phpmyadmin/
-3. Create a database named "i7_db"
-4. Click the Import tab
-5. Choose the file: "i7_db_user_accounts.sql"
-6. Click "Go"
+3. Open phpMyAdmin http://localhost/phpmyadmin/
+4. Create a database named "i7_db"
+5. Click the Import tab
+6. Choose the file: "i7_db_user_accounts.sql"
+7. Click "Go"
+-----------------------------------------------------------
+Application Setup
+1. If application.properties does not exist in the resources folder, create application.properties file in the resources folder
+2. Paste this code inside the file: 
+		spring.datasource.url=jdbc:mysql://localhost:3306/i7_db
+		spring.datasource.username=root
+		spring.datasource.password=1234
+		spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+		spring.jpa.hibernate.ddl-auto=none
+3. Gop to C:\xampp\phpMyAdmin\config.inc.php
+4. Make sure the passwords are the same in both config.inc.php and application.properties
 -----------------------------------------------------------
 Running the Application in localhost
 1. Open Git Bash inside project root folder
