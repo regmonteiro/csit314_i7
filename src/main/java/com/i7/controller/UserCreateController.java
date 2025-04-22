@@ -23,7 +23,7 @@ public class UserCreateController {
                                     @RequestParam String role,
                                     Model model) {
 
-        boolean created = UserAccount.createNewAccount(firstName, lastName, email, username, password, role);
+        boolean created = UserAccount.createNewAccount(firstName, lastName, email, username, password, role, "active");
         if (created) {
             model.addAttribute("success", "User created successfully.");
         } else {

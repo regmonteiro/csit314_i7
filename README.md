@@ -9,8 +9,7 @@ Database Setup
 3. Open phpMyAdmin http://localhost/phpmyadmin/
 4. Create a database named "i7_db"
 5. Click the Import tab
-6. Choose the file: "i7_db_user_accounts.sql"
-7. Click "Go"
+6. Import all sql files in the Database folder
 -----------------------------------------------------------
 Application Setup
 1. If application.properties does not exist in the resources folder, create application.properties file in the resources folder

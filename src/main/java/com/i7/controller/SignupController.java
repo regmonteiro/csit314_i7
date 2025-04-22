@@ -1,6 +1,11 @@
 package com.i7.controller;
 
 import com.i7.entity.UserAccount;
+import com.i7.entity.Role;
+
+import java.util.List;
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -9,7 +14,20 @@ import org.springframework.ui.Model;
 public class SignupController {
 
     @GetMapping("/signup")
-    public String showSignupForm() {
+    public String showSignupForm(Model model) {
+        List<Role> allRoles = Role.getAllRoles();
+
+        // Filter roles: only homeowner and cleaner
+        List<Role> allowedRoles = new ArrayList<>();
+        for (Role role : allRoles) {
+            String code = role.getCode().toLowerCase();
+            if (code.equals("homeowner") || code.equals("cleaner")) {
+                allowedRoles.add(role);
+            }
+        }
+
+        model.addAttribute("roles", allowedRoles);
+        model.addAttribute("user", new UserAccount());
         return "signup";
     }
 
@@ -21,9 +39,11 @@ public class SignupController {
                                 @RequestParam String password,
                                 @RequestParam String role,
                                 Model model) {
-        // Call Entity to insert user
-        boolean success = UserAccount.createNewAccount(firstName, lastName, email, username, password, role);
+        String status = "active";
 
+        // Call Entity to insert user
+        boolean success = UserAccount.createNewAccount(firstName, lastName, email, username, password, role, status);
+        
         if (success) {
             model.addAttribute("message", "Account created successfully!");
             return "login";
