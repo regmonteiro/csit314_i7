@@ -1,4 +1,4 @@
-/* LoginPage.css */
+/* LoginSignUpPage.css */
 
 body {
   margin: 0;
@@ -71,7 +71,9 @@ body {
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type="email"],
+select {
   padding: 15px;
   margin: 10px 0;
   border: none;
@@ -79,6 +81,17 @@ input[type="password"] {
   background-color: #f0f0f0;
   font-size: 16px;
   outline: none;
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px 16px;
+  padding-right: 40px;
 }
 
 .button {
