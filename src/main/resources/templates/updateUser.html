@@ -46,7 +46,12 @@
                 <input type="text" id="lastName" th:field="*{lastName}" placeholder="Last Name" required />
 
                 <label for="role">Role</label>
-                <input type="text" id="role" th:field="*{role}" placeholder="Role" required />
+                <select id="role" th:field="*{role}" required>
+                    <option value="User Admin" th:selected="${user.role == 'User Admin'}">User Admin</option>
+                    <option value="Platform Management" th:selected="${user.role == 'Platform Management'}">Platform Management</option>
+                    <option value="Cleaner" th:selected="${user.role == 'Cleaner'}">Cleaner</option>
+                    <option value="Homeowner" th:selected="${user.role == 'Homeowner'}">Homeowner</option>
+                </select>
 
                 <label for="password">New Password</label>
                 <input type="password" id="password" th:field="*{password}" placeholder="New Password" required />
