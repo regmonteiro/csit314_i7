@@ -33,7 +33,7 @@ public class UserManageController {
         return "viewUserAccounts";
     }
 
-    @GetMapping("/admin/updateUser")
+    @GetMapping("/updateUser")
     public String showUpdateForm(@RequestParam("username") String username, Model model) {
         UserAccount user = UserAccount.getUserAccount(username);
         List<Role> roles = Role.getAllRoles();
@@ -42,28 +42,28 @@ public class UserManageController {
         model.addAttribute("roles", roles);
         return "updateUser";
     }
-    
-    @PostMapping("/admin/updateUser")
-    public String updateDetails(@RequestParam String userId,
-                                @ModelAttribute UserAccount updatedDetails,
-                                Model model) {
-    
+
+    @PostMapping("/updateUser")
+    public String updateDetails(@ModelAttribute UserAccount updatedDetails, Model model) {
         if (!UserAccount.validateDetails(updatedDetails)) {
             model.addAttribute("error", "Please fill in all required fields.");
+            model.addAttribute("user", updatedDetails);
+            model.addAttribute("roles", Role.getAllRoles());
             return "updateUser";
         }
     
-        boolean success = UserAccount.saveUpdatedDetails(userId, updatedDetails);
+        boolean success = UserAccount.saveUpdatedDetails(updatedDetails.getUsername(), updatedDetails);
         if (success) {
             model.addAttribute("message", "User updated successfully.");
             return "redirect:/admin/viewUserAccounts";
         } else {
             model.addAttribute("error", "User not found or update failed.");
+            model.addAttribute("user", updatedDetails);
+            model.addAttribute("roles", Role.getAllRoles());
             return "updateUser";
         }
     }
     
-
     @PostMapping("/suspendUser")
     public String suspendUserAccount(@RequestParam("userId") String userId, Model model) {
         boolean success = UserAccount.updateAccountStatus(userId, "suspended");

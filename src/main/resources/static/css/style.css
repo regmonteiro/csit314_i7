@@ -1,252 +1,257 @@
 body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f8f8f8;
-    color: #333;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f8f8;
+  color: #333;
 }
 
 .container {
-    display: flex;
-    height: 100vh;
+  display: flex;
+  height: 100vh;
 }
 
 /* Sidebar */
 .sidebar {
-    width: 240px;
-    background-color: #ffffff;
-    padding: 30px 20px;
-    border-right: 1px solid #ddd;
+  width: 240px;
+  background-color: #ffffff;
+  padding: 30px 20px;
+  border-right: 1px solid #ddd;
 }
 
 .sidebar h2 {
-    font-size: 20px;
-    margin-bottom: 20px;
-    color: #666;
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #666;
 }
 
 .sidebar a {
-    display: block;
-    margin: 10px 0;
-    padding: 8px 12px;
-    text-decoration: none;
-    color: #333;
-    border-radius: 6px;
+  display: block;
+  margin: 10px 0;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #333;
+  border-radius: 6px;
 }
 
 .sidebar a.active {
-    background-color: #d0d0d0;
-    font-weight: bold;
+  background-color: #d0d0d0;
+  font-weight: bold;
 }
 
 /* Main Content */
 .main-content {
-    flex: 1;
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
 }
 
 .main-content h1 {
-    font-size: 24px;
-    margin-bottom: 30px;
-    color: #666;
+  font-size: 24px;
+  margin-bottom: 30px;
+  color: #666;
 }
 
 /* Form */
 .form-box {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 30px;
-    max-width: 500px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
-    border: 1px solid #eee;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 30px;
+  max-width: 500px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eee;
 }
 
 .form-box label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: #444;
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #444;
 }
 
 .form-box input {
-    width: 100%;
-    padding: 10px 12px;
-    margin-bottom: 20px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
 }
 
 /* Buttons */
-.button-group {
-    display: flex;
-    justify-content: space-between;
+.button {
+  background-color: #2d2d2d;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  text-align: center;
 }
 
-.button {
-    padding: 10px 24px;
-    border: none;
-    border-radius: 6px;
-    background-color: #333;
-    color: white;
-    cursor: pointer;
-    font-size: 14px;
+.button:link,
+.button:visited {
+  color: white;
 }
 
 .button:hover {
-    background-color: #555;
+  background-color: #555;
 }
+
 
 /* Top Navbar */
 .navbar {
-    background-color: #e0e0e0;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  background-color: #e0e0e0;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .navbar span {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 .logout-btn {
-    background-color: #333;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .logout-btn:hover {
-    background-color: #555;
+  background-color: #555;
 }
 
 /* Home Page Styling */
 .login-subtitle {
-    font-size: 1rem;
-    color: #666;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .primary-button,
-  .secondary-button {
-    padding: 10px 25px;
-    font-size: 1rem;
-    margin: 0 10px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .primary-button {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  .primary-button:hover {
-    background-color: #45a049;
-  }
-  
-  .secondary-button {
-    background-color: #f0f0f0;
-    color: #333;
-  }
-  
-  .secondary-button:hover {
-    background-color: #ddd;
-  }
+  font-size: 1rem;
+  color: #666;
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-  /* View Accounts*/
-  .view-account-header {
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #666;
-  }
-  
-  .user-list-box {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 20px 30px;
-    margin-top: 20px;
-    max-width: 700px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-  }
-  
-  .sidebar a.active {
-    background-color: #d0d0d0;
-    font-weight: bold;
-    color: #111;
-  }
+.primary-button,
+.secondary-button {
+  padding: 10px 25px;
+  font-size: 1rem;
+  margin: 0 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .back-button {
-    background-color: #f0f0f0;
-    color: #333;
-    text-decoration: none;
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-size: 14px;
-    transition: background-color 0.2s ease;
-  }
-  
-  .back-button:hover {
-    background-color: #ddd;
-  }
+.primary-button {
+  background-color: #4CAF50;
+  color: white;
+}
 
-  .user-link {
-    text-decoration: none;
-    color: #333;
-    display: block;
-    width: 100%;
-  }
-  
-  .user-link:visited {
-    color: #333;
-  }
-  
-  .user-entry-box {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 20px;
-    margin-bottom: 12px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    transition: background-color 0.2s ease;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  .user-link:hover .user-entry-box {
-    background-color: #eaeaea;
-    cursor: pointer;
-  }
-  
-  .user-entry-box span {
-    font-weight: 500;
-    color: #333;
-  }
-  
-  select {
-    width: 100%;
-    padding: 10px 12px;
-    margin-bottom: 20px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    background-color: #fff;
+.primary-button:hover {
+  background-color: #45a049;
+}
+
+.secondary-button {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.secondary-button:hover {
+  background-color: #ddd;
+}
+
+/* View Accounts*/
+.view-account-header {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #666;
+}
+
+.user-list-box {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px 30px;
+  margin-top: 20px;
+  max-width: 700px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.sidebar a.active {
+  background-color: #d0d0d0;
+  font-weight: bold;
+  color: #111;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.back-button {
+  background-color: #f0f0f0;
+  color: #333;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.back-button:hover {
+  background-color: #ddd;
+}
+
+.user-link {
+  text-decoration: none;
+  color: #333;
+  display: block;
+  width: 100%;
+}
+
+.user-link:visited {
+  color: #333;
+}
+
+.user-entry-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  transition: background-color 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.user-link:hover .user-entry-box {
+  background-color: #eaeaea;
+  cursor: pointer;
+}
+
+.user-entry-box span {
+  font-weight: 500;
+  color: #333;
+}
+
+select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  background-color: #fff;
 }

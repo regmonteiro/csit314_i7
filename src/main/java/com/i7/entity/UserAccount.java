@@ -135,9 +135,11 @@ public class UserAccount {
 
     public static boolean validateDetails(UserAccount updatedDetails) {
         return updatedDetails != null &&
-               updatedDetails.getEmail() != null && !updatedDetails.getEmail().isEmpty() &&
-               updatedDetails.getFirstName() != null && !updatedDetails.getFirstName().isEmpty() &&
-               updatedDetails.getLastName() != null && !updatedDetails.getLastName().isEmpty();
+            updatedDetails.getEmail() != null && !updatedDetails.getEmail().isEmpty() &&
+            updatedDetails.getFirstName() != null && !updatedDetails.getFirstName().isEmpty() &&
+            updatedDetails.getLastName() != null && !updatedDetails.getLastName().isEmpty() &&
+            updatedDetails.getPassword() != null && !updatedDetails.getPassword().isEmpty() &&
+            updatedDetails.getRole() != null && !updatedDetails.getRole().isEmpty();
     }
 
     public static boolean saveUpdatedDetails(String userId, UserAccount updatedDetails) {
