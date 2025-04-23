@@ -14,11 +14,11 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String validateLogin(@RequestParam String username,
+    public String validateLogin(@RequestParam String email,
                                 @RequestParam String password,
                                 Model model) {
 
-        UserAccount user = UserAccount.authenticateLogin(username, password); // Entity call
+        UserAccount user = UserAccount.authenticateLogin(email, password); // Entity call
 
         if (user == null) {
             model.addAttribute("error", "Invalid credentials or suspended account.");
