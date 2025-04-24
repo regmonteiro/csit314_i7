@@ -27,35 +27,32 @@
         <div th:if="${error}" style="color: red;" th:text="${error}"></div>
         <div th:if="${success}" style="color: green;" th:text="${success}"></div>
 
-        <form th:action="@{/admin/createUser}" method="post" class="form-box">
-            <label>First Name</label>
-            <input type="text" name="firstName" required>
-
-            <label>Last Name</label>
-            <input type="text" name="lastName" required>
-
-            <label>Email</label>
-            <input type="email" name="email" required>
-
-            <label>Username</label>
-            <input type="text" name="username" required>
-
-            <label>Password</label>
-            <input type="password" name="password" required>
-
-            <label>Role</label>
-            <select name="role" required>
-                <option value="cleaner">Cleaner</option>
-                <option value="homeowner">Homeowner</option>
-                <option value="pm">Platform Manager</option>
-                <option value="admin">User Admin</option>
+        <form th:action="@{/admin/createUser}" th:object="${user}" method="post">
+            <label for="firstName">First Name</label>
+            <input type="text" th:field="*{firstName}" required />
+        
+            <label for="lastName">Last Name</label>
+            <input type="text" th:field="*{lastName}" required />
+        
+            <label for="email">Email</label>
+            <input type="email" th:field="*{email}" required />
+        
+            <label for="password">Password</label>
+            <input type="password" th:field="*{password}" required />
+        
+            <label for="profileCode">Profile</label>
+            <select th:field="*{profile.code}">
+                <option th:each="p : ${profiles}" th:value="${p.code}" th:text="${p.name}"></option>
             </select>
-
+        
             <div class="button-group">
-                <button type="submit" class="button">Create</button>
-                <a href="/admin" class="button secondary-button">Cancel</a>
+                <button type="submit" class="button">Create Account</button>
             </div>
+        
+            <p th:if="${success}" th:text="${success}" style="color:green;"></p>
+            <p th:if="${error}" th:text="${error}" style="color:red;"></p>
         </form>
+        
     </div>
 </div>
 
