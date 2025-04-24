@@ -185,32 +185,44 @@ public class UserAccount {
 
     public static UserAccount authenticateLogin(String email, String password) {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM user_accounts WHERE email = ?");
+            PreparedStatement stmt = conn.prepareStatement(
+                "SELECT ua.*, up.name AS profile_name, up.description AS profile_desc " +
+                "FROM user_accounts ua " +
+                "JOIN user_profiles up ON ua.profile_code = up.code " +
+                "WHERE ua.email = ?");
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                String dbPassword = rs.getString("password");
-                String status = rs.getString("status_code");
-                if (!dbPassword.equals(password) || status.equalsIgnoreCase("suspended")) {
-                    return null;
-                }
-                UserProfile profile = fetchProfileByCode(conn, rs.getString("profile_code"));
-                return new UserAccount(
-                    rs.getString("email"),
-                    dbPassword,
-                    profile,
-                    rs.getString("uid"),
-                    rs.getString("first_name"),
-                    rs.getString("last_name"),
-                    status
-                );
+    
+            if (!rs.next()) {
+                return null; // Email not found
             }
+    
+            String dbPassword = rs.getString("password");
+            if (!dbPassword.equals(password)) {
+                return null; // Invalid password
+            }
+            
+            UserProfile profile = new UserProfile(
+                rs.getString("profile_code"),
+                rs.getString("profile_name"),
+                rs.getString("profile_desc")
+            );
+    
+            return new UserAccount(
+                rs.getString("email"),
+                dbPassword,
+                profile,
+                rs.getString("uid"),
+                rs.getString("first_name"),
+                rs.getString("last_name"),
+                rs.getString("status_code")
+            );
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
+    
 
     public static boolean logout(HttpSession session) {
         try {
