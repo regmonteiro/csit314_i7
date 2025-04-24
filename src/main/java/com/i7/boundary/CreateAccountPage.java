@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/admin/createUser")
-public class AdminCreatePage {
+public class CreateAccountPage {
 
     @Autowired
     private AccountCreateController accountCreateController;
