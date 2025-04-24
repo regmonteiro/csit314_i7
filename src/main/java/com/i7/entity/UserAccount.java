@@ -6,10 +6,14 @@ import java.util.List;
 import jakarta.servlet.http.HttpSession;
 
 public class UserAccount {
+    private static final String DB_URL = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12775162";
+    private static final String DB_USER = "sql12775162";
+    private static final String DB_PASS = "W653P56dDa";
+
     private String email;
     private String password;
-    private String role;         // stores role code
-    private String status;       // stores status code
+    private String role;
+    private String status; 
     private String username;
     private String firstName;
     private String lastName;
@@ -40,7 +44,7 @@ public class UserAccount {
     }
 
     public static UserAccount findByEmail(String email) {
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/i7_db", "root", "1234")) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM user_accounts WHERE email = ?");
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
@@ -62,7 +66,7 @@ public class UserAccount {
     }
 
     public static UserAccount getUserAccount(String username) {
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/i7_db", "root", "1234")) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM user_accounts WHERE username = ?");
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
@@ -85,7 +89,7 @@ public class UserAccount {
 
     public static List<UserAccount> getAllUserAccounts() {
         List<UserAccount> users = new ArrayList<>();
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/i7_db", "root", "1234")) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM user_accounts");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -107,7 +111,7 @@ public class UserAccount {
 
     public static boolean createNewAccount(String firstName, String lastName, String email,
                                            String username, String password, String roleCode, String statusCode) {
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/i7_db", "root", "1234")) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
             PreparedStatement check = conn.prepareStatement("SELECT email FROM user_accounts WHERE email = ? OR username = ?");
             email = email.trim().toLowerCase();
             username = username.trim();
@@ -143,7 +147,7 @@ public class UserAccount {
     }
 
     public static boolean saveUpdatedDetails(String userId, UserAccount updatedDetails) {
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/i7_db", "root", "1234")) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
             PreparedStatement checkStmt = conn.prepareStatement("SELECT * FROM user_accounts WHERE username = ?");
             checkStmt.setString(1, userId);
             ResultSet rs = checkStmt.executeQuery();
@@ -166,7 +170,7 @@ public class UserAccount {
     }
 
     public static UserAccount authenticateLogin(String email, String password) {
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/i7_db", "root", "1234")) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM user_accounts WHERE email = ?");
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
@@ -205,7 +209,7 @@ public class UserAccount {
     }
 
     public static boolean updateAccountStatus(String username, String statusCode) {
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/i7_db", "root", "1234")) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
             PreparedStatement stmt = conn.prepareStatement("UPDATE user_accounts SET status_code=? WHERE username=?");
             stmt.setString(1, statusCode);
             stmt.setString(2, username);
