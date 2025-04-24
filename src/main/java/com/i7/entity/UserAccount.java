@@ -12,7 +12,7 @@ public class UserAccount {
 
     private String email;
     private String password;
-    private UserProfile profile;
+    private String profileCode;
     private String status;
     private String uid;
     private String firstName;
@@ -20,10 +20,10 @@ public class UserAccount {
 
     public UserAccount() {}
 
-    public UserAccount(String email, String password, UserProfile profile, String uid, String firstName, String lastName, String status) {
+    public UserAccount(String email, String password, String profileCode, String uid, String firstName, String lastName, String status) {
         this.email = email;
         this.password = password;
-        this.profile = profile;
+        this.profileCode = profileCode;
         this.uid = uid;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -32,24 +32,14 @@ public class UserAccount {
 
     public String getEmail() { return email; }
     public String getPassword() { return password; }
-    public UserProfile getProfile() { return profile; }
+    public String getProfileCode() { return profileCode; }
     public String getStatus() { return status; }
     public String getUid() { return uid; }
     public String getFirstName() { return firstName; }
-    public String getLastName() { return lastName; }
+    public String getLastName() { return lastName; } 
 
     public boolean checkPassword(String inputPassword) {
         return this.password.equals(inputPassword);
-    }
-
-    private static UserProfile fetchProfileByCode(Connection conn, String profileCode) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM user_profiles WHERE code = ?");
-        stmt.setString(1, profileCode);
-        ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
-            return new UserProfile(rs.getString("code"), rs.getString("name"), rs.getString("description"));
-        }
-        return null;
     }
 
     public static UserAccount findByEmail(String email) {
@@ -58,11 +48,10 @@ public class UserAccount {
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                UserProfile profile = fetchProfileByCode(conn, rs.getString("profile_code"));
                 return new UserAccount(
                     rs.getString("email"),
                     rs.getString("password"),
-                    profile,
+                    rs.getString("profile_code"),
                     rs.getString("uid"),
                     rs.getString("first_name"),
                     rs.getString("last_name"),
@@ -81,11 +70,10 @@ public class UserAccount {
             stmt.setString(1, uid);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                UserProfile profile = fetchProfileByCode(conn, rs.getString("profile_code"));
                 return new UserAccount(
                     rs.getString("email"),
                     rs.getString("password"),
-                    profile,
+                    rs.getString("profile_code"),
                     rs.getString("uid"),
                     rs.getString("first_name"),
                     rs.getString("last_name"),
@@ -104,11 +92,10 @@ public class UserAccount {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM user_accounts");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                UserProfile profile = fetchProfileByCode(conn, rs.getString("profile_code"));
                 users.add(new UserAccount(
                     rs.getString("email"),
                     rs.getString("password"),
-                    profile,
+                    rs.getString("profile_code"),
                     rs.getString("uid"),
                     rs.getString("first_name"),
                     rs.getString("last_name"),
@@ -121,21 +108,23 @@ public class UserAccount {
         return users;
     }
 
-    public static boolean createNewAccount(String firstName, String lastName, String email,
-                                           String uid, String password, String profileCode, String statusCode) {
+    public static boolean createUserAccount(String firstName, String lastName, String email, String password, String profileCode, String statusCode) {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
-            PreparedStatement check = conn.prepareStatement("SELECT email FROM user_accounts WHERE email = ? OR uid = ?");
             email = email.trim().toLowerCase();
-            uid = uid.trim();
+
+            // Check for email duplication
+            PreparedStatement check = conn.prepareStatement("SELECT email FROM user_accounts WHERE email = ?");
             check.setString(1, email);
-            check.setString(2, uid);
             ResultSet rs = check.executeQuery();
             if (rs.next()) return false;
 
+            // Generate a UID that is unique
+            String uid = generateUniqueUID(conn);
+
+            // Insert new account
             PreparedStatement stmt = conn.prepareStatement(
                 "INSERT INTO user_accounts (email, password, profile_code, uid, first_name, last_name, status_code) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)"
-            );
+                "VALUES (?, ?, ?, ?, ?, ?, ?)");
             stmt.setString(1, email);
             stmt.setString(2, password);
             stmt.setString(3, profileCode);
@@ -143,6 +132,7 @@ public class UserAccount {
             stmt.setString(5, firstName);
             stmt.setString(6, lastName);
             stmt.setString(7, statusCode);
+
             return stmt.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -150,13 +140,29 @@ public class UserAccount {
         }
     }
 
+    private static String generateUniqueUID(Connection conn) throws SQLException {
+        String uid;
+        boolean isUnique;
+
+        do {
+            uid = String.format("%08d", (int)(Math.random() * 1_0000_0000));
+            PreparedStatement check = conn.prepareStatement("SELECT uid FROM user_accounts WHERE uid = ?");
+            check.setString(1, uid);
+            ResultSet rs = check.executeQuery();
+            isUnique = !rs.next();
+        } while (!isUnique);
+
+        return uid;
+    }
+
+
     public static boolean validateDetails(UserAccount updatedDetails) {
         return updatedDetails != null &&
             updatedDetails.getEmail() != null && !updatedDetails.getEmail().isEmpty() &&
             updatedDetails.getFirstName() != null && !updatedDetails.getFirstName().isEmpty() &&
             updatedDetails.getLastName() != null && !updatedDetails.getLastName().isEmpty() &&
             updatedDetails.getPassword() != null && !updatedDetails.getPassword().isEmpty() &&
-            updatedDetails.getProfile() != null;
+            updatedDetails.getProfileCode() != null;
     }
 
     public static boolean saveUpdatedDetails(String uid, UserAccount updatedDetails) {
@@ -171,7 +177,7 @@ public class UserAccount {
             );
             stmt.setString(1, updatedDetails.getEmail());
             stmt.setString(2, updatedDetails.getPassword());
-            stmt.setString(3, updatedDetails.getProfile().getCode());
+            stmt.setString(3, updatedDetails.getProfileCode());
             stmt.setString(4, updatedDetails.getFirstName());
             stmt.setString(5, updatedDetails.getLastName());
             stmt.setString(6, updatedDetails.getStatus());
@@ -201,17 +207,11 @@ public class UserAccount {
             if (!dbPassword.equals(password)) {
                 return null; // Invalid password
             }
-            
-            UserProfile profile = new UserProfile(
-                rs.getString("profile_code"),
-                rs.getString("profile_name"),
-                rs.getString("profile_desc")
-            );
-    
+
             return new UserAccount(
                 rs.getString("email"),
                 dbPassword,
-                profile,
+                rs.getString("profile_code"),
                 rs.getString("uid"),
                 rs.getString("first_name"),
                 rs.getString("last_name"),

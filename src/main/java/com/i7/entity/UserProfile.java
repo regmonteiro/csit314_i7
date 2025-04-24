@@ -16,6 +16,8 @@ public class UserProfile {
     private String name;
     private String description;
 
+    public UserProfile() {}
+
     public UserProfile(String code, String name, String description) {
         this.code = code;
         this.name = name;
@@ -25,6 +27,29 @@ public class UserProfile {
     public String getCode() { return code; }
     public String getName() { return name; }
     public String getDescription() { return description; }
+
+    public static List<String> getAllowedProfilesForSignup() {
+        return List.of("homeowner", "cleaner");
+    }
+
+    public static UserProfile findByCode(String code) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM user_profiles WHERE code = ?");
+            stmt.setString(1, code);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new UserProfile(
+                    rs.getString("code"),
+                    rs.getString("name"),
+                    rs.getString("description")
+                );
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
 
     public static List<UserProfile> getAllProfiles() {
         List<UserProfile> profiles = new ArrayList<>();

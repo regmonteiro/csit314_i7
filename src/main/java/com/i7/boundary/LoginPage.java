@@ -39,7 +39,7 @@ public class LoginPage {
         }
 
         session.setAttribute("user", user);
-        String profileCode = user.getProfile().getCode();
+        String profileCode = user.getProfileCode();
         model.addAttribute("profile", profileCode);
 
         return profileCode.equalsIgnoreCase("admin") ? "adminDashboard" : "dashboard";
