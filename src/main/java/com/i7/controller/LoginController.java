@@ -25,9 +25,10 @@ public class LoginController {
             return "login";
         }
 
-        model.addAttribute("role", user.getRole());
+        String profileName = user.getProfile().getName();
+        model.addAttribute("profile", profileName);
 
-        if (user.getRole().equalsIgnoreCase("user admin") || user.getRole().equalsIgnoreCase("admin")) {
+        if (profileName.equalsIgnoreCase("user admin") || profileName.equalsIgnoreCase("admin")) {
             return "adminDashboard";
         } else {
             return "dashboard";

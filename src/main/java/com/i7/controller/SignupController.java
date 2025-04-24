@@ -1,7 +1,7 @@
 package com.i7.controller;
 
 import com.i7.entity.UserAccount;
-import com.i7.entity.Role;
+import com.i7.entity.UserProfile;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -15,18 +15,18 @@ public class SignupController {
 
     @GetMapping("/signup")
     public String showSignupForm(Model model) {
-        List<Role> allRoles = Role.getAllRoles();
+        List<UserProfile> allProfiles = UserProfile.getAllProfiles();
 
-        // Filter roles: only homeowner and cleaner
-        List<Role> allowedRoles = new ArrayList<>();
-        for (Role role : allRoles) {
-            String code = role.getCode().toLowerCase();
+        // Filter profiles: only homeowner and cleaner
+        List<UserProfile> allowedProfiles = new ArrayList<>();
+        for (UserProfile profile : allProfiles) {
+            String code = profile.getCode().toLowerCase();
             if (code.equals("homeowner") || code.equals("cleaner")) {
-                allowedRoles.add(role);
+                allowedProfiles.add(profile);
             }
         }
 
-        model.addAttribute("roles", allowedRoles);
+        model.addAttribute("profiles", allowedProfiles);
         model.addAttribute("user", new UserAccount());
         return "signup";
     }
@@ -35,20 +35,20 @@ public class SignupController {
     public String processSignup(@RequestParam String firstName,
                                 @RequestParam String lastName,
                                 @RequestParam String email,
-                                @RequestParam String username,
+                                @RequestParam String uid,
                                 @RequestParam String password,
-                                @RequestParam String role,
+                                @RequestParam String profile,
                                 Model model) {
         String status = "active";
 
         // Call Entity to insert user
-        boolean success = UserAccount.createNewAccount(firstName, lastName, email, username, password, role, status);
-        
+        boolean success = UserAccount.createNewAccount(firstName, lastName, email, uid, password, profile, status);
+
         if (success) {
             model.addAttribute("message", "Account created successfully!");
             return "login";
         } else {
-            model.addAttribute("error", "Account creation failed. Email or username may already exist.");
+            model.addAttribute("error", "Account creation failed. Email or UID may already exist.");
             return "signup";
         }
     }

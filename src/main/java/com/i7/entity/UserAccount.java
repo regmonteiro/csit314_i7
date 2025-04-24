@@ -12,35 +12,44 @@ public class UserAccount {
 
     private String email;
     private String password;
-    private String role;
-    private String status; 
-    private String username;
+    private UserProfile profile;
+    private String status;
+    private String uid;
     private String firstName;
     private String lastName;
 
     public UserAccount() {}
 
-    public UserAccount(String email, String password, String role, String username, String firstName, String lastName, String status) {
+    public UserAccount(String email, String password, UserProfile profile, String uid, String firstName, String lastName, String status) {
         this.email = email;
         this.password = password;
-        this.role = role;
-        this.username = username;
+        this.profile = profile;
+        this.uid = uid;
         this.firstName = firstName;
         this.lastName = lastName;
         this.status = status;
     }
 
-    // Getters
     public String getEmail() { return email; }
     public String getPassword() { return password; }
-    public String getRole() { return role; }
+    public UserProfile getProfile() { return profile; }
     public String getStatus() { return status; }
-    public String getUsername() { return username; }
+    public String getUid() { return uid; }
     public String getFirstName() { return firstName; }
     public String getLastName() { return lastName; }
 
     public boolean checkPassword(String inputPassword) {
         return this.password.equals(inputPassword);
+    }
+
+    private static UserProfile fetchProfileByCode(Connection conn, String profileCode) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM user_profiles WHERE code = ?");
+        stmt.setString(1, profileCode);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            return new UserProfile(rs.getString("code"), rs.getString("name"), rs.getString("description"));
+        }
+        return null;
     }
 
     public static UserAccount findByEmail(String email) {
@@ -49,11 +58,12 @@ public class UserAccount {
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
+                UserProfile profile = fetchProfileByCode(conn, rs.getString("profile_code"));
                 return new UserAccount(
                     rs.getString("email"),
                     rs.getString("password"),
-                    rs.getString("role_code"),
-                    rs.getString("username"),
+                    profile,
+                    rs.getString("uid"),
                     rs.getString("first_name"),
                     rs.getString("last_name"),
                     rs.getString("status_code")
@@ -65,17 +75,18 @@ public class UserAccount {
         return null;
     }
 
-    public static UserAccount getUserAccount(String username) {
+    public static UserAccount getUserAccount(String uid) {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM user_accounts WHERE username = ?");
-            stmt.setString(1, username);
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM user_accounts WHERE uid = ?");
+            stmt.setString(1, uid);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
+                UserProfile profile = fetchProfileByCode(conn, rs.getString("profile_code"));
                 return new UserAccount(
                     rs.getString("email"),
                     rs.getString("password"),
-                    rs.getString("role_code"),
-                    rs.getString("username"),
+                    profile,
+                    rs.getString("uid"),
                     rs.getString("first_name"),
                     rs.getString("last_name"),
                     rs.getString("status_code")
@@ -93,11 +104,12 @@ public class UserAccount {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM user_accounts");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
+                UserProfile profile = fetchProfileByCode(conn, rs.getString("profile_code"));
                 users.add(new UserAccount(
                     rs.getString("email"),
                     rs.getString("password"),
-                    rs.getString("role_code"),
-                    rs.getString("username"),
+                    profile,
+                    rs.getString("uid"),
                     rs.getString("first_name"),
                     rs.getString("last_name"),
                     rs.getString("status_code")
@@ -110,23 +122,24 @@ public class UserAccount {
     }
 
     public static boolean createNewAccount(String firstName, String lastName, String email,
-                                           String username, String password, String roleCode, String statusCode) {
+                                           String uid, String password, String profileCode, String statusCode) {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
-            PreparedStatement check = conn.prepareStatement("SELECT email FROM user_accounts WHERE email = ? OR username = ?");
+            PreparedStatement check = conn.prepareStatement("SELECT email FROM user_accounts WHERE email = ? OR uid = ?");
             email = email.trim().toLowerCase();
-            username = username.trim();
+            uid = uid.trim();
             check.setString(1, email);
-            check.setString(2, username);
+            check.setString(2, uid);
             ResultSet rs = check.executeQuery();
             if (rs.next()) return false;
 
             PreparedStatement stmt = conn.prepareStatement(
-                "INSERT INTO user_accounts (email, password, role_code, username, first_name, last_name, status_code) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)");
+                "INSERT INTO user_accounts (email, password, profile_code, uid, first_name, last_name, status_code) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)"
+            );
             stmt.setString(1, email);
             stmt.setString(2, password);
-            stmt.setString(3, roleCode);
-            stmt.setString(4, username);
+            stmt.setString(3, profileCode);
+            stmt.setString(4, uid);
             stmt.setString(5, firstName);
             stmt.setString(6, lastName);
             stmt.setString(7, statusCode);
@@ -143,25 +156,26 @@ public class UserAccount {
             updatedDetails.getFirstName() != null && !updatedDetails.getFirstName().isEmpty() &&
             updatedDetails.getLastName() != null && !updatedDetails.getLastName().isEmpty() &&
             updatedDetails.getPassword() != null && !updatedDetails.getPassword().isEmpty() &&
-            updatedDetails.getRole() != null && !updatedDetails.getRole().isEmpty();
+            updatedDetails.getProfile() != null;
     }
 
-    public static boolean saveUpdatedDetails(String userId, UserAccount updatedDetails) {
+    public static boolean saveUpdatedDetails(String uid, UserAccount updatedDetails) {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
-            PreparedStatement checkStmt = conn.prepareStatement("SELECT * FROM user_accounts WHERE username = ?");
-            checkStmt.setString(1, userId);
+            PreparedStatement checkStmt = conn.prepareStatement("SELECT * FROM user_accounts WHERE uid = ?");
+            checkStmt.setString(1, uid);
             ResultSet rs = checkStmt.executeQuery();
             if (!rs.next()) return false;
 
             PreparedStatement stmt = conn.prepareStatement(
-                "UPDATE user_accounts SET email=?, password=?, role_code=?, first_name=?, last_name=?, status_code=? WHERE username=?");
+                "UPDATE user_accounts SET email=?, password=?, profile_code=?, first_name=?, last_name=?, status_code=? WHERE uid=?"
+            );
             stmt.setString(1, updatedDetails.getEmail());
             stmt.setString(2, updatedDetails.getPassword());
-            stmt.setString(3, updatedDetails.getRole());
+            stmt.setString(3, updatedDetails.getProfile().getCode());
             stmt.setString(4, updatedDetails.getFirstName());
             stmt.setString(5, updatedDetails.getLastName());
             stmt.setString(6, updatedDetails.getStatus());
-            stmt.setString(7, userId);
+            stmt.setString(7, uid);
             return stmt.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -181,12 +195,12 @@ public class UserAccount {
                 if (!dbPassword.equals(password) || status.equalsIgnoreCase("suspended")) {
                     return null;
                 }
-
+                UserProfile profile = fetchProfileByCode(conn, rs.getString("profile_code"));
                 return new UserAccount(
                     rs.getString("email"),
                     dbPassword,
-                    rs.getString("role_code"),
-                    rs.getString("username"),
+                    profile,
+                    rs.getString("uid"),
                     rs.getString("first_name"),
                     rs.getString("last_name"),
                     status
@@ -208,11 +222,11 @@ public class UserAccount {
         }
     }
 
-    public static boolean updateAccountStatus(String username, String statusCode) {
+    public static boolean updateAccountStatus(String uid, String statusCode) {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
-            PreparedStatement stmt = conn.prepareStatement("UPDATE user_accounts SET status_code=? WHERE username=?");
+            PreparedStatement stmt = conn.prepareStatement("UPDATE user_accounts SET status_code=? WHERE uid=?");
             stmt.setString(1, statusCode);
-            stmt.setString(2, username);
+            stmt.setString(2, uid);
             return stmt.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
