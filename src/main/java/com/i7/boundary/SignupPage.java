@@ -45,7 +45,7 @@ public class SignupPage {
     
     if (acc != null) {
         model.addAttribute("message", "Account created successfully!");
-        return "login";
+        return "signupSuccess";
     } else {
         model.addAttribute("error", "Signup failed.");
         return "signup";

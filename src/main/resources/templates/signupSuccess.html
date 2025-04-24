@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Signup Success</title>
+    <meta http-equiv="refresh" content="5;url=/login" />
+    <link rel="stylesheet" th:href="@{/css/LoginSignUpPage.css}" />
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            padding: 50px;
+        }
+        .success {
+            color: green;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <span>Signup Successful</span>
+    </div>
+    <div class="container">
+        <div class="main-content">
+            <div class="success">✅ Account Created Successfully!</div>
+            <p>You will be redirected to the login page in <strong><span id="countdown">5</span></strong> seconds.</p>
+            <p>If you are not redirected, <a href="/login">click here to login</a>.</p>
+        </div>
+    </div>
+
+    <script>
+        let seconds = 5;
+        const countdownElem = document.getElementById("countdown");
+        const interval = setInterval(() => {
+            seconds--;
+            if (seconds <= 0) {
+                clearInterval(interval);
+            } else {
+                countdownElem.textContent = seconds;
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
