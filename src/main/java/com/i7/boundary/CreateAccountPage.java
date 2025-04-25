@@ -27,7 +27,7 @@ public class CreateAccountPage {
         UserAccount acc = accountCreateController.createAccount(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getProfileCode());
         if (acc != null) {
             model.addAttribute("success", "User account created successfully.");
-            model.addAttribute("user", new UserAccount()); // clear the form
+            model.addAttribute("user", new UserAccount());
         } else {
             model.addAttribute("error", "Account creation failed. Email might already exist.");
         }
