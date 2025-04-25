@@ -29,18 +29,24 @@
         <a href="/admin/viewUserAccounts" class="back-button">← Back</a>
     </div>
 
-    <div th:if="${message}" class="alert success">
-      <p th:text="${message}"></p>
-    </div>
+    <div th:if="${message}" class="success-message" th:text="${message}"></div>
     
     <div th:if="${error}" class="alert error">
       <p th:text="${error}"></p>
     </div>
-    
+
+
     <div class="form-box">
       <p><strong>User ID:</strong> <span th:text="${user.uid}">uid</span></p>
       <p><strong>Email:</strong> <span th:text="${user.email}">email</span></p>
       <p><strong>Profile:</strong> <span th:text="${profile.name}">role</span></p>
+      <p><strong>Status:</strong>
+        <span th:text="${user.status.toLowerCase() == 'suspended' ? 'Suspended' : 'Active'}"
+              th:classappend="${user.status.toLowerCase() == 'suspended'} ? 'status-suspended' : 'status-active'">
+        </span>
+  
+      </p>
+      
       
       <a th:href="@{'/admin/updateUser'(uid=${user.uid})}" class="button">Edit</a>
       

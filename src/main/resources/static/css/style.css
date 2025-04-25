@@ -167,6 +167,16 @@ body {
 }
 
 /* View Accounts*/
+.status-suspended {
+  color: red;
+  font-weight: bold;
+}
+
+.status-active {
+  color: green;
+  font-weight: bold;
+}
+
 .view-account-header {
   font-size: 22px;
   font-weight: bold;
@@ -255,3 +265,4 @@ select {
   box-sizing: border-box;
   background-color: #fff;
 }
+

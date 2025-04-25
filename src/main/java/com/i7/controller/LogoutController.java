@@ -11,10 +11,10 @@ public class LogoutController {
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
-        boolean success = UserAccount.logout(session); // Entity method
+        boolean success = UserAccount.logout(session);
 
         if (success) {
-            return "redirect:/login"; // Redirect to login page
+            return "redirect:/login";
         } else {
             return "error";
         }
