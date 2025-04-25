@@ -1,6 +1,6 @@
-package com.i7.boundary;
+package com.i7.boundary.admin;
 
-import com.i7.controller.AccountCreateController;
+import com.i7.controller.admin.AccountCreateController;
 import com.i7.entity.UserAccount;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class CreateAccountPage {
     public String showCreateForm(Model model) {
         model.addAttribute("user", new UserAccount());
         model.addAttribute("profiles", accountCreateController.getAllProfiles());
-        return "createUserAccount";
+        return "admin/createUserAccount";
     }
 
     @PostMapping
@@ -32,7 +32,7 @@ public class CreateAccountPage {
             model.addAttribute("error", "Account creation failed. Email might already exist.");
         }
         model.addAttribute("profiles", accountCreateController.getAllProfiles());
-        return "createUserAccount";
+        return "admin/createUserAccount";
     }
 }
 

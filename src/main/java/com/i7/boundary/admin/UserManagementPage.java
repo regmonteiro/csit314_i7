@@ -1,6 +1,6 @@
-package com.i7.boundary;
+package com.i7.boundary.admin;
 
-import com.i7.controller.UserManageController;
+import com.i7.controller.admin.UserManageController;
 import com.i7.entity.UserAccount;
 import com.i7.entity.UserProfile;
 
@@ -32,7 +32,7 @@ public class UserManagementPage {
         }
         model.addAttribute("users", userList);
         model.addAttribute("search", search);
-        return "viewUserAccounts";
+        return "admin/viewUserAccounts";
     }
 
     @GetMapping("/viewUser")
@@ -45,7 +45,7 @@ public class UserManagementPage {
             model.addAttribute("user", user);
             model.addAttribute("profile", profile);
             if (message != null) model.addAttribute("message", message);
-            return "viewUser";
+            return "admin/viewUser";
         } else {
             model.addAttribute("error", "User not found.");
             return "userError";
@@ -57,7 +57,7 @@ public class UserManagementPage {
         UserAccount user = userManageController.getAccountDetails(uid);
         model.addAttribute("user", user);
         model.addAttribute("profiles", userManageController.getAllProfiles());
-        return "updateUser";
+        return "admin/updateUser";
     }
 
     @PostMapping("/updateUser")
