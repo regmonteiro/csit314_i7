@@ -20,7 +20,7 @@ public class UserManageController {
         return UserProfile.getAllProfiles();
     }
 
-    public UserAccount getUserByUid(String uid) {
+    public UserAccount getAccountDetails(String uid) {
         return UserAccount.getUserAccount(uid);
     }
 
@@ -32,12 +32,12 @@ public class UserManageController {
         return UserAccount.saveUpdatedDetails(uid, updatedDetails);
     }
 
-    public boolean suspendUser(String uid) {
+    public boolean suspendAccount(String uid) {
         return UserAccount.updateAccountStatus(uid, "suspended");
     }
 
-    public List<UserAccount> searchUserAccounts(String query) {
-        return UserAccount.searchByQuery(query);
+    public List<UserAccount> searchUserAccounts(String uid) {
+        return UserAccount.searchByQuery(uid);
     }
     
 }

@@ -39,7 +39,7 @@ public class UserManagementPage {
     public String showSingleUser(@RequestParam("uid") String uid,
                                  @RequestParam(value = "message", required = false) String message,
                                  Model model) {
-        UserAccount user = userManageController.getUserByUid(uid);
+        UserAccount user = userManageController.getAccountDetails(uid);
         if (user != null) {
             UserProfile profile = userManageController.getProfileByCode(user.getProfileCode());
             model.addAttribute("user", user);
@@ -54,7 +54,7 @@ public class UserManagementPage {
 
     @GetMapping("/updateUser")
     public String showUpdateForm(@RequestParam("uid") String uid, Model model) {
-        UserAccount user = userManageController.getUserByUid(uid);
+        UserAccount user = userManageController.getAccountDetails(uid);
         model.addAttribute("user", user);
         model.addAttribute("profiles", userManageController.getAllProfiles());
         return "updateUser";
@@ -75,7 +75,7 @@ public class UserManagementPage {
 
     @PostMapping("/suspendUser")
     public String suspendUser(@RequestParam("uid") String uid, RedirectAttributes redirectAttributes) {
-        boolean success = userManageController.suspendUser(uid);
+        boolean success = userManageController.suspendAccount(uid);
         if (success) {
             redirectAttributes.addFlashAttribute("message", "User suspended successfully.");
         } else {
