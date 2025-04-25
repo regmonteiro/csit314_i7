@@ -13,24 +13,12 @@ import java.util.List;
 @RequestMapping("/admin")
 public class UserManageController {
 
-    @GetMapping("/viewUser")
-    public String viewUserAccount(@RequestParam("uid") String uid, Model model) {
-        UserAccount user = UserAccount.getUserAccount(uid);
-
-        if (user != null) {
-            model.addAttribute("user", user);
-            return "viewUser";
-        } else {
-            model.addAttribute("error", "User not found.");
-            return "userError";
-        }
+    public List<UserAccount> getAllUserAccounts() {
+        return UserAccount.getAllUserAccounts();
     }
 
-    @GetMapping("/viewUserAccounts")
-    public String viewAllUserAccounts(Model model) {
-        List<UserAccount> userList = UserAccount.getAllUserAccounts();
-        model.addAttribute("users", userList);
-        return "viewUserAccounts";
+    public UserAccount getUserByUid(String uid) {
+        return UserAccount.getUserAccount(uid);
     }
 
     @GetMapping("/updateUser")
@@ -52,7 +40,7 @@ public class UserManageController {
             return "updateUser";
         }
 
-        boolean success = UserAccount.saveUpdatedDetails(updatedDetails.getUid(), updatedDetails);
+        boolean success = UserAccount.saveUpdatedDetails(updatedDetails.getUid(), updatedDetails); 
         if (success) {
             model.addAttribute("message", "User updated successfully.");
             return "redirect:/admin/viewUserAccounts";

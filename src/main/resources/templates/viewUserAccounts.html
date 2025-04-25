@@ -32,9 +32,9 @@
     <h1 class="view-account-header">View User Account</h1>
     <div class="user-list-box">
       <div th:each="user : ${users}">
-        <a th:href="@{'/admin/viewUser'(username=${user.username})}" class="user-link">
+        <a th:href="@{'/admin/viewUser'(uid=${user.uid})}" class="user-link">
           <div class="user-entry-box">
-            <span th:text="${user.username} + ' - ' + ${user.email}"></span>
+            <span th:text="${user.uid} + ' - ' + ${user.email}"></span>
           </div>
         </a>
       </div>
