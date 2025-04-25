@@ -1,0 +1,112 @@
+/* home.css */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.background {
+  background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.welcome-text {
+    font-family: 'Pacifico', cursive;
+    font-size: 3rem;
+    color: white;
+}
+
+.small-text {
+    font-size: 1.5rem; /* smaller size */
+    display: block; /* make sure it acts like a new line */
+    margin-top: 5px; /* slight space from "Welcome" */
+    font-family: 'Segoe UI', sans-serif; /* simpler font for 'to' */
+    font-style: italic;
+    color: #f0f0f0;
+}
+ 
+.login-subtitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #ffffff;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    animation: fadeInUp 1s ease-out;
+}
+  
+.login-container {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 60px 40px;
+  border-radius: 20px;
+  text-align: center;
+  color: white;
+  max-width: 400px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.highlight {
+  color: #6a11cb;
+}
+
+p {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  color: #f0f0f0;
+}
+
+.button {
+    text-decoration: none;
+    padding: 12px 20px; 
+    margin-bottom: 15px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    display: block;
+    text-align: center;
+  }
+  
+.primary-button {
+    background: transparent;
+    color: #6a11cb;
+    border: 2px solid #6a11cb;
+}
+  
+.primary-button:hover {
+    opacity: 0.9;
+    transform: scale(1.05); /* add little bounce effect */
+}
+  
+.secondary-button {
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: white;
+    box-shadow: 0 4px 10px rgba(106, 17, 203, 0.4);
+}
+  
+.secondary-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+  
+@keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+}
