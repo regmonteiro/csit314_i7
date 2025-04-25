@@ -2,7 +2,6 @@ package com.i7.boundary;
 
 import com.i7.controller.UserManageController;
 import com.i7.entity.UserAccount;
-import com.i7.entity.UserProfile;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,13 +24,12 @@ public class ViewUserPage {
         return "viewUserAccounts";
     }
 
-   @GetMapping("/viewUser")
+    @GetMapping("/viewUser")
     public String showSingleUser(@RequestParam("uid") String uid, Model model) {
         UserAccount user = userManageController.getUserByUid(uid);
         if (user != null) {
-            UserProfile profile = UserProfile.findByCode(user.getProfileCode());
             model.addAttribute("user", user);
-            model.addAttribute("profile", profile);
+            model.addAttribute("profile", userManageController.getProfileByCode(user.getProfileCode()));
             return "viewUser";
         } else {
             model.addAttribute("error", "User not found.");
