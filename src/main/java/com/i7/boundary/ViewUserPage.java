@@ -18,11 +18,21 @@ public class ViewUserPage {
     private UserManageController userManageController;
 
     @GetMapping("/viewUserAccounts")
-    public String showUserList(Model model) {
-        List<UserAccount> userList = userManageController.getAllUserAccounts();
+    public String showUserList(@RequestParam(required = false) String search, Model model) {
+        List<UserAccount> userList;
+        if (search != null && !search.trim().isEmpty()) {
+            userList = userManageController.searchUserAccounts(search.trim());
+            if (userList.isEmpty()) {
+                model.addAttribute("error", "No users found.");
+            }
+        } else {
+            userList = userManageController.getAllUserAccounts();
+        }
         model.addAttribute("users", userList);
+        model.addAttribute("search", search);
         return "viewUserAccounts";
     }
+    
 
     @GetMapping("/viewUser")
     public String showSingleUser(@RequestParam("uid") String uid, Model model) {

@@ -245,4 +245,27 @@ public class UserAccount {
             return false;
         }
     }
+
+    public static List<UserAccount> searchByQuery(String searchQuery) {
+        List<UserAccount> results = new ArrayList<>();
+        if (searchQuery == null || searchQuery.trim().isEmpty()) return results;
+    
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
+            PreparedStatement stmt = conn.prepareStatement(
+                "SELECT * FROM user_accounts WHERE email LIKE ? OR uid LIKE ?"
+            );
+            String likeQuery = "%" + searchQuery.trim() + "%";
+            stmt.setString(1, likeQuery);
+            stmt.setString(2, likeQuery);
+            ResultSet rs = stmt.executeQuery();
+    
+            while (rs.next()) {
+                results.add(getUserAccount(rs.getString("uid")));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    
+        return results;
+    }
 }

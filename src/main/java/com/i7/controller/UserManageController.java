@@ -35,4 +35,9 @@ public class UserManageController {
     public boolean suspendUser(String uid) {
         return UserAccount.updateAccountStatus(uid, "suspended");
     }
+
+    public List<UserAccount> searchUserAccounts(String query) {
+        return UserAccount.searchByQuery(query);
+    }
+    
 }
