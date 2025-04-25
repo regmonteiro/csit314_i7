@@ -3,16 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <title>Welcome to CleanConnect</title>
-  <link rel="stylesheet" th:href="@{/css/style.css}" />
+  <link rel="stylesheet" th:href="@{/css/home.css}" />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="login-container">
-    <h2 class="login-title">Welcome to CleanConnect</h2>
-    <p class="login-subtitle">A clean and simple way to find reliable home cleaners.</p>
+  <div class="background">
+    <div class="login-container">
+      <h1>
+        <span class="welcome-text">Welcome</span> 
+        <span class="small-text">to</span>
+        <span class="highlight">CleanConnect</span>
+      </h1>
+      <p class="login-subtitle">A clean and simple way to find reliable home cleaners.</p>
 
-    <div class="login-form-group" style="text-align: center; margin-top: 30px;">
-      <a href="/login"><button class="primary-button">Log In</button></a>
-      <a href="/signup"><button class="secondary-button">Sign Up</button></a>
+      <div class="login-form-group" style="text-align: center; margin-top: 30px;">
+        <a href="/login" class="button primary-button">Log In</a>
+        <a href="/signup" class="button secondary-button">Sign Up</a>
+      </div>
     </div>
   </div>
 </body>
