@@ -1,0 +1,174 @@
+/* Dashboard.css */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Navbar */
+  .navbar {
+    width: 100%;
+    padding: 15px 30px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    z-index: 10;
+  }
+  
+  .logout-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .logout-btn:hover {
+    opacity: 0.9;
+  }
+  
+  .navbar span {
+    margin-left: 10px;
+  }
+  
+  .logout-btn {
+    margin-right: 10px;
+  }
+  
+  /* Container Layout */
+  .container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 900px;
+    margin-top: 80px;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    width: 220px;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 30px 20px;
+    border-radius: 20px;
+    margin-right: 20px;
+    color: white;
+  }
+  
+  .sidebar h2 {
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+  
+  .sidebar a {
+    display: block;
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+  }
+  
+  /* Hover or Active State */
+  .sidebar a:hover,
+  .sidebar a.active,
+  .sidebar a:focus {
+    background-color: white;
+    color: #6a11cb;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    outline: none;
+  }  
+  
+  /* Main Content */
+  .main-content {
+    flex-grow: 1;
+    background-color: white;
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .main-content h1 {
+    color: #6a11cb;
+    margin-bottom: 20px;
+  }
+  
+  .main-content p {
+    color: #333;
+    font-size: 1.1rem;
+  }
+
+  .form-box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-box label {
+  font-weight: 600;
+  margin: 10px 0 5px;
+}
+
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  select {
+    padding: 15px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 25px;
+    background-color: #f0f0f0;
+    font-size: 16px;
+    outline: none;
+  }
+  
+  select {
+    appearance: none; /* Remove native arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px 16px;
+    padding-right: 40px;
+  }
+  
+  .button, 
+  .button.secondary-button {
+    padding: 15px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .button:hover {
+    opacity: 0.9;
+  }
+
+  .button.secondary-button {
+    text-decoration: none; /* removes underline */
+  }
+  
