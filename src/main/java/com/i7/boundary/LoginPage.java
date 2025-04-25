@@ -25,23 +25,34 @@ public class LoginPage {
                               @RequestParam String password,
                               Model model,
                               HttpSession session) {
-
+    
         UserAccount user = loginController.validateLogin(email, password);
-
+    
         if (user == null) {
             model.addAttribute("error", "Invalid email or password.");
             return "login";
         }
-
+    
         if ("suspended".equalsIgnoreCase(user.getStatus())) {
             model.addAttribute("error", "This account is suspended.");
             return "login";
         }
-
+    
         session.setAttribute("user", user);
-        String profileCode = user.getProfileCode();
-        model.addAttribute("profile", profileCode);
-
-        return profileCode.equalsIgnoreCase("admin") ? "adminDashboard" : "dashboard";
-    }
+        model.addAttribute("user", user);
+    
+        String profileCode = user.getProfileCode().toLowerCase();
+    
+        switch (profileCode) {
+            case "admin":
+                return "admin/adminDashboard";
+            case "cleaner":
+                return "cleaner/cleanerDashboard";
+            case "homeowner":
+                return "homeownerDashboard";
+            default:
+                model.addAttribute("error", "Unknown user role.");
+                return "login";
+        }
+    }    
 }

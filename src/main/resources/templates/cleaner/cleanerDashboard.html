@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cleaner Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="navbar">
+    <span th:text="'Logged in as: ' + ${user.firstName} + ' ' + ${user.lastName}"></span>
+    <form th:action="@{/logout}" method="get" style="margin: 0;">
+        <button type="submit" class="logout-btn">Logout</button>
+    </form>      
+</div>
+
+<div class="container">
+    <div class="sidebar">
+        <h2>My Services</h2>
+        <a href="/cleaner/createListing">Create New Listing</a>
+        <a href="/cleaner/viewListings">Manage Listings</a>
+        <a href="/cleaner/bookings">View Booking Requests</a>
+    </div>
+
+    <div class="main-content">
+        <h1>Welcome, <span th:text="${user.firstName}">Admin</span>!</h1>
+
+        <div class="details-box">
+            <p><strong>Full Name:</strong> <span th:text="${user.firstName + ' ' + user.lastName}"></span></p>
+            <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+            <p><strong>UID:</strong> <span th:text="${user.uid}"></span></p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

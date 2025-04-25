@@ -155,16 +155,6 @@ public class UserAccount {
         return uid;
     }
 
-
-    public static boolean validateDetails(UserAccount updatedDetails) {
-        return updatedDetails != null &&
-            updatedDetails.getEmail() != null && !updatedDetails.getEmail().isEmpty() &&
-            updatedDetails.getFirstName() != null && !updatedDetails.getFirstName().isEmpty() &&
-            updatedDetails.getLastName() != null && !updatedDetails.getLastName().isEmpty() &&
-            updatedDetails.getPassword() != null && !updatedDetails.getPassword().isEmpty() &&
-            updatedDetails.getProfileCode() != null;
-    }
-
     public static boolean saveUpdatedDetails(String uid, UserAccount updatedDetails) {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
             PreparedStatement checkStmt = conn.prepareStatement("SELECT * FROM user_accounts WHERE uid = ?");

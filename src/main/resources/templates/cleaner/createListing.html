@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Listing</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="sidebar">
+        <h2>Cleaner Menu</h2>
+        <a href="/cleaner/dashboard">Dashboard</a>
+        <a href="/cleaner/createListing" class="active">Create Listing</a>
+        <a href="/cleaner/viewListings">Manage Listings</a>
+    </div>
+    
+    <div class="main-content">
+        <h1>Create a New Service Listing</h1>
+
+        <form th:action="@{/cleaner/createListing}" method="post" class="form-box">
+            <input type="text" name="title" placeholder="Service Title" th:value="${listing.title}" required>
+            <input type="text" name="description" placeholder="Description" th:value="${listing.description}" required>
+            <input type="text" name="price" placeholder="Price (e.g. 49.99)" th:value="${listing.price}" required>
+
+            <button type="submit" class="button">Submit</button>
+        </form>
+
+        <p style="color:green;" th:if="${success}" th:text="${success}"></p>
+        <p style="color:red;" th:if="${error}" th:text="${error}"></p>
+    </div>
+</div>
+
+</body>
+</html>

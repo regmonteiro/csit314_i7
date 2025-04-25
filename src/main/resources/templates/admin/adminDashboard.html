@@ -8,7 +8,7 @@
 <body>
 
 <div class="navbar">
-    <span th:text="'Logged in as: ' + ${role}">Logged in as: Admin</span>
+    <span th:text="'Logged in as: ' + ${user.firstName} + ${user.lastName}"></span>
     <form th:action="@{/logout}" method="get" style="margin: 0;">
         <button type="submit" class="logout-btn">Logout</button>
       </form>      
