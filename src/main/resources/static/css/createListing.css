@@ -1,0 +1,118 @@
+/* createListing.css */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 60px; 
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    max-width: 1000px;
+    padding: 20px;
+}
+
+.sidebar {
+    width: 220px;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 30px 20px;
+    border-radius: 20px;
+    margin-right: 20px;
+    color: white;
+    height: fit-content;
+}
+
+.sidebar h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+.sidebar a {
+    display: block;
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.sidebar a:hover,
+.sidebar a.active,
+.sidebar a:focus {
+    background-color: white;
+    color: #6a11cb;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.main-content {
+    flex-grow: 1;
+    background: white;
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-content h1 {
+    color: #6a11cb;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Form Styling */
+.form-box {
+    width: 100%;
+    max-width: 600px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 25px;
+    background-color: #f0f0f0;
+    font-size: 16px;
+    outline: none;
+}
+
+input[type="text"]::placeholder {
+    color: #999;
+}
+
+/* Submit Button */
+.button {
+    padding: 15px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 100%;
+}
+
+.button:hover {
+    opacity: 0.9;
+}
+
+/* Success + Error messages */
+p[style*="color:green"],
+p[style*="color:red"] {
+    margin-top: 20px;
+    font-size: 16px;
+    text-align: center;
+}
