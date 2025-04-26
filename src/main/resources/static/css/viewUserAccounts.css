@@ -1,4 +1,4 @@
-/* viewUserAccounts.css */
+/* viewUserAccounts.css*/
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
@@ -24,6 +24,10 @@ body {
     z-index: 10;
 }
 
+.navbar span {
+    margin-left: 10px;
+}
+  
 .logout-btn {
     padding: 10px 20px;
     border: none;
@@ -33,21 +37,14 @@ body {
     font-size: 14px;
     cursor: pointer;
     transition: 0.3s;
+    margin-right: 10px;
 }
 
 .logout-btn:hover {
     opacity: 0.9;
 }
 
-.navbar span {
-    margin-left: 10px;
-}
-  
-.logout-btn {
-    margin-right: 10px;
-}
-
-/* Layout container */
+/* Layout */
 .container {
     display: flex;
     flex-direction: row;
@@ -105,6 +102,7 @@ body {
     align-items: center;
 }
 
+/* --- View User Accounts Specific --- */
 .view-account-header {
     color: #6a11cb;
     margin-bottom: 30px;
@@ -193,4 +191,74 @@ body {
     background-color: #e0e0e0;
     transform: scale(1.02);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* --- View User Details Specific --- */
+/* Header */
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    color: #6a11cb;
+}
+
+/* Back Button */
+.back-button {
+    color: #6a11cb;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 8px 16px;
+    background-color: rgba(106, 17, 203, 0.1);
+    border-radius: 25px;
+    transition: 0.3s;
+}
+
+.back-button:hover {
+    background-color: rgba(106, 17, 203, 0.2);
+    transform: scale(1.05);
+}
+
+/* Form Box */
+.form-box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.form-box p {
+    font-size: 18px;
+    margin: 15px 0;
+    color: #333;
+}
+
+.form-box strong {
+    color: #6a11cb;
+}
+
+/* Edit Button */
+.button {
+    margin-top: 30px;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: center;
+    text-decoration: none;
+}
+
+.button:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
