@@ -22,7 +22,15 @@
         <div th:if="${message}" class="success-message" th:text="${message}"></div>
 
         <div class="form-box">
-            <form th:action="@{/admin/updateUser}" method="post" th:object="${user}">
+            <div class="main-content">
+        <div class="header">
+            <h1>Update User Details</h1>
+            <a href="/admin/viewUserAccounts" class="back-button">← Back</a>
+        </div>
+
+        <div th:if="${error}" class="error-message" th:text="${error}"></div>
+        <div th:if="${message}" class="success-message" th:text="${message}"></div>
+            <form th:action="@{/admin/updateUser}" method="post" class="form-box" th:object="${user}">
                 <input type="hidden" th:field="*{uid}" />
 
                 <label for="email">Email</label>
