@@ -20,7 +20,7 @@ public class AccountCreateController {
 
     public UserAccount createAccount(String firstName, String lastName, String email,
                                      String password, String profileCode) {
-        String status = "active";
+        String status = "active"; 
         boolean success = UserAccount.createUserAccount(firstName, lastName, email, password, profileCode, status);
 
         if (success) {

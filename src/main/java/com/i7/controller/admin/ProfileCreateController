@@ -1,0 +1,34 @@
+package com.i7.controller.admin;
+
+import com.i7.entity.UserAccount;
+import com.i7.entity.UserProfile;
+
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class ProfileCreateController {
+
+    public List<UserProfile> getAllProfiles() {
+        return UserProfile.getAllProfiles();
+    }
+
+    public List<String> getAllowedSignupProfiles() {
+        return UserProfile.getAllowedProfilesForSignup();
+    }
+
+    public UserProfile createProfile (String code, String name, String description){
+        String status = "active";
+        boolean success = UserProfile.createProfile(String code, String name, String description);
+    }
+
+    if (success) {
+        return UserProfile.findByCode(String code);
+    } else {
+        return null;
+    }
+
+}
+
+
