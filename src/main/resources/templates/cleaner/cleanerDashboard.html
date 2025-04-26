@@ -7,20 +7,10 @@
 </head>
 <body>
 
-<div class="navbar">
-    <span th:text="'Logged in as: ' + ${user.firstName} + ' ' + ${user.lastName}"></span>
-    <form th:action="@{/logout}" method="get" style="margin: 0;">
-        <button type="submit" class="logout-btn">Logout</button>
-    </form>      
-</div>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
 <div class="container">
-    <div class="sidebar">
-        <h2>My Services</h2>
-        <a href="/cleaner/createListing">Create New Listing</a>
-        <a href="/cleaner/viewListings">Manage Listings</a>
-        <a href="/cleaner/bookings">View Booking Requests</a>
-    </div>
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
     <div class="main-content">
         <h1>Welcome, <span th:text="${user.firstName}">Admin</span>!</h1>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listing Created</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <div class="main-content">
+        <h1>Success!</h1>
+        <p>Your service listing has been successfully posted.</p>
+        
+        <form th:action="@{/cleaner/viewListings}" method="get">
+            <button type="submit" class="button">View My Listings</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

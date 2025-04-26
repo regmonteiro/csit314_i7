@@ -6,19 +6,10 @@
 </head>
 <body>
 
-<div class="navbar">
-    <span>Logged in as: User Admin</span>
-    <form th:action="@{/login}" method="get">
-        <button type="submit" class="logout-btn">Logout</button>
-    </form>
-</div>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
 <div class="container">
-    <div class="sidebar">
-        <h2>User Accounts</h2>
-        <a class="active" href="/admin/createUser">Create User Account</a>
-        <a href="/admin/viewUserAccounts">View User Account</a>
-    </div>
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
     <div class="main-content">
         <h1>Create User Account</h1>

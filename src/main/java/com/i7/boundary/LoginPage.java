@@ -39,20 +39,7 @@ public class LoginPage {
         }
     
         session.setAttribute("user", user);
-        model.addAttribute("user", user);
     
-        String profileCode = user.getProfileCode().toLowerCase();
-    
-        switch (profileCode) {
-            case "admin":
-                return "admin/adminDashboard";
-            case "cleaner":
-                return "cleaner/cleanerDashboard";
-            case "homeowner":
-                return "homeownerDashboard";
-            default:
-                model.addAttribute("error", "Unknown user role.");
-                return "login";
-        }
+        return "redirect:/dashboard";
     }    
 }

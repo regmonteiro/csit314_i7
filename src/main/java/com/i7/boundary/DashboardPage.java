@@ -1,0 +1,38 @@
+package com.i7.boundary;
+
+import com.i7.entity.UserAccount;
+import com.i7.utility.SessionHelper;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/")
+public class DashboardPage {
+
+    @GetMapping("dashboard")
+    public String showDashboard(HttpSession session, Model model) {
+        UserAccount user = SessionHelper.getLoggedInUser(session);
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        model.addAttribute("user", user);
+        model.addAttribute("activePage", "dashboard"); // for sidebar
+
+        String profileCode = user.getProfileCode().toLowerCase();
+
+        switch (profileCode) {
+            case "admin":
+                return "admin/adminDashboard";
+            case "cleaner":
+                return "cleaner/cleanerDashboard";
+            case "homeowner":
+                return "homeowner/homeownerDashboard";
+            default:
+                return "redirect:/login"; // fallback
+        }
+    }
+}

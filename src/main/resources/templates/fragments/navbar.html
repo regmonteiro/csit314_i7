@@ -1,0 +1,8 @@
+<div th:fragment="navbar">
+    <div class="navbar">
+        <span th:if="${user != null}" th:text="'Logged in as: ' + ${user.firstName} + ' ' + ${user.lastName}">Logged in as:</span>
+        <form th:action="@{/logout}" method="get" style="margin: 0;">
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
+    </div>
+</div>

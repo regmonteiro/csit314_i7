@@ -7,14 +7,11 @@
 </head>
 <body>
 
-<div class="container">
-    <div class="sidebar">
-        <h2>Cleaner Menu</h2>
-        <a href="/cleaner/dashboard">Dashboard</a>
-        <a href="/cleaner/createListing" class="active">Create Listing</a>
-        <a href="/cleaner/viewListings">Manage Listings</a>
-    </div>
-    
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">  
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
     <div class="main-content">
         <h1>Create a New Service Listing</h1>
 
