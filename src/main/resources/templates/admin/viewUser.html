@@ -26,9 +26,10 @@
 
 
     <div class="form-box">
-      <p><strong>User ID:</strong> <span th:text="${user.uid}">uid</span></p>
-      <p><strong>Email:</strong> <span th:text="${user.email}">email</span></p>
-      <p><strong>Profile:</strong> <span th:text="${profile.name}">role</span></p>
+      <p><b>User ID:</b> <span th:text="${viewedUser.uid}"></span></p>
+      <p><b>Name:</b> <span th:text="${viewedUser.firstName + ' ' + viewedUser.lastName}"></span></p>
+      <p><b>Email:</b> <span th:text="${viewedUser.email}"></span></p>
+      <p><b>Profile:</b> <span th:text="${profile.name}"></span></p>
       <p><strong>Status:</strong>
         <span th:text="${user.status.toLowerCase() == 'suspended' ? 'Suspended' : 'Active'}"
               th:classappend="${user.status.toLowerCase() == 'suspended'} ? 'status-suspended' : 'status-active'">

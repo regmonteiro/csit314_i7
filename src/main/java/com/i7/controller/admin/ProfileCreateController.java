@@ -1,6 +1,5 @@
 package com.i7.controller.admin;
 
-import com.i7.entity.UserAccount;
 import com.i7.entity.UserProfile;
 
 import java.util.List;
