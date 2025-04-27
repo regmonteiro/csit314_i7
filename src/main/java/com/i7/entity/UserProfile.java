@@ -97,15 +97,29 @@ public class UserProfile {
         }
     }
 
-    public static boolean deleteProfile(String code) {
+    public static boolean suspendProfile(String code) {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
             PreparedStatement stmt = conn.prepareStatement(
-                "DELETE FROM profiles WHERE code = ?");
+                "UPDATE user_profiles SET status = 'suspended' WHERE code = ?");
             stmt.setString(1, code);
             return stmt.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+    public static void viewProfiles() {
+        List<UserProfile> profiles = getAllProfiles();
+        if (profiles.isEmpty()) {
+            System.out.println("No profiles found.");
+        } else {
+            System.out.println("List of User Profiles:");
+            for (UserProfile profile : profiles) {
+                System.out.println("Code: " + profile.getCode());
+                System.out.println("Name: " + profile.getName());
+                System.out.println("Description: " + profile.getDescription());
+                System.out.println("-------------------------");
+            }
         }
     }
 }
