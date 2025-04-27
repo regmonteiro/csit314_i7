@@ -18,8 +18,7 @@ public class AccountCreateController {
         return UserProfile.getAllowedProfilesForSignup();
     }
 
-    public UserAccount createAccount(String firstName, String lastName, String email,
-                                     String password, String profileCode) {
+    public UserAccount createAccount(String firstName, String lastName, String email, String password, String profileCode) {
         String status = "active"; 
         boolean success = UserAccount.createUserAccount(firstName, lastName, email, password, profileCode, status);
 

@@ -18,17 +18,14 @@ public class ProfileCreateController {
         return UserProfile.getAllowedProfilesForSignup();
     }
 
-    public UserProfile createProfile (String code, String name, String description){
-        String status = "active";
-        boolean success = UserProfile.createProfile(String code, String name, String description);
+    public UserProfile createProfile(String code, String name, String description) {
+        boolean success = UserProfile.createProfile(code, name, description);
+        if (success) {
+            return UserProfile.findByCode(code);
+        } else {
+            return null;
+        }
     }
-
-    if (success) {
-        return UserProfile.findByCode(String code);
-    } else {
-        return null;
-    }
-
 }
 
 
