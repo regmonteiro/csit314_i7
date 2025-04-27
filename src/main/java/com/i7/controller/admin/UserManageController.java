@@ -40,4 +40,8 @@ public class UserManageController {
         return UserAccount.searchByQuery(uid);
     }
     
+    public boolean suspendProfile(String profileCode) {
+        return UserProfile.updateProfileStatus(profileCode, "suspended");
+    }
+    
 }

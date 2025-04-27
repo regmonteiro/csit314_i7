@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class UserProfile {
     private static final String DB_URL = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12775162";
@@ -97,16 +98,19 @@ public class UserProfile {
         }
     }
 
-    public static boolean suspendProfile(String code) {
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
-            PreparedStatement stmt = conn.prepareStatement(
-                "UPDATE user_profiles SET status = 'suspended' WHERE code = ?");
-            stmt.setString(1, code);
-            return stmt.executeUpdate() > 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+    public static boolean updateProfileStatus(String profileCode, String status) {
+    try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
+        String sql = "UPDATE profiles SET status = ? WHERE code = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1, status);
+        stmt.setString(2, profileCode);
+
+        int rowsAffected = stmt.executeUpdate();
+        return rowsAffected > 0;
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
     }
     public static void viewProfiles() {
         List<UserProfile> profiles = getAllProfiles();
@@ -123,3 +127,5 @@ public class UserProfile {
         }
     }
 }
+
+

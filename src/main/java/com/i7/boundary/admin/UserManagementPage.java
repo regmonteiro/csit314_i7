@@ -124,4 +124,23 @@ public class UserManagementPage {
         }
         return "redirect:/admin/viewUser?uid=" + uid;
     }
+
+    @PostMapping("/suspendProfile")
+    public String suspendProfile(@RequestParam("profileCode") String profileCode, RedirectAttributes redirectAttributes, HttpSession session) {
+        UserAccount sessionUser = SessionHelper.getLoggedInUser(session);
+        if (sessionUser == null) {
+            return "redirect:/login";
+        }
+
+        boolean success = userManageController.suspendProfile(profileCode);
+
+        if (success) {
+            redirectAttributes.addFlashAttribute("message", "Profile suspended successfully.");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Failed to suspend profile.");
+        }
+
+        return "redirect:/dashboard";
+    }
+
 }
