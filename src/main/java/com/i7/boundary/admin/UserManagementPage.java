@@ -79,16 +79,22 @@ public class UserManagementPage {
         if (sessionUser == null) {
             return "redirect:/login";
         }
-
-        model.addAttribute("user", sessionUser);
+    
+        model.addAttribute("user", sessionUser); 
         model.addAttribute("activePage", "viewUsers");
         model.addAttribute("tab", "accounts");
-
+    
         UserAccount user = userManageController.getAccountDetails(uid);
-        model.addAttribute("userToUpdate", user);
-        model.addAttribute("profiles", userManageController.getAllProfiles());
+        if (user != null) {
+            model.addAttribute("userToUpdate", user);
+            model.addAttribute("profiles", userManageController.getAllProfiles());
+        } else {
+            model.addAttribute("error", "User not found.");
+        }
+    
         return "admin/updateUser";
     }
+    
 
     @PostMapping("/suspendUser")
     public String suspendUser(@RequestParam("uid") String uid,

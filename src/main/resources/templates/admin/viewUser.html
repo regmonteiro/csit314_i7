@@ -37,7 +37,7 @@
       </p>
       
       
-      <a th:href="@{'/admin/updateUser'(uid=${user.uid})}" class="button">Edit</a>
+      <a th:href="@{'/admin/updateUser'(uid=${viewedUser.uid})}" class="button">Edit</a>
       
       <form th:action="@{/admin/suspendUser}" method="post" 
             onsubmit="return confirm('Are you sure you want to suspend this user?');"

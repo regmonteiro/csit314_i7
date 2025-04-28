@@ -18,22 +18,21 @@
             <h1>Update User Details</h1>
             <a href="/admin/viewUserAccounts" class="back-button">← Back</a>
         </div>
-
         <div th:if="${error}" class="error-message" th:text="${error}"></div>
         <div th:if="${message}" class="success-message" th:text="${message}"></div>
-
+        
         <form th:action="@{/admin/updateUser}" method="post" class="form-box" th:object="${userToUpdate}">
             <input type="hidden" th:field="*{uid}" />
-
+        
             <label for="email">Email</label>
             <input type="email" id="email" th:field="*{email}" placeholder="Email" required />
-
+        
             <label for="firstName">First Name</label>
             <input type="text" id="firstName" th:field="*{firstName}" placeholder="First Name" required />
-
+        
             <label for="lastName">Last Name</label>
             <input type="text" id="lastName" th:field="*{lastName}" placeholder="Last Name" required />
-
+        
             <label for="profileCode">Profile</label>
             <select id="profileCode" th:field="*{profileCode}">
                 <option th:each="p : ${profiles}" 
