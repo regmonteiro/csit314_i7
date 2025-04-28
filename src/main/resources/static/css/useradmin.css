@@ -1,0 +1,258 @@
+/* global styles for user admin */
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.logout-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-right: 10px;
+}
+
+.logout-btn:hover {
+    opacity: 0.9;
+}
+
+/* Layout Container */
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 1000px;
+    margin-top: 90px;
+    padding: 20px;
+}
+
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    background: white;
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.main-content h1 {
+    color: #6a11cb;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.main-content p {
+    color: #333;
+    font-size: 1.1rem;
+}
+
+/* Header (e.g. Back Button Header) */
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+.header h1 {
+    color: #6a11cb;
+}
+.back-button {
+    color: #6a11cb;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 8px 16px;
+    background-color: rgba(106, 17, 203, 0.1);
+    border-radius: 25px;
+    transition: 0.3s;
+}
+.back-button:hover {
+    background-color: rgba(106, 17, 203, 0.2);
+    transform: scale(1.05);
+}
+
+/* Buttons */
+.button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 15px;
+}
+.button:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+.button.secondary-button {
+    background: transparent;
+    border: 2px solid #6a11cb;
+    color: #6a11cb;
+}
+
+/* ================= ACCOUNT PAGE STYLES ================== */
+
+/* Form Layout */
+.form-box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.form-box label {
+    font-weight: 600;
+    margin: 10px 0 5px;
+}
+.form-box input[type="text"],
+.form-box input[type="email"],
+.form-box input[type="password"],
+.form-box select {
+    padding: 15px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 25px;
+    background-color: #f0f0f0;
+    font-size: 16px;
+    outline: none;
+}
+.form-box input::placeholder {
+    color: #999;
+}
+
+/* Select Dropdown */
+.form-box select {
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px 16px;
+    padding-right: 40px;
+}
+
+/* Success/Error Messages */
+.success-message,
+.error-message {
+    text-align: center;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 600px;
+}
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+}
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+.success-message:empty,
+.error-message:empty {
+    display: none;
+}
+
+/* ================= VIEW USER ACCOUNTS PAGE STYLES ================== */
+
+/* View Account Header */
+.view-account-header {
+    color: #6a11cb;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Search Bar */
+.search-bar {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    margin-bottom: 30px;
+    gap: 10px;
+}
+.search-bar input[type="text"] {
+    flex-grow: 1;
+    padding: 15px;
+    border-radius: 25px;
+    border: none;
+    background-color: #f0f0f0;
+    font-size: 16px;
+    outline: none;
+}
+.search-bar button {
+    padding: 15px 20px;
+    border-radius: 25px;
+    border: 2px solid #6a11cb;
+    background-color: white;
+    color: #6a11cb;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.search-bar button:hover {
+    background-color: #f3e8ff;
+    opacity: 0.9;
+}
+
+/* Alerts */
+.alert {
+    width: 100%;
+    max-width: 600px;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+.alert.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+.alert.error:empty {
+    display: none;
+}
+
+/* User List */
+.user-list-box {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.user-link {
+    text-decoration: none;
+}
+.user-entry-box {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 20px;
+    color: black;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+.user-entry-box:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
