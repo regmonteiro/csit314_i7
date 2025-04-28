@@ -1,6 +1,15 @@
 <div th:fragment="navbar">
     <div class="navbar">
-        <span th:if="${user != null}" th:text="'Logged in as: ' + ${user.firstName} + ' ' + ${user.lastName}">Logged in as:</span>
+        <div style="display: flex; flex-direction: column;">
+            <span th:if="${user != null}" th:text="'Logged in as: ' + ${user.firstName} + ' ' + ${user.lastName}">Logged in as:</span>
+
+            <!-- Only show for Admin -->
+            <div th:if="${user != null and user.profileCode == 'admin'}" class="tab-switcher">
+                <a th:href="@{/dashboard(tab='accounts')}" th:classappend="${session.tab == 'accounts'} ? 'active-tab' : ''">User Accounts</a>
+                <a th:href="@{/dashboard(tab='profiles')}" th:classappend="${session.tab == 'profiles'} ? 'active-tab' : ''">User Profiles</a>
+            </div>
+        </div>
+
         <form th:action="@{/logout}" method="get" style="margin: 0;">
             <button type="submit" class="logout-btn">Logout</button>
         </form>

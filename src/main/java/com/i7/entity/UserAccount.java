@@ -38,6 +38,15 @@ public class UserAccount {
     public String getFirstName() { return firstName; }
     public String getLastName() { return lastName; } 
 
+    public void setFirstName(String firstName) {this.firstName = firstName;}
+    public void setLastName(String lastName) {this.lastName = lastName;}
+    public void setEmail(String email) {this.email = email;}
+    public void setPassword(String password) {this.password = password;}
+    public void setProfileCode(String profileCode) {this.profileCode = profileCode;}
+    public void setStatus(String status) {this.status = status;}
+    public void setUid(String uid) {this.uid = uid;}
+    
+
     public boolean checkPassword(String inputPassword) {
         return this.password.equals(inputPassword);
     }
@@ -111,17 +120,18 @@ public class UserAccount {
     public static boolean createUserAccount(String firstName, String lastName, String email, String password, String profileCode, String statusCode) {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
             email = email.trim().toLowerCase();
-
-            // Check for email duplication
+    
             PreparedStatement check = conn.prepareStatement("SELECT email FROM user_accounts WHERE email = ?");
             check.setString(1, email);
             ResultSet rs = check.executeQuery();
             if (rs.next()) return false;
-
-            // Generate a UID that is unique
+    
             String uid = generateUniqueUID(conn);
-
-            // Insert new account
+    
+            if (statusCode == null || statusCode.trim().isEmpty()) {
+                statusCode = "active"; // default
+            }
+    
             PreparedStatement stmt = conn.prepareStatement(
                 "INSERT INTO user_accounts (email, password, profile_code, uid, first_name, last_name, status_code) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)");
@@ -132,13 +142,14 @@ public class UserAccount {
             stmt.setString(5, firstName);
             stmt.setString(6, lastName);
             stmt.setString(7, statusCode);
-
+    
             return stmt.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
+    
 
     private static String generateUniqueUID(Connection conn) throws SQLException {
         String uid;

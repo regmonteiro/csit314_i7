@@ -30,6 +30,7 @@ public class UserManagementPage {
 
         model.addAttribute("user", sessionUser);
         model.addAttribute("activePage", "viewUsers");
+        model.addAttribute("tab", "accounts");
 
         List<UserAccount> userList;
         if (search != null && !search.trim().isEmpty()) {
@@ -47,9 +48,9 @@ public class UserManagementPage {
 
     @GetMapping("/viewUser")
     public String showSingleUser(@RequestParam("uid") String uid,
-                                 @RequestParam(value = "message", required = false) String message,
-                                 Model model,
-                                 HttpSession session) {
+                                @RequestParam(value = "message", required = false) String message,
+                                Model model,
+                                HttpSession session) {
         UserAccount sessionUser = SessionHelper.getLoggedInUser(session);
         if (sessionUser == null) {
             return "redirect:/login";
@@ -57,6 +58,7 @@ public class UserManagementPage {
 
         model.addAttribute("user", sessionUser);
         model.addAttribute("activePage", "viewUsers");
+        model.addAttribute("tab", "accounts");
 
         UserAccount user = userManageController.getAccountDetails(uid);
         if (user != null) {
@@ -80,31 +82,12 @@ public class UserManagementPage {
 
         model.addAttribute("user", sessionUser);
         model.addAttribute("activePage", "viewUsers");
+        model.addAttribute("tab", "accounts");
 
         UserAccount user = userManageController.getAccountDetails(uid);
-        model.addAttribute("userToUpdate", user); // 🔵 Rename to avoid clash
+        model.addAttribute("userToUpdate", user);
         model.addAttribute("profiles", userManageController.getAllProfiles());
         return "admin/updateUser";
-    }
-
-    @PostMapping("/updateUser")
-    public String handleUpdate(@ModelAttribute("userToUpdate") UserAccount updatedDetails,
-                                RedirectAttributes redirectAttributes,
-                                HttpSession session) {
-        UserAccount sessionUser = SessionHelper.getLoggedInUser(session);
-        if (sessionUser == null) {
-            return "redirect:/login";
-        }
-
-        boolean success = userManageController.updateUserDetails(updatedDetails.getUid(), updatedDetails);
-
-        if (!success) {
-            redirectAttributes.addFlashAttribute("error", "User not found or update failed.");
-            return "redirect:/admin/updateUser?uid=" + updatedDetails.getUid();
-        }
-
-        redirectAttributes.addFlashAttribute("message", "User updated successfully.");
-        return "redirect:/admin/viewUser?uid=" + updatedDetails.getUid();
     }
 
     @PostMapping("/suspendUser")

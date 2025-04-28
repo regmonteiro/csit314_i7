@@ -1,26 +1,38 @@
-<div th:if="${user != null}" th:fragment="sidebar">
+<div th:fragment="sidebar">
     <div class="sidebar">
         <h2>Menu</h2>
 
-        <!-- Cleaner Links -->
-        <div th:if="${user.profileCode == 'cleaner'}">
-            <a href="/dashboard" th:classappend="${activePage == 'dashboard'} ? 'active'">Dashboard</a>
-            <a href="/cleaner/createListing" th:classappend="${activePage == 'createListing'} ? 'active'">Create Listing</a>
-            <a href="/cleaner/viewListings" th:classappend="${activePage == 'viewListings'} ? 'active'">Manage Listings</a>
-        </div>
+        <div th:if="${user != null}">
+            <!-- Cleaner Links -->
+            <div th:if="${user.profileCode == 'cleaner'}">
+                <a href="/dashboard" th:classappend="${activePage == 'dashboard'} ? 'active'">Dashboard</a>
+                <a href="/cleaner/createListing" th:classappend="${activePage == 'createListing'} ? 'active'">Create Listing</a>
+                <a href="/cleaner/viewListings" th:classappend="${activePage == 'viewListings'} ? 'active'">Manage Listings</a>
+            </div>
 
-        <!-- Admin Links -->
-        <div th:if="${user.profileCode == 'admin'}">
-            <a href="/dashboard" th:classappend="${activePage == 'dashboard'} ? 'active'">Dashboard</a>
-            <a href="/admin/createUser" th:classappend="${activePage == 'createUser'} ? 'active'">Create User</a>
-            <a href="/admin/viewUserAccounts" th:classappend="${activePage == 'viewUsers'} ? 'active'">Manage Users</a>
-        </div>
+            <!-- Admin Links -->
+            <div th:if="${user.profileCode == 'admin'}">
+                <!-- User Accounts -->
+                <div th:if="${session.tab == 'accounts'}">
+                    <a href="/dashboard" th:classappend="${activePage == 'dashboard'} ? 'active'">Dashboard</a>
+                    <a href="/admin/createUser" th:classappend="${activePage == 'createUser'} ? 'active'">Create User</a>
+                    <a href="/admin/viewUserAccounts" th:classappend="${activePage == 'viewUsers'} ? 'active'">Manage Users</a>
+                </div>
 
-        <!-- Homeowner Links -->
-        <div th:if="${user.profileCode == 'homeowner'}">
-            <a href="/dashboard" th:classappend="${activePage == 'dashboard'} ? 'active'">Dashboard</a>
-            <a href="/homeowner/findCleaners" th:classappend="${activePage == 'findCleaners'} ? 'active'">Find Cleaners</a>
-            <a href="/homeowner/bookings" th:classappend="${activePage == 'bookings'} ? 'active'">My Bookings</a>
+                <!-- User Profiles -->
+                <div th:if="${session.tab == 'profiles'}">
+                    <a href="/dashboard" th:classappend="${activePage == 'dashboard'} ? 'active'">Dashboard</a>
+                    <a href="/admin/createProfile" th:classappend="${activePage == 'createProfile'} ? 'active'">Create Profile</a>
+                    <a href="/admin/viewUserProfiles" th:classappend="${activePage == 'viewProfiles'} ? 'active'">Manage Profiles</a>
+                </div>
+            </div>
+
+            <!-- Homeowner Links -->
+            <div th:if="${user.profileCode == 'homeowner'}">
+                <a href="/dashboard" th:classappend="${activePage == 'dashboard'} ? 'active'">Dashboard</a>
+                <a href="/homeowner/findCleaners" th:classappend="${activePage == 'findCleaners'} ? 'active'">Find Cleaners</a>
+                <a href="/homeowner/bookings" th:classappend="${activePage == 'bookings'} ? 'active'">My Bookings</a>
+            </div>
         </div>
     </div>
 </div>

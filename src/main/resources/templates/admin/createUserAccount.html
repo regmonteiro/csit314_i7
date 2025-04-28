@@ -16,7 +16,7 @@
         <div th:if="${error}" style="color: red;" th:text="${error}"></div>
         <div th:if="${success}" style="color: green;" th:text="${success}"></div>
 
-        <form th:action="@{/admin/createUser}" th:object="${user}" method="post" class="form-box">
+        <form th:action="@{/admin/createUser}" th:object="${newUser}" method="post" class="form-box">
             <label for="firstName">First Name</label>
             <input type="text" th:field="*{firstName}" required />
         
@@ -30,20 +30,14 @@
             <input type="password" th:field="*{password}" required />
         
             <label for="profileCode">Profile</label>
-            <select id="profileCode" th:field="*{profileCode}">            
-                <option th:each="p : ${profiles}" 
-                        th:value="${p.code}" 
-                        th:text="${p.name}"></option>
+            <select id="profileCode" th:field="*{profileCode}">
+                <option th:each="p : ${profiles}" th:value="${p.code}" th:text="${p.name}"></option>
             </select>
         
             <div class="button-group">
                 <button type="submit" class="button">Create Account</button>
             </div>
-        
-            <p th:if="${success}" th:text="${success}" style="color:green;"></p>
-            <p th:if="${error}" th:text="${error}" style="color:red;"></p>
-        </form>
-        
+        </form> 
     </div>
 </div>
 

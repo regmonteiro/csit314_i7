@@ -48,6 +48,36 @@ body {
     margin-right: 10px;
   }
   
+  /* Tab Switcher for Admin */
+.tab-switcher {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  margin-left: 10px; /* align with Logged in as */
+}
+
+.tab-switcher a {
+  padding: 8px 20px;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.4);
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tab-switcher a:hover {
+  background-color: white;
+  color: #6a11cb;
+}
+
+.tab-switcher a.active-tab {
+  background-color: white;
+  color: #6a11cb;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+  
   /* Container Layout */
   .container {
     display: flex;

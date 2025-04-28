@@ -24,37 +24,39 @@ public class CreateAccountPage {
         if (sessionUser == null) {
             return "redirect:/login";
         }
-
+    
         model.addAttribute("user", sessionUser);
         model.addAttribute("activePage", "createUser");
+        model.addAttribute("tab", "accounts");
         model.addAttribute("newUser", new UserAccount());
         model.addAttribute("profiles", accountCreateController.getAllProfiles());
-
+    
         return "admin/createUserAccount";
     }
-
+    
     @PostMapping
     public String handleCreate(@ModelAttribute("newUser") UserAccount newUser, Model model, HttpSession session) {
         UserAccount sessionUser = SessionHelper.getLoggedInUser(session);
         if (sessionUser == null) {
             return "redirect:/login";
         }
-
+    
         UserAccount acc = accountCreateController.createAccount(
                 newUser.getFirstName(), newUser.getLastName(), newUser.getEmail(), newUser.getPassword(), newUser.getProfileCode()
         );
-
+    
         if (acc != null) {
             model.addAttribute("success", "User account created successfully.");
             model.addAttribute("newUser", new UserAccount());
         } else {
             model.addAttribute("error", "Account creation failed. Email might already exist.");
         }
-
+    
         model.addAttribute("user", sessionUser);
         model.addAttribute("activePage", "createUser");
+        model.addAttribute("tab", "accounts");
         model.addAttribute("profiles", accountCreateController.getAllProfiles());
-
+    
         return "admin/createUserAccount";
-    }
+    }    
 }
