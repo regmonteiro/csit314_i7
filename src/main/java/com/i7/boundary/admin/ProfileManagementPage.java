@@ -86,18 +86,18 @@ public class ProfileManagementPage {
     }
 
     @PostMapping("/updateProfile")
-    public String handleUpdate(@ModelAttribute UserProfile profile, Model model) {
-        boolean success = profileManageController.updateProfile(profile.getCode(), profile.getName(), profile.getDescription()); 
-
+    public String handleUpdate(@ModelAttribute UserProfile profile, RedirectAttributes redirectAttributes) {
+        boolean success = profileManageController.updateProfile(profile.getCode(), profile.getName(), profile.getDescription());
+    
         if (success) {
-            model.addAttribute("message", "Profile updated successfully.");
+            redirectAttributes.addFlashAttribute("message", "Profile updated successfully.");
         } else {
-            model.addAttribute("error", "Failed to update profile.");
+            redirectAttributes.addFlashAttribute("error", "Failed to update profile.");
         }
-
+    
         return "redirect:/admin/viewUserProfile?profileCode=" + profile.getCode();
     }
-
+    
     @PostMapping("/suspendProfile")
     public String suspendProfile(@RequestParam("profileCode") String profileCode, RedirectAttributes redirectAttributes, HttpSession session) {
         UserAccount sessionUser = SessionHelper.getLoggedInUser(session);
@@ -113,7 +113,7 @@ public class ProfileManagementPage {
             redirectAttributes.addFlashAttribute("error", "Failed to suspend profile.");
         }
     
-        return "redirect:/admin/viewProfiles";
+        return "redirect:/admin/viewUserProfile?profileCode=" + profileCode;
     }
 
     
