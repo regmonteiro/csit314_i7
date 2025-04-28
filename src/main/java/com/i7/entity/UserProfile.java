@@ -61,6 +61,28 @@ public class UserProfile {
         return null;
     }   
     
+    public static List<UserProfile> findProfilesByQuery(String searchQuery) {
+        List<UserProfile> profiles = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
+            String sql = "SELECT * FROM user_profiles WHERE name LIKE ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, "%" + searchQuery + "%"); // Use % to match part of the name
+            ResultSet rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                profiles.add(new UserProfile(
+                    rs.getString("code"),
+                    rs.getString("name"),
+                    rs.getString("description"),
+                    rs.getString("status")
+                ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return profiles;
+    }
+    
 
     public static List<UserProfile> getAllProfiles() {
         List<UserProfile> profiles = new ArrayList<>();

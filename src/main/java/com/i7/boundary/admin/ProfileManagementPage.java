@@ -21,21 +21,33 @@ public class ProfileManagementPage {
     private ProfileManageController profileManageController;
 
     @GetMapping("/viewProfiles")
-    public String showProfiles(Model model, HttpSession session) {
+    public String showProfiles(@RequestParam(value = "searchQuery", required = false) String searchQuery, Model model, HttpSession session) {
         UserAccount sessionUser = SessionHelper.getLoggedInUser(session);
         if (sessionUser == null) {
             model.addAttribute("error", "No user logged in");
-            return "redirect:/login";  // Redirect to login if no user is logged in
+            return "redirect:/login";  
         }
-    
-        
+
         session.setAttribute("tab", "profiles");
         model.addAttribute("user", sessionUser); 
         model.addAttribute("activePage", "viewProfiles");
-    
-        List<UserProfile> userProfiles = profileManageController.getProfiles();
+
+        List<UserProfile> userProfiles;
+
+        // If a search query is provided, search profiles
+        if (searchQuery != null && !searchQuery.trim().isEmpty()) {
+            userProfiles = profileManageController.searchProfiles(searchQuery);
+            if (userProfiles.isEmpty()) {
+                model.addAttribute("error", "No profiles found.");
+            }
+        } else {
+            // Otherwise, show all profiles
+            userProfiles = profileManageController.getProfiles();
+        }
+
         model.addAttribute("userProfiles", userProfiles);
-    
+        model.addAttribute("searchQuery", searchQuery);
+
         return "admin/viewProfiles";
     }
     
@@ -104,4 +116,6 @@ public class ProfileManagementPage {
     
         return "redirect:/admin/viewProfiles";
     }
+
+    
 }
