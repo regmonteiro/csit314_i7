@@ -28,4 +28,8 @@ public class ProfileManageController {
     public boolean suspendProfile(String profileCode) {
         return UserProfile.updateProfileStatus(profileCode, "suspended");
     }
+
+    public List<UserProfile> searchProfiles(String searchQuery) {
+        return UserProfile.findProfilesByQuery(searchQuery);
+    }
 }
