@@ -131,7 +131,8 @@ form .button {
 .form-box input[type="text"],
 .form-box input[type="email"],
 .form-box input[type="password"],
-.form-box select {
+.form-box select,
+.form-box textarea {
     width: 100%; 
     max-width: 400px;
     padding: 15px;
