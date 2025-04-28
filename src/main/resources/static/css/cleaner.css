@@ -98,132 +98,58 @@ body {
 form .button {
   width: 150px; 
 }
-/* ================= ACCOUNT PAGE STYLES ================== */
+/* ================= CREATE LISTING STYLES ================== */
 
 /* Form Layout */
+/* Form Styling */
 .form-box {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    max-width: 600px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
 }
-.form-box label {
-    font-weight: 600;
-    margin: 10px 0 5px;
-}
-.form-box input[type="text"],
-.form-box input[type="email"],
-.form-box input[type="password"],
-.form-box select,
-.form-box textarea {
-    width: 100%; 
-    max-width: 500px;
+
+input[type="text"] {
+    width: 100%;
     padding: 15px;
-    margin: 10px 0;
     border: none;
     border-radius: 25px;
     background-color: #f0f0f0;
     font-size: 16px;
     outline: none;
 }
-.form-box input::placeholder {
+
+input[type="text"]::placeholder {
     color: #999;
 }
 
-/* Select Dropdown */
-.form-box select {
-    appearance: none;
-    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 16px 16px;
-    padding-right: 40px;
-}
-
-/* Success/Error Messages */
-.success-message,
-.error-message {
-    text-align: center;
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 600px;
-}
-.success-message {
-    background-color: #d4edda;
-    color: #155724;
-}
-.error-message {
-    background-color: #f8d7da;
-    color: #721c24;
-}
-.success-message:empty,
-.error-message:empty {
-    display: none;
-}
-
-/* ================= VIEW USER ACCOUNTS PAGE STYLES ================== */
-
-/* View Account Header */
-.view-account-header {
-    color: #6a11cb;
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-/* Search Bar */
-.search-bar {
-    width: 100%;
-    max-width: 600px;
-    display: flex;
-    margin-bottom: 30px;
-    gap: 10px;
-}
-.search-bar input[type="text"] {
-    flex-grow: 1;
+/* Submit Button */
+.button {
     padding: 15px;
-    border-radius: 25px;
     border: none;
-    background-color: #f0f0f0;
-    font-size: 16px;
-    outline: none;
-}
-.search-bar button {
-    padding: 15px 20px;
     border-radius: 25px;
-    border: 2px solid #6a11cb;
-    background-color: white;
-    color: #6a11cb;
-    font-weight: bold;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: white;
     font-size: 16px;
     cursor: pointer;
     transition: 0.3s;
+    width: 100%;
 }
-.search-bar button:hover {
-    background-color: #f3e8ff;
+
+.button:hover {
     opacity: 0.9;
 }
 
-/* Alerts */
-.alert {
-    width: 100%;
-    max-width: 600px;
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    font-weight: bold;
+/* Success + Error messages */
+p[style*="color:green"],
+p[style*="color:red"] {
+    margin-top: 20px;
+    font-size: 16px;
     text-align: center;
 }
-.alert.error {
-    background-color: #f8d7da;
-    color: #721c24;
-}
-.alert.error:empty {
-    display: none;
-}
 
-/* User List */
+/* ================= VIEW LISTING STYLES ================== */
 .user-list-box {
     width: 100%;
     max-width: 600px;
