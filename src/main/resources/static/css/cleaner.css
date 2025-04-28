@@ -96,8 +96,9 @@ body {
 }
 
 form .button {
-  width: 150px;
-  align-self: flex-end;
+    width: 150px;
+    align-self: flex-end;
+    justify-self: end;
 }
 /* ================= CREATE LISTING STYLES ================== */
 
