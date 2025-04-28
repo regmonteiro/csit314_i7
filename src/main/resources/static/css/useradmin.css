@@ -10,23 +10,6 @@ body {
     align-items: center;
 }
 
-
-.logout-btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 25px;
-    background: linear-gradient(to right, #6a11cb, #2575fc);
-    color: white;
-    font-size: 14px;
-    cursor: pointer;
-    transition: 0.3s;
-    margin-right: 10px;
-}
-
-.logout-btn:hover {
-    opacity: 0.9;
-}
-
 /* Layout Container */
 .container {
     display: flex;
