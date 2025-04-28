@@ -99,17 +99,22 @@ body {
     text-decoration: none;
     margin-top: 15px;
 }
+
 .button:hover {
     opacity: 0.9;
     transform: scale(1.05);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
+
 .button.secondary-button {
     background: transparent;
     border: 2px solid #6a11cb;
     color: #6a11cb;
 }
 
+form .button {
+  width: 150px; 
+}
 /* ================= ACCOUNT PAGE STYLES ================== */
 
 /* Form Layout */
