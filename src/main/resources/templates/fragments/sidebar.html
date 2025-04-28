@@ -1,11 +1,6 @@
 <div th:fragment="sidebar">
     <div class="sidebar">
         <h2>Menu</h2>
-
-        <p th:text="${user != null ? 'User is logged in' : 'No user logged in'}"></p>
-        <p th:text="${session.tab != null ? session.tab : 'Tab is not set'}"></p>
-
-
         <div th:if="${user != null}">
             <!-- Cleaner Links -->
             <div th:if="${user.profileCode == 'cleaner'}">
