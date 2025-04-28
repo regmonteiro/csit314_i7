@@ -68,7 +68,7 @@ body {
 }
 
 /* Buttons */
-.button, .update-button {
+.button {
     width: 100%;
     padding: 15px;
     border: none;
@@ -83,7 +83,7 @@ body {
     margin-top: 15px;
 }
 
-.button:hover, .update-button:hover {
+.button:hover {
     opacity: 0.9;
     transform: scale(1.05);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
@@ -96,12 +96,12 @@ body {
 }
 
 form .button {
-  width: 150px; 
+  width: 150px;
+  align-self: flex-end;
 }
 /* ================= CREATE LISTING STYLES ================== */
 
 /* Form Layout */
-/* Form Styling */
 .form-box {
     width: 100%;
     max-width: 600px;
