@@ -9,45 +9,6 @@ body {
     align-items: center;
   }
   
-  /* Navbar */
-  .navbar {
-    width: 100%;
-    padding: 15px 30px;
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    font-weight: bold;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10;
-  }
-  
-  .logout-btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 25px;
-    background: linear-gradient(to right, #6a11cb, #2575fc);
-    color: white;
-    font-size: 14px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-  
-  .logout-btn:hover {
-    opacity: 0.9;
-  }
-  
-  .navbar span {
-    margin-left: 10px;
-  }
-  
-  .logout-btn {
-    margin-right: 10px;
-  }
-  
   /* Tab Switcher for Admin */
 .tab-switcher {
   margin-top: 10px;
@@ -87,43 +48,7 @@ body {
     margin-top: 40px;
   }
   
-  /* Sidebar */
-  .sidebar {
-    width: 220px;
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 30px 20px;
-    border-radius: 20px;
-    margin-right: 20px;
-    color: white;
-  }
-  
-  .sidebar h2 {
-    margin-bottom: 20px;
-    font-size: 20px;
-  }
-  
-  .sidebar a {
-    display: block;
-    color: white;
-    padding: 10px;
-    margin-bottom: 10px;
-    text-decoration: none;
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
-  }
-  
-  /* Hover or Active State */
-  .sidebar a:hover,
-  .sidebar a.active,
-  .sidebar a:focus {
-    background-color: white;
-    color: #6a11cb;
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    outline: none;
-  }  
-  
+ 
   /* Main Content */
   .main-content {
     flex-grow: 1;
