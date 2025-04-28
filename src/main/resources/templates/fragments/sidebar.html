@@ -2,6 +2,10 @@
     <div class="sidebar">
         <h2>Menu</h2>
 
+        <p th:text="${user != null ? 'User is logged in' : 'No user logged in'}"></p>
+        <p th:text="${session.tab != null ? session.tab : 'Tab is not set'}"></p>
+
+
         <div th:if="${user != null}">
             <!-- Cleaner Links -->
             <div th:if="${user.profileCode == 'cleaner'}">
@@ -23,7 +27,7 @@
                 <div th:if="${session.tab == 'profiles'}">
                     <a href="/dashboard" th:classappend="${activePage == 'dashboard'} ? 'active'">Dashboard</a>
                     <a href="/admin/createProfile" th:classappend="${activePage == 'createProfile'} ? 'active'">Create Profile</a>
-                    <a href="/admin/viewUserProfiles" th:classappend="${activePage == 'viewProfiles'} ? 'active'">Manage Profiles</a>
+                    <a href="/admin/viewProfiles" th:classappend="${activePage == 'viewProfiles'} ? 'active'">Manage Profiles</a>
                 </div>
             </div>
 

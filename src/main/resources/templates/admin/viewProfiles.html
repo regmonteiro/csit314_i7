@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List of User Profiles</title>
+    <link rel="stylesheet" href="/css/viewUserAccounts.css">
+</head>
+<body>
+
+<!-- Include navbar -->
+<div th:replace="~{fragments/navbar :: navbar}"></div> 
+
+<div class="container">
+    <!-- Include sidebar -->
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <div class="main-content">
+        <h1 class="view-account-header">List of User Profiles</h1>
+
+        <!-- Search Form -->
+        <form th:action="@{/admin/viewProfiles}" method="get" class="search-bar">
+            <input type="text" name="search" th:value="${search}" placeholder="Search by profile code..." />
+            <button type="submit">Search</button>
+        </form>
+
+        <div th:if="${error}" class="alert error" th:text="${error}"></div>
+
+        <div class="user-list-box">
+            <div th:each="profile : ${userProfiles}">
+                <a th:href="@{'/admin/viewUserProfile'(profileCode=${profile.code})}" class="profile-link">
+                    <div class="profile-entry-box">
+                        <span th:text="${profile.code} + ' - ' + ${profile.name}"></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

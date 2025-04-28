@@ -16,23 +16,26 @@ public class UserProfile {
     private String code;
     private String name;
     private String description;
+    private String status;
 
     public UserProfile() {}
 
-    public UserProfile(String code, String name, String description) {
+    public UserProfile(String code, String name, String description, String status) {
         this.code = code;
         this.name = name;
         this.description = description;
+        this.status = status;
     }
 
     public String getCode() { return code; }
     public String getName() { return name; }
     public String getDescription() { return description; }
+    public String getStatus() {return status;}
 
     public void setCode(String code) { this.code = code; }
     public void setName(String name) { this.name = name; }
-    public void setDescription(String description) { this.description = description; }
-
+    public void setDescription(String description) { this.description = description;}
+    public void setStatus(String status) {this.status = status;}
 
     public static List<String> getAllowedProfilesForSignup() {
         return List.of("homeowner", "cleaner");
@@ -43,18 +46,20 @@ public class UserProfile {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM user_profiles WHERE code = ?");
             stmt.setString(1, code);
             ResultSet rs = stmt.executeQuery();
+            
             if (rs.next()) {
                 return new UserProfile(
                     rs.getString("code"),
                     rs.getString("name"),
-                    rs.getString("description")
+                    rs.getString("description"),
+                    rs.getString("status")
                 );
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
-    }
+    }   
     
 
     public static List<UserProfile> getAllProfiles() {
@@ -66,7 +71,8 @@ public class UserProfile {
                 profiles.add(new UserProfile(
                     rs.getString("code"),
                     rs.getString("name"),
-                    rs.getString("description")
+                    rs.getString("description"),
+                    rs.getString("status")
                 ));
             }
         } catch (Exception e) {

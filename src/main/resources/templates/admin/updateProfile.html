@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update User Profile</title>
+    <link rel="stylesheet" href="/css/account.css">
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <div class="main-content">
+
+        <div class="header">
+            <h1>Update User Profile</h1>
+            <a href="/admin/viewProfiles" class="back-button">← Back</a>
+        </div>
+
+        <div th:if="${error}" class="error-message" th:text="${error}"></div>
+        <div th:if="${message}" class="success-message" th:text="${message}"></div>
+
+        <form th:action="@{/admin/updateProfile}" method="post" class="form-box" th:object="${profile}">
+            <input type="hidden" th:field="*{code}" />
+        
+            <label for="name">Profile Name</label>
+            <input type="text" id="name" th:field="*{name}" required />
+        
+            <label for="description">Profile Description</label>
+            <textarea id="description" th:field="*{description}" required></textarea>
+        
+            <button type="submit">Update Profile</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

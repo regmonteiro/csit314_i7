@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View User Profile</title>
+    <link rel="stylesheet" href="/css/viewUserAccounts.css">
+</head>
+<body>
+
+<!-- Include navbar -->
+<div th:replace="~{fragments/navbar :: navbar}"></div> 
+
+<div class="container">
+    <!-- Include sidebar -->
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <div class="main-content">
+        <h1 class="view-account-header">View User Profile</h1>
+
+        <div th:fragment="profileDetails">
+            <div class="profile-details-box">
+                <p><strong>Code:</strong> <span th:text="${profile.code}"></span></p>
+                <p><strong>Name:</strong> <span th:text="${profile.name}"></span></p>
+                <p><strong>Description:</strong> <span th:text="${profile.description}"></span></p>
+                <p><strong>Status:</strong>
+                    <span th:text="${profile.status != null ? (profile.status.toLowerCase() == 'suspended' ? 'Suspended' : 'Active') : 'No Status'}"
+                        th:classappend="${profile.status != null && profile.status.toLowerCase() == 'suspended' ? 'status-suspended' : 'status-active'}">
+                    </span>              
+                </p>
+            </div>
+        </div>
+        
+
+        <a th:href="@{/admin/updateProfile(profileCode=${profile.code})}" class="update-button">Update Profile</a>
+        <form th:action="@{/admin/suspendProfile}" method="post" 
+            onsubmit="return confirm('Are you sure you want to suspend this profile?');">
+            <input type="hidden" name="profileCode" th:value="${profile.code}" />
+            <button type="submit">Suspend Profile</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
