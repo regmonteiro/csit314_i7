@@ -251,7 +251,7 @@ form .button {
 .user-link {
     text-decoration: none;
 }
-.user-entry-box {
+.user-entry-box, .profile-entry-box {
     background-color: #f0f0f0;
     padding: 20px;
     border-radius: 20px;
@@ -259,7 +259,7 @@ form .button {
     font-size: 16px;
     transition: all 0.3s ease;
 }
-.user-entry-box:hover {
+.user-entry-box:hover, .profile-entry-box:hover {
     background-color: #e0e0e0;
     transform: scale(1.02);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
