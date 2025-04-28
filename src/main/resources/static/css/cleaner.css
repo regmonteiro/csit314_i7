@@ -110,6 +110,11 @@ form .button {
     gap: 25px;
 }
 
+.form-box button {
+    align-self: flex-end;
+    width: 150px;
+}
+
 input[type="text"] {
     width: 100%;
     padding: 15px;
@@ -122,23 +127,6 @@ input[type="text"] {
 
 input[type="text"]::placeholder {
     color: #999;
-}
-
-/* Submit Button */
-.button {
-    padding: 15px;
-    border: none;
-    border-radius: 25px;
-    background: linear-gradient(to right, #6a11cb, #2575fc);
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s;
-    width: 100%;
-}
-
-.button:hover {
-    opacity: 0.9;
 }
 
 /* Success + Error messages */
