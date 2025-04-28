@@ -248,7 +248,7 @@ form .button {
     flex-direction: column;
     gap: 15px;
 }
-.user-link {
+.user-link, .profile-link {
     text-decoration: none;
 }
 .user-entry-box, .profile-entry-box {
