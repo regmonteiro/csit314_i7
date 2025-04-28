@@ -127,6 +127,8 @@ body {
 .form-box input[type="email"],
 .form-box input[type="password"],
 .form-box select {
+    width: 100%; 
+    max-width: 500px;
     padding: 15px;
     margin: 10px 0;
     border: none;
