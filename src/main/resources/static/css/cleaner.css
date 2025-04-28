@@ -157,10 +157,10 @@ p[style*="color:red"] {
     flex-direction: column;
     gap: 15px;
 }
-.user-link, .profile-link {
+.user-link {
     text-decoration: none;
 }
-.user-entry-box, .profile-entry-box {
+.user-entry-box {
     background-color: #f0f0f0;
     padding: 20px;
     border-radius: 20px;
@@ -168,8 +168,24 @@ p[style*="color:red"] {
     font-size: 16px;
     transition: all 0.3s ease;
 }
-.user-entry-box:hover, .profile-entry-box:hover {
+.user-entry-box:hover {
     background-color: #e0e0e0;
     transform: scale(1.02);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.details-box {
+    width: 100%;
+    max-width: 600px;
+    text-align: left;
+    background-color: #f9f9f9; 
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    font-size: 1.1rem;
+    color: #333;
+}
+.details-box p {
+    margin-bottom: 15px;
 }
