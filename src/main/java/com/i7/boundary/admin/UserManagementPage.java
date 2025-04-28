@@ -95,6 +95,28 @@ public class UserManagementPage {
         return "admin/updateUser";
     }
     
+    @PostMapping("/updateUser")
+    public String handleUpdate(@ModelAttribute UserAccount updatedUser, RedirectAttributes redirectAttributes, HttpSession session) {
+        UserAccount sessionUser = SessionHelper.getLoggedInUser(session);
+        if (sessionUser == null) {
+            return "redirect:/login";
+        }
+    
+        // Check if password is not empty and set it
+        if (updatedUser.getPassword() != null && !updatedUser.getPassword().isEmpty()) {
+            updatedUser.setPassword(updatedUser.getPassword());
+        }
+    
+        boolean success = userManageController.updateUserDetails(updatedUser.getUid(), updatedUser);
+        if (success) {
+            redirectAttributes.addFlashAttribute("message", "User updated successfully.");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Failed to update user.");
+        }
+    
+        return "redirect:/admin/viewUser?uid=" + updatedUser.getUid();
+    }
+    
 
     @PostMapping("/suspendUser")
     public String suspendUser(@RequestParam("uid") String uid,
