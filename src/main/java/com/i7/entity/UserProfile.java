@@ -64,9 +64,15 @@ public class UserProfile {
     public static List<UserProfile> findProfilesByQuery(String searchQuery) {
         List<UserProfile> profiles = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
-            String sql = "SELECT * FROM user_profiles WHERE name LIKE ?";
+            // Modified SQL query to search by both name and code
+            String sql = "SELECT * FROM user_profiles WHERE name LIKE ? OR code LIKE ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, "%" + searchQuery + "%"); // Use % to match part of the name
+            
+            // Search for both name and code using the search query
+            String searchPattern = "%" + searchQuery + "%";
+            stmt.setString(1, searchPattern);
+            stmt.setString(2, searchPattern); 
+            
             ResultSet rs = stmt.executeQuery();
             
             while (rs.next()) {
@@ -81,9 +87,7 @@ public class UserProfile {
             e.printStackTrace();
         }
         return profiles;
-    }
-    
-
+    }    
     public static List<UserProfile> getAllProfiles() {
         List<UserProfile> profiles = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {

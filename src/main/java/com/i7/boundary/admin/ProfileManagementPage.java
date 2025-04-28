@@ -27,29 +27,28 @@ public class ProfileManagementPage {
             model.addAttribute("error", "No user logged in");
             return "redirect:/login";  
         }
-
+    
         session.setAttribute("tab", "profiles");
         model.addAttribute("user", sessionUser); 
         model.addAttribute("activePage", "viewProfiles");
-
+    
         List<UserProfile> userProfiles;
-
-        // If a search query is provided, search profiles
-        if (searchQuery != null && !searchQuery.trim().isEmpty()) {
+    
+        if (searchQuery != null && !searchQuery.trim().isEmpty()) { 
             userProfiles = profileManageController.searchProfiles(searchQuery);
             if (userProfiles.isEmpty()) {
                 model.addAttribute("error", "No profiles found.");
             }
         } else {
-            // Otherwise, show all profiles
             userProfiles = profileManageController.getProfiles();
         }
-
+    
         model.addAttribute("userProfiles", userProfiles);
         model.addAttribute("searchQuery", searchQuery);
-
+    
         return "admin/viewProfiles";
     }
+    
     
     @GetMapping("/viewUserProfile")
     public String viewProfileDetails(@RequestParam("profileCode") String profileCode, Model model, HttpSession session) {
