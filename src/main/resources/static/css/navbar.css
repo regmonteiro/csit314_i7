@@ -16,3 +16,26 @@
 .navbar span {
     margin-left: 10px;
 }
+  
+  .logout-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .logout-btn:hover {
+    opacity: 0.9;
+  }
+  
+  .navbar span {
+    margin-left: 10px;
+  }
+  
+  .logout-btn {
+    margin-right: 10px;
+  }
