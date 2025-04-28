@@ -29,6 +29,11 @@ public class UserProfile {
     public String getName() { return name; }
     public String getDescription() { return description; }
 
+    public void setCode(String code) { this.code = code; }
+    public void setName(String name) { this.name = name; }
+    public void setDescription(String description) { this.description = description; }
+
+
     public static List<String> getAllowedProfilesForSignup() {
         return List.of("homeowner", "cleaner");
     }
@@ -70,24 +75,56 @@ public class UserProfile {
         return profiles;
     }
 
-    public static boolean createProfile(String code, String name, String description) {
+    public static boolean createProfile(String name, String description) {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
+            
+            PreparedStatement check = conn.prepareStatement("SELECT name FROM user_profiles WHERE name = ?");
+            check.setString(1, name);
+            ResultSet rs = check.executeQuery();
+            if (rs.next()) {
+                return false;
+            }
+    
+            String code = generateUniqueProfileCode(conn);
+    
             PreparedStatement stmt = conn.prepareStatement(
-                "INSERT INTO profiles (code, name, description) VALUES (?, ?, ?)");
+                "INSERT INTO user_profiles (code, name, description, status) VALUES (?, ?, ?, ?)"
+            );
             stmt.setString(1, code);
             stmt.setString(2, name);
             stmt.setString(3, description);
+            stmt.setString(4, "active"); // Default status
+    
             return stmt.executeUpdate() > 0;
+            
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
+    
+    private static String generateUniqueProfileCode(Connection conn) throws SQLException {
+        String code;
+        boolean isUnique;
+    
+        do {
+            int random = (int) (Math.random() * 900) + 100;
+            code = "P" + random;
+            PreparedStatement stmt = conn.prepareStatement("SELECT code FROM user_profiles WHERE code = ?");
+            stmt.setString(1, code);
+            ResultSet rs = stmt.executeQuery();
+            isUnique = !rs.next();
+        } while (!isUnique);
+    
+        return code;
+    }
+    
 
     public static boolean updateProfile(String code, String newName, String newDescription) {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
             PreparedStatement stmt = conn.prepareStatement(
-                "UPDATE profiles SET name = ?, description = ? WHERE code = ?");
+                "UPDATE user_profiles SET name = ?, description = ? WHERE code = ?"
+            );
             stmt.setString(1, newName);
             stmt.setString(2, newDescription);
             stmt.setString(3, code);
@@ -96,22 +133,23 @@ public class UserProfile {
             e.printStackTrace();
             return false;
         }
-    }
+    }    
 
     public static boolean updateProfileStatus(String profileCode, String status) {
-    try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
-        String sql = "UPDATE profiles SET status = ? WHERE code = ?";
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setString(1, status);
-        stmt.setString(2, profileCode);
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
+            String sql = "UPDATE user_profiles SET status = ? WHERE code = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, status);
+            stmt.setString(2, profileCode);
+    
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
-        int rowsAffected = stmt.executeUpdate();
-        return rowsAffected > 0;
-    } catch (SQLException e) {
-        e.printStackTrace();
-        return false;
-    }
-    }
     public static void viewProfiles() {
         List<UserProfile> profiles = getAllProfiles();
         if (profiles.isEmpty()) {
