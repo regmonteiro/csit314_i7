@@ -40,7 +40,7 @@
         <form th:action="@{/admin/suspendProfile}" method="post" 
             onsubmit="return confirm('Are you sure you want to suspend this profile?');">
             <input type="hidden" name="profileCode" th:value="${profile.code}" />
-            <button type="submit">Suspend Profile</button>
+            <button type="submit" class="button">Suspend Profile</button>
         </form>
     </div>
 </div>
