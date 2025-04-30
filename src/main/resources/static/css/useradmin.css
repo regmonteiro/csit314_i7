@@ -94,7 +94,7 @@ body {
     color: #6a11cb;
 }
 
-form .button, .a {
+form .button, a.button {
   width: 150px; 
 }
 /* ================= ACCOUNT PAGE STYLES ================== */
