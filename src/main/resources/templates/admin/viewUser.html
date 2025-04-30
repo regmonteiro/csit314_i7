@@ -44,7 +44,7 @@
       <form th:action="@{/admin/suspendUser}" method="post" 
             onsubmit="return confirm('Are you sure you want to suspend this user?');"
             style="display:inline;">
-        <input type="hidden" name="uid" th:value="${user.uid}" />
+          <input type="hidden" name="uid" th:value="${viewedUser.uid}" />
         <button type="submit" class="button" >Suspend</button>
       </form>
     </div>    

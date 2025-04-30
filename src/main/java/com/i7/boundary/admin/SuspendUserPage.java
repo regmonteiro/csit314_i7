@@ -27,7 +27,7 @@ public class SuspendUserPage {
         if (sessionUser == null) {
             return "redirect:/login";
         }
-
+ 
         boolean success = suspendUserController.suspendAccount(uid);
         if (success) {
             redirectAttributes.addFlashAttribute("message", "User suspended successfully.");
