@@ -82,7 +82,7 @@ body {
     margin-top: 15px;
 }
 
-.button:hover, .update-button:hover, .a:hover {
+.button:hover, .update-button:hover {
     opacity: 0.9;
     transform: scale(1.05);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
@@ -94,9 +94,6 @@ body {
     color: #6a11cb;
 }
 
-form .button, a.button {
-  width: 200px; 
-}
 /* ================= ACCOUNT PAGE STYLES ================== */
 
 /* Form Layout */
