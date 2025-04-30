@@ -69,7 +69,6 @@ body {
 
 /* Buttons */
 .button, .update-button, .a {
-    width: 100%;
     padding: 15px;
     border: none;
     border-radius: 25px;
