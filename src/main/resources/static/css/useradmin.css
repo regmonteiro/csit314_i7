@@ -94,6 +94,11 @@ body {
     color: #6a11cb;
 }
 
+.form-box .button {
+    display: inline-block;       
+    width: 120px;                
+    text-align: center;
+}
 /* ================= ACCOUNT PAGE STYLES ================== */
 
 /* Form Layout */
