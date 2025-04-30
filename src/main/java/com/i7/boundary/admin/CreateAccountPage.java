@@ -1,6 +1,6 @@
 package com.i7.boundary.admin;
 
-import com.i7.controller.admin.AccountCreateController;
+import com.i7.controller.admin.CreateAccountController;
 import com.i7.entity.UserAccount;
 import com.i7.utility.SessionHelper;
 
@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpSession;
 public class CreateAccountPage {
 
     @Autowired
-    private AccountCreateController accountCreateController;
+    private CreateAccountController createAccountController;
 
     @GetMapping
     public String showCreateForm(Model model, HttpSession session) {
@@ -29,7 +29,7 @@ public class CreateAccountPage {
         model.addAttribute("activePage", "createUser");
         model.addAttribute("tab", "accounts");
         model.addAttribute("newUser", new UserAccount());
-        model.addAttribute("profiles", accountCreateController.getAllProfiles());
+        model.addAttribute("profiles", createAccountController.getAllProfiles());
     
         return "admin/createUserAccount";
     }
@@ -41,7 +41,7 @@ public class CreateAccountPage {
             return "redirect:/login";
         }
     
-        UserAccount acc = accountCreateController.createAccount(
+        UserAccount acc = createAccountController.createAccount(
                 newUser.getFirstName(), newUser.getLastName(), newUser.getEmail(), newUser.getPassword(), newUser.getProfileCode()
         );
     
@@ -55,7 +55,7 @@ public class CreateAccountPage {
         model.addAttribute("user", sessionUser);
         model.addAttribute("activePage", "createUser");
         model.addAttribute("tab", "accounts");
-        model.addAttribute("profiles", accountCreateController.getAllProfiles());
+        model.addAttribute("profiles", createAccountController.getAllProfiles());
     
         return "admin/createUserAccount";
     }    
