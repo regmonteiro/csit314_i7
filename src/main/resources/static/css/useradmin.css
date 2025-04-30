@@ -134,9 +134,10 @@ form .button, a.button {
     appearance: none;
     background-image: url('data:image/svg+xml;charset=US-ASCII,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
     background-repeat: no-repeat;
-    background-position: right 10px center;
+    background-position: right 15px center; 
     background-size: 16px 16px;
-    padding-right: 40px;
+    padding: 15px 40px 15px 15px; 
+    box-sizing: border-box;
 }
 
 /* Success/Error Messages */
