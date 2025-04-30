@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/useradmin.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
 </head>
 <body>
 
@@ -15,7 +17,7 @@
     <div class="main-content">
         <h1>Welcome, <span th:text="${user.firstName}"></span>!</h1>
     
-        <div class="details-box">
+        <div class="user-details">
             <p><strong>Full Name:</strong> <span th:text="${user.firstName + ' ' + user.lastName}"></span></p>
             <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
             <p><strong>UID:</strong> <span th:text="${user.uid}"></span></p>

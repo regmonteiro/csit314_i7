@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>User Details</title>
-  <link rel="stylesheet" href="/css/viewUserAccounts.css">
+  <link rel="stylesheet" href="/css/useradmin.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
 </head>
 <body>
 
@@ -43,7 +45,7 @@
             onsubmit="return confirm('Are you sure you want to suspend this user?');"
             style="display:inline;">
         <input type="hidden" name="uid" th:value="${user.uid}" />
-        <button type="submit" class="button">Suspend</button>
+        <button type="submit" class="button" >Suspend</button>
       </form>
     </div>    
   </div>

@@ -1,0 +1,31 @@
+.sidebar {
+    width: 220px;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 30px 20px;
+    border-radius: 20px;
+    margin-right: 20px;
+    color: white;
+    height: fit-content;
+}
+.sidebar h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+.sidebar a {
+    display: block;
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+.sidebar a:hover,
+.sidebar a.active,
+.sidebar a:focus {
+    background-color: white;
+    color: #6a11cb;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
