@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.i7.controller.admin.SuspendUserController;
+import com.i7.controller.admin.SuspendProfileController;
 import com.i7.entity.UserAccount;
 import com.i7.utility.SessionHelper;
 
@@ -15,25 +15,25 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/admin")
-public class SuspendUserPage {
+public class SuspendProfilePage {
     @Autowired
-    private SuspendUserController suspendUserController;
+    SuspendProfileController suspendProfileController;
 
-    @PostMapping("/suspendUser")
-    public String suspendUser(@RequestParam("uid") String uid,
-                               RedirectAttributes redirectAttributes,
-                               HttpSession session) {
+    @PostMapping("/suspendProfile")
+    public String suspendProfile(@RequestParam("profileCode") String profileCode, RedirectAttributes redirectAttributes, HttpSession session) {
         UserAccount sessionUser = SessionHelper.getLoggedInUser(session);
         if (sessionUser == null) {
             return "redirect:/login";
         }
+    
+        boolean success = suspendProfileController.suspendProfile(profileCode); 
 
-        boolean success = suspendUserController.suspendAccount(uid);
         if (success) {
-            redirectAttributes.addFlashAttribute("message", "User suspended successfully.");
+            redirectAttributes.addFlashAttribute("message", "Profile suspended successfully.");
         } else {
-            redirectAttributes.addFlashAttribute("error", "User is already suspended or an error occurred.");
+            redirectAttributes.addFlashAttribute("error", "Failed to suspend profile.");
         }
-        return "redirect:/admin/viewUser?uid=" + uid;
+    
+        return "redirect:/admin/viewUserProfile?profileCode=" + profileCode;
     }
 }

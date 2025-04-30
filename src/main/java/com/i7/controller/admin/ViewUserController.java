@@ -24,5 +24,4 @@ public class ViewUserController {
     public UserProfile getProfileByCode(String code) {
         return UserProfile.findByCode(code);
     }
-
 }
