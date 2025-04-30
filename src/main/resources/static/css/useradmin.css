@@ -98,6 +98,9 @@ body {
     display: inline-block;       
     width: 120px;                
     text-align: center;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 /* ================= ACCOUNT PAGE STYLES ================== */
 
