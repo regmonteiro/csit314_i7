@@ -1,6 +1,6 @@
 package com.i7.boundary.admin;
 
-import com.i7.controller.admin.ProfileCreateController;
+import com.i7.controller.admin.CreateProfileController;
 import com.i7.entity.UserAccount;
 import com.i7.utility.SessionHelper;
 
@@ -13,10 +13,10 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/admin/createProfile")
-public class ProfileCreatePage {
+public class CreateProfilePage {
 
     @Autowired
-    private ProfileCreateController profileCreateController;
+    private CreateProfileController profileCreateController;
 
     @GetMapping
     public String showCreateProfileForm(Model model, HttpSession session) {

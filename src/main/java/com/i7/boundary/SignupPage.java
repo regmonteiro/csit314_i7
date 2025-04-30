@@ -1,6 +1,6 @@
 package com.i7.boundary;
 
-import com.i7.controller.admin.AccountCreateController;
+import com.i7.controller.admin.CreateAccountController;
 import com.i7.entity.UserAccount;
 import com.i7.entity.UserProfile;
 
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class SignupPage {
 
     @Autowired
-    private AccountCreateController accountCreateController;
+    private CreateAccountController accountCreateController;
 
     @GetMapping
     public String showSignupForm(Model model) {

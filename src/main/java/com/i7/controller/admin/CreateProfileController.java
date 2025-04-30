@@ -4,7 +4,7 @@ import com.i7.entity.UserProfile;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProfileCreateController {
+public class CreateProfileController {
     public boolean createProfile(String name, String description) {
         if (name == null || name.trim().isEmpty()) return false;
         if (description == null || description.trim().isEmpty()) return false;
