@@ -68,7 +68,7 @@ body {
 }
 
 /* Buttons */
-.button, .update-button {
+.button, .update-button, .a {
     width: 100%;
     padding: 15px;
     border: none;
@@ -83,7 +83,7 @@ body {
     margin-top: 15px;
 }
 
-.button:hover, .update-button:hover {
+.button:hover, .update-button:hover, .a:hover {
     opacity: 0.9;
     transform: scale(1.05);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
