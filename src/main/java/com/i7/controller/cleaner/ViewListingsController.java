@@ -8,4 +8,7 @@ public class ViewListingsController {
     public List<Listing> getListings(String uid) {
         return Listing.fetchListings(uid);
     }
+    public boolean updateListing(Listing listing) {
+        return Listing.updateListing(listing);
+    }
 }

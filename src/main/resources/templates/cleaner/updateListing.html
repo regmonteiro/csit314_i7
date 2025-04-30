@@ -16,16 +16,15 @@
 
     <div class="main-content">
         <div class="header">
-            <h1 class="view-account-header" th:text="${listing.title}">Listing Title</h1>
-            <a href="/cleaner/viewListings" class="back-button">← Back to Listings</a>
+            <form>
+                
+            </form>
         </div>
 
         <div class="details-box">
             <p><strong>Title:</strong> <span th:text="${listing.title}"></span></p>
             <p><strong>Description:</strong> <span th:text="${listing.description}"></span></p>
             <p><strong>Price:</strong> $<span th:text="${listing.price}"></span></p>
-            <a href="/updateListing" class="back-button">Update Listing Details</a>
-            <a href="/suspendListing" class="button">Suspend Listing</a>
         </div>
 
     </div>

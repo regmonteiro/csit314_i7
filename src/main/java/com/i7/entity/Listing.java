@@ -112,6 +112,7 @@ public class Listing {
             String sql = "SELECT * FROM listings WHERE id = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, id);
+
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 listing = new Listing();
@@ -125,6 +126,30 @@ public class Listing {
             e.printStackTrace();
         }
         return listing;
+    }
+
+    /**
+     * Update an existing listing in the database.
+     * @param listing the Listing object containing updated data (must include id)
+     * @return true if the update succeeded, false otherwise
+     */
+    public static boolean updateListing(Listing listing) {
+        String sql = "UPDATE listings SET title = ?, description = ?, price = ?, cleaner_uid = ? WHERE id = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setString(1, listing.getTitle());
+            stmt.setString(2, listing.getDescription());
+            stmt.setDouble(3, listing.getPrice());
+            stmt.setString(4, listing.getCleanerUid());
+            stmt.setInt(5, listing.getId());
+            
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
     
 }
