@@ -45,11 +45,11 @@ CREATE TABLE `user_accounts` (
 LOCK TABLES `user_accounts` WRITE;
 /*!40000 ALTER TABLE `user_accounts` DISABLE KEYS */;
 INSERT INTO `user_accounts` VALUES 
-('cleaner2@gmail.com','cleaner1','password2','Cleaner','One','cleaner','active'),
-('homeowner3@gmail.com','homeowner1','password3','Homeowner','One','homeowner','active'),
-('jdoe@gmail.com','janeydoey','password123','jane','doe','cleaner','active'),
-('pm4@gmail.com','pm1','password4','PM','One','pm','active'),
-('useradmin1@gmail.com','admin1','password1','Admin','One','admin','active');
+('cleaner2@gmail.com','cleaner1','password2','Cleaner','One',p002,'active'),
+('homeowner3@gmail.com','homeowner1','password3','Homeowner','One',p003,'active'),
+('jdoe@gmail.com','janeydoey','password123','jane','doe',p002,'active'),
+('pm4@gmail.com','pm1','password4','PM','One',p004,'active'),
+('useradmin1@gmail.com','admin1','password1','Admin','One',p001,'active');
 /*!40000 ALTER TABLE `user_accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

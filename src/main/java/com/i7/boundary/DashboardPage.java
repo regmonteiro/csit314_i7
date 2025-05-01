@@ -32,9 +32,9 @@ public class DashboardPage {
         switch (profileCode) {
             case "admin":
                 return "admin/adminDashboard";
-            case "cleaner":
+            case "p002":
                 return "cleaner/cleanerDashboard";
-            case "homeowner":
+            case "p003":
                 return "homeowner/homeownerDashboard";
             default:
                 return "redirect:/login";
