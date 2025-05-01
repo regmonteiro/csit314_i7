@@ -6,9 +6,9 @@ import java.util.List;
 import jakarta.servlet.http.HttpSession;
 
 public class UserAccount {
-    private static final String DB_URL = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12775162";
-    private static final String DB_USER = "sql12775162";
-    private static final String DB_PASS = "W653P56dDa";
+    private static final String DB_URL = "jdbc:mysql://mysql-i7db.alwaysdata.net:3306/i7db_db";
+    private static final String DB_USER = "i7db_admin";
+    private static final String DB_PASS = "%qYyR92!N6E2";
 
     private String email;
     private String password;
@@ -90,6 +90,7 @@ public class UserAccount {
                 );
             }
         } catch (Exception e) {
+            System.out.println("Error occurred while creating user account: " + e.getMessage());
             e.printStackTrace();
         }
         return null;

@@ -9,33 +9,33 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserProfile {
-    private static final String DB_URL = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12775162";
-    private static final String DB_USER = "sql12775162";
-    private static final String DB_PASS = "W653P56dDa";
+    private static final String DB_URL = "jdbc:mysql://mysql-i7db.alwaysdata.net:3306/i7db_db";
+    private static final String DB_USER = "i7db_admin";
+    private static final String DB_PASS = "%qYyR92!N6E2";
 
     private String code;
     private String name;
     private String description;
-    private String status;
+    private String status_code;
 
     public UserProfile() {}
 
-    public UserProfile(String code, String name, String description, String status) {
+    public UserProfile(String code, String name, String description, String status_code) {
         this.code = code;
         this.name = name;
         this.description = description;
-        this.status = status;
+        this.status_code = status_code;
     }
 
     public String getCode() { return code; }
     public String getName() { return name; }
     public String getDescription() { return description; }
-    public String getStatus() {return status;}
+    public String getStatus() {return status_code;}
 
     public void setCode(String code) { this.code = code; }
     public void setName(String name) { this.name = name; }
     public void setDescription(String description) { this.description = description;}
-    public void setStatus(String status) {this.status = status;}
+    public void setStatus(String status_code) {this.status_code = status_code;}
 
     public static List<String> getAllowedProfilesForSignup() {
         return List.of("homeowner", "cleaner");
@@ -52,7 +52,7 @@ public class UserProfile {
                     rs.getString("code"),
                     rs.getString("name"),
                     rs.getString("description"),
-                    rs.getString("status")
+                    rs.getString("status_code")
                 );
             }
         } catch (Exception e) {
@@ -80,7 +80,7 @@ public class UserProfile {
                     rs.getString("code"),
                     rs.getString("name"),
                     rs.getString("description"),
-                    rs.getString("status")
+                    rs.getString("status_code")
                 ));
             }
         } catch (Exception e) {
@@ -98,7 +98,7 @@ public class UserProfile {
                     rs.getString("code"),
                     rs.getString("name"),
                     rs.getString("description"),
-                    rs.getString("status")
+                    rs.getString("status_code")
                 ));
             }
         } catch (Exception e) {
@@ -120,12 +120,12 @@ public class UserProfile {
             String code = generateUniqueProfileCode(conn);
     
             PreparedStatement stmt = conn.prepareStatement(
-                "INSERT INTO user_profiles (code, name, description, status) VALUES (?, ?, ?, ?)"
+                "INSERT INTO user_profiles (code, name, description, status_code) VALUES (?, ?, ?, ?)"
             );
             stmt.setString(1, code);
             stmt.setString(2, name);
             stmt.setString(3, description);
-            stmt.setString(4, "active"); // Default status
+            stmt.setString(4, "active"); // Default status_code
     
             return stmt.executeUpdate() > 0;
             
@@ -167,11 +167,11 @@ public class UserProfile {
         }
     }    
 
-    public static boolean updateProfileStatus(String profileCode, String status) {
+    public static boolean updateProfileStatus(String profileCode, String status_code) {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
-            String sql = "UPDATE user_profiles SET status = ? WHERE code = ?";
+            String sql = "UPDATE user_profiles SET status_code = ? WHERE code = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, status);
+            stmt.setString(1, status_code);
             stmt.setString(2, profileCode);
     
             int rowsAffected = stmt.executeUpdate();
