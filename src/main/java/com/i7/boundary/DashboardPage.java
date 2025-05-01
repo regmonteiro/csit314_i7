@@ -30,7 +30,7 @@ public class DashboardPage {
 
         String profileCode = user.getProfileCode().toLowerCase();
         switch (profileCode) {
-            case "admin":
+            case "p001":
                 return "admin/adminDashboard";
             case "p002":
                 return "cleaner/cleanerDashboard";
