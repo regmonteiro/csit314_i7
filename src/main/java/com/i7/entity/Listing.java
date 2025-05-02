@@ -2,7 +2,9 @@ package com.i7.entity;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Listing {
     private static final String DB_URL = "jdbc:mysql://mysql-i7db.alwaysdata.net:3306/i7db_db";
@@ -122,6 +124,47 @@ public class Listing {
             e.printStackTrace();
             return false;
         }
+    }
+    
+
+    // homeowner functions
+    public static List<Map<String, String>> searchWithKeyword(String searchQuery) {
+        List<Map<String, String>> results = new ArrayList<>();
+    
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
+            String sql = """
+                SELECT l.id, l.title, l.description, l.price, u.first_name, u.last_name, u.email
+                FROM listings l
+                JOIN user_accounts u ON l.cleaner_uid = u.uid
+                WHERE l.title LIKE ? OR l.description LIKE ?
+            """;            
+    
+            String wildcard = "%" + searchQuery + "%";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, wildcard);
+            stmt.setString(2, wildcard);
+    
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Map<String, String> record = new HashMap<>();
+                record.put("id", String.valueOf(rs.getInt("id")));
+                record.put("title", rs.getString("title") != null ? rs.getString("title") : "");
+                record.put("description", rs.getString("description") != null ? rs.getString("description") : "");
+                record.put("price", rs.getString("price") != null ? rs.getString("price") : "");
+            
+                String firstName = rs.getString("first_name");
+                String lastName = rs.getString("last_name");
+                record.put("cleanerName", (firstName != null ? firstName : "") + " " + (lastName != null ? lastName : ""));
+            
+                record.put("email", rs.getString("email") != null ? rs.getString("email") : "");
+                results.add(record);
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    
+        return results;
     }
     
 }

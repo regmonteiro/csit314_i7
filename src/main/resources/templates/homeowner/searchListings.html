@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Listings</title>
+    <link rel="stylesheet" href="/css/cleaner.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <div class="main-content">
+        <h1>Search Results</h1>
+
+        <form action="#" method="get" th:action="@{/homeowner/searchListings}" class="search-form">
+            <input type="text" name="searchQuery" placeholder="Enter keyword..." th:value="${param.searchQuery}" required>
+            <button type="submit">Search</button>
+        </form>
+
+        <div class="user-list-box" style="margin-top: 20px;">
+            <div th:if="${results}">
+                <a th:each="listing : ${results}" 
+                   th:href="@{'/homeowner/viewListing'(id=${listing.id})}" 
+                   class="user-link">
+                    <div class="user-entry-box">
+                        <span th:text="${listing.title}">Service Type</span>
+                        <span th:text="'$' + ${listing.price}">Price</span>
+                    </div>
+                </a>
+            </div>
+
+            <div th:if="${#lists.isEmpty(results)}">
+                <p>No listings found. Try a different keyword.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
