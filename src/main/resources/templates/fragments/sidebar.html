@@ -29,7 +29,7 @@
             <!-- Homeowner Links -->
             <div th:if="${user.profileCode == 'P003'}">
                 <a href="/dashboard" th:classappend="${activePage == 'dashboard'} ? 'active'">Dashboard</a>
-                <a href="/homeowner/findCleaners" th:classappend="${activePage == 'findCleaners'} ? 'active'">Find Cleaners</a>
+                <a href="/homeowner/searchListings" th:classappend="${activePage == 'searchListings'} ? 'active'">Search Listings</a>
                 <a href="/homeowner/bookings" th:classappend="${activePage == 'bookings'} ? 'active'">My Bookings</a>
             </div>
 

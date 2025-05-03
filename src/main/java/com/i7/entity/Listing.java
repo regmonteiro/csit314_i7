@@ -125,8 +125,6 @@ public class Listing {
             return false;
         }
     }
-    
-
     // homeowner functions
     public static List<Map<String, String>> searchWithKeyword(String searchQuery) {
         List<Map<String, String>> results = new ArrayList<>();
