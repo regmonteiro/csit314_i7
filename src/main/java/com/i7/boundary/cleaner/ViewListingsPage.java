@@ -64,8 +64,21 @@ public class ViewListingsPage {
         return "cleaner/viewSingleListing";
     }
 
-    // @getMapping("/suspendLIsting")
-    // public void suspendLIsting(){
-
-    // }
+        // Show the update form
+    @GetMapping("/updateListing")
+    public String showUpdateForm(@RequestParam("id") int id, Model model, HttpSession session) {
+    UserAccount user = SessionHelper.getLoggedInUser(session);
+    if (user == null) {
+        return "redirect:/login";
+    }
+        Listing listing = Listing.getListingById(id);
+        if (listing == null) {
+            model.addAttribute("error", "Listing not found.");
+            return "redirect:/cleaner/viewListings";
+        }
+        model.addAttribute("user", user);
+        model.addAttribute("activePage", "viewListings");
+        model.addAttribute("listing", listing);
+        return "cleaner/updateListingForm";
+    }
 }
