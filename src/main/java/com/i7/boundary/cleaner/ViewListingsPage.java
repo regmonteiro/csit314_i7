@@ -81,4 +81,22 @@ public class ViewListingsPage {
         model.addAttribute("listing", listing);
         return "cleaner/updateListingForm";
     }
+    // @GetMapping("/suspendListings")
+    // public String showSuspendedListings(Model model, HttpSession session) {
+    //     // 1) Ensure logged in
+    //     UserAccount user = SessionHelper.getLoggedInUser(session);
+    //     if (user == null) {
+    //         return "redirect:/login";
+    //     }
+
+    //     // 2) Fetch suspended listings via your entity method
+    //     List<Listing> suspended = Listing.fetchSuspendedListings(user.getUid());
+
+    //     // 3) Add to model
+    //     model.addAttribute("user", user);
+    //     model.addAttribute("activePage", "suspendListings");
+    //     model.addAttribute("suspendedListings", suspended);
+
+    //     return "cleaner/suspendListings";
+    // }
 }
