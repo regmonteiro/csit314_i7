@@ -1,6 +1,7 @@
 package com.i7.boundary.cleaner;
 
 import com.i7.controller.cleaner.CleanerJobController;
+import com.i7.controller.cleaner.PastJobSearchController;
 import com.i7.entity.UserAccount;
 import com.i7.utility.SessionHelper;
 
@@ -19,6 +20,8 @@ public class CleanerJobPage {
 
     @Autowired
     private CleanerJobController controller;
+    @Autowired
+    private PastJobSearchController pastJobSearchController;
 
     @GetMapping("/jobRequests")
     public String viewPendingJobs(HttpSession session, Model model) {
@@ -116,5 +119,22 @@ public class CleanerJobPage {
         model.addAttribute("activePage", "jobHistory");
         model.addAttribute("jobMatches", completedJobs);
         return "cleaner/jobHistory";
+    }
+
+    @GetMapping("/jobHistory/search")
+    public String searchCompletedJobs(@RequestParam("keyword") String keyword, HttpSession session, Model model) {
+        UserAccount cleaner = SessionHelper.getLoggedInUser(session);
+        if (cleaner == null || !cleaner.getProfileCode().equals("P002")) {
+            return "redirect:/login";
+        }
+
+        List<Map<String, String>> results = pastJobSearchController.searchPastJobs(cleaner.getUid(), keyword);
+
+        model.addAttribute("user", cleaner);
+        model.addAttribute("activePage", "jobHistory");
+        model.addAttribute("jobMatches", results);
+        model.addAttribute("searchKeyword", keyword);
+
+        return "cleaner/jobHistory"; // same view reused
     }
 }

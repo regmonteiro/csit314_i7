@@ -177,6 +177,43 @@ public class JobMatch {
         return false;
     }
     
+    public static List<Map<String, String>> searchPastJobs(String cleanerUid, String keyword) {
+        List<Map<String, String>> results = new ArrayList<>();
+    
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
+            PreparedStatement stmt = conn.prepareStatement(
+                "SELECT jm.id, jm.service_date, jm.status, " +
+                "ua.first_name AS homeowner_name, ua.last_name AS homeowner_last_name, l.title AS listing_title " +
+                "FROM job_matches jm " +
+                "JOIN user_accounts ua ON jm.homeowner_uid = ua.uid " +
+                "JOIN listings l ON jm.listing_id = l.id " +
+                "WHERE jm.cleaner_uid = ? AND jm.status = 'complete' AND " +
+                "(ua.first_name LIKE ? OR ua.last_name LIKE ? OR jm.service_date LIKE ? OR l.title LIKE ?)"
+            );            
+            stmt.setString(1, cleanerUid);
+            stmt.setString(2, "%" + keyword + "%");
+            stmt.setString(3, "%" + keyword + "%");
+            stmt.setString(4, "%" + keyword + "%");
+            stmt.setString(5, "%" + keyword + "%");
+            
+            ResultSet rs = stmt.executeQuery();
+    
+            while (rs.next()) {
+                Map<String, String> record = new HashMap<>();
+                record.put("id", rs.getString("id"));
+                record.put("serviceDate", rs.getString("service_date"));
+                record.put("status", rs.getString("status"));
+                record.put("homeownerName", rs.getString("homeowner_name") + " " + rs.getString("homeowner_last_name"));
+                record.put("listingTitle", rs.getString("listing_title"));
+                results.add(record);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    
+        return results;
+    }
+    
 
     //homeowner
     public static boolean insertJobMatch(String listingId, String homeownerUid, String cleanerUid, LocalDate serviceDate) {

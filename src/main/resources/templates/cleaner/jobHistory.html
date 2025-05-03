@@ -1,33 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Job History</title>
-    <link rel="stylesheet" th:href="@{/css/cleaner.css}">
+    <link rel="stylesheet" href="/css/LoginSignUpPage.css">
     <link rel="stylesheet" href="/css/navbar.css">
     <link rel="stylesheet" href="/css/sidebar.css">
+    <link rel="stylesheet" href="/css/spinner.css">
 </head>
 <body>
-    <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <div class="container">
-        <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
-        <div class="main-content">
-            <h1>Job History</h1>
+<div class="container">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
+    <div class="main-content">
+        <h1>Completed Jobs</h1>
+
+        <form method="get" th:action="@{/cleaner/jobHistory/search}" class="search-form">
+            <input type="text" name="keyword" placeholder="Search by homeowner or date..." required>
+            <button type="submit">Search</button>
+        </form>
+
+        <div class="user-list-box" style="margin-top: 20px;">
             <div th:if="${jobMatches.isEmpty()}">
-                <p>No completed jobs found yet.</p>
+                <p>No completed jobs found.</p>
             </div>
 
-            <div th:if="${!jobMatches.isEmpty()}">
-                <div th:each="job : ${jobMatches}" class="user-entry-box">
-                    <span><strong>Service Date:</strong> <span th:text="${job.serviceDate}"></span></span><br/>
-                    <span><strong>Homeowner:</strong> <span th:text="${job.homeownerName}"></span></span><br/>
-                    <span><strong>Listing:</strong> <span th:text="${job.listingTitle}"></span></span><br/>
-                    <a th:href="@{'/cleaner/jobDetails'(matchId=${job.id})}" class="btn" style="margin-top: 10px;">View Details</a>
-                </div>
+            <div th:each="job : ${jobMatches}" class="user-entry-box">
+                <span th:text="${job.listingTitle}" style="display: block; font-weight: bold;">Service Type</span>
+                <span th:text="${job.homeownerName}" style="font-size: small; color: gray; display: block;">Homeowner Name</span>
+                <span th:text="${job.serviceDate}" style="display: block;">Service Date</span>
+                <span th:text="${job.status}" style="display: block; color: green;">Status</span>
             </div>
         </div>
     </div>
+</div>
+
+<script src="/js/loader.js"></script>
+
 </body>
 </html>
