@@ -33,10 +33,11 @@
             </div>
         </div>
         <h1 class="view-account-header">Suspended Listings</h1>
-        <div class="suspended-listings-box"></div>
-            <div th:if="if{listings}">
-                <a th:each="listing : ${listings}" 
-                th:href="@{'/cleaner/viewListing'(id=${listing.id})}" 
+        <div class="suspended-listings-box">
+        <!-- Non-empty list -->
+            <div th:if="${!#lists.isEmpty(suspendedListings)}">
+                <a th:each="listing : ${suspendedListings}"
+                th:href="@{/cleaner/viewListing(id=${listing.id})}"
                 class="user-link">
                 <div class="user-entry-box">
                     <span th:text="${listing.title}">Listing Title</span>
@@ -44,9 +45,12 @@
                 </div>
                 </a>
             </div>
-            <div th:if="${#lists.isEmpty(listings)}">
+            <!-- Empty list -->
+            <div th:if="${#lists.isEmpty(suspendedListings)}">
+                <p>No suspended listings.</p>
             </div>
         </div>
+    </div>
 </div>
 
 </body>
