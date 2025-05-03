@@ -23,6 +23,7 @@
         <form th:action="@{/admin/viewProfiles}" method="get" class="search-bar">
             <input type="text" name="searchQuery" th:value="${searchQuery}" placeholder="Search by profile code..." />
             <button type="submit">Search</button>
+            <div th:replace="~{fragments/loader :: searchLoader('inline')}"></div>
         </form>
 
         <div th:if="${error}" class="alert error" th:text="${error}"></div>
