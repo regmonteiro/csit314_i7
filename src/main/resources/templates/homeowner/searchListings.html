@@ -20,10 +20,8 @@
 
         <form action="#" method="get" th:action="@{/homeowner/searchListings}" class="search-form">
             <input type="text" name="searchQuery" placeholder="Enter keyword..." th:value="${param.searchQuery}" required>
-
-            <div th:replace="~{fragments/loader :: searchLoader('inline')}"></div>
-            
             <button type="submit">Search</button>
+            <div th:replace="~{fragments/loader :: searchLoader('inline')}"></div>
         </form>
 
         <div class="user-list-box" style="margin-top: 20px;">
