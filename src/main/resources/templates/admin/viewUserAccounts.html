@@ -22,6 +22,7 @@
     <form th:action="@{/admin/viewUserAccounts}" method="get" class="search-bar">
       <input type="text" name="search" th:value="${search}" placeholder="Search by UID or email..." />
       <button type="submit">Search</button>
+      <div th:replace="~{fragments/loader :: searchLoader('inline')}"></div>
     </form>
   
   <div th:if="${error}" class="alert error" th:text="${error}"></div>
