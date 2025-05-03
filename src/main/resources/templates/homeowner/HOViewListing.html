@@ -44,6 +44,17 @@
                     <input type="hidden" name="cleanerId" th:value="${listing['cleanerUid']}">
                     <input type="hidden" name="from" th:value="${activePage}">
                     <button type="submit" class="btn">Save to Shortlist</button>
+                </form>     
+                
+                <form th:action="@{/homeowner/viewListing/requestJob}" method="post" style="margin-top: 20px;">
+                    <input type="hidden" name="listingId" th:value="${listing['id']}" />
+                    <input type="hidden" name="cleanerId" th:value="${listing['cleanerUid']}" />
+                    <input type="hidden" name="from" th:value="${activePage}">
+                
+                    <label for="serviceDate"><strong>Propose Service Date:</strong></label>
+                    <input type="date" name="serviceDate" required style="margin-left: 10px;" />
+                
+                    <button type="submit" class="btn" style="margin-top: 10px;">Send Request</button>
                 </form>                
 
                 <div style="margin-top: 20px;">

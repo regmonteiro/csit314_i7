@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Pending Requests</title>
+    <link rel="stylesheet" th:href="@{/css/homeowner.css}">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <div class="container">
+        <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+        <div class="main-content">
+            <h1>My Job Requests</h1>
+
+            <div th:if="${jobMatches.isEmpty()}">
+                <p>No job requests found.</p>
+            </div>
+
+            <div th:if="${!jobMatches.isEmpty()}">
+                <div th:each="job : ${jobMatches}" class="user-entry-box">
+                    <span><strong>Service Date:</strong> <span th:text="${job.serviceDate}"></span></span><br/>
+                    <span><strong>Cleaner:</strong> <span th:text="${job.cleanerName}"></span></span><br/>
+                    <span><strong>Listing:</strong> <span th:text="${job.listingTitle}"></span></span><br/>
+                    <span><strong>Status:</strong> <span th:text="${job.status}"></span></span><br/>
+                    <a th:href="@{'/homeowner/jobDetails'(matchId=${job.id})}" class="btn" style="margin-top: 10px;">View Details</a>
+
+                    <!-- Show mark complete button only if cleaner already confirmed -->
+                    <div th:if="${job.status == 'confirmed' and !job.homeownerCompleted}">
+                        <form th:action="@{/homeowner/completeJob}" method="post" style="display:inline;">
+                            <input type="hidden" name="matchId" th:value="${job.id}" />
+                            <button type="submit" class="btn" style="margin-left:10px;">Mark as Completed</button>
+                        </form>
+                    </div>
+
+                    <!-- Show note if already marked -->
+                    <div th:if="${job.status == 'confirmed' and job.homeownerCompleted}">
+                        <p style="margin-top: 10px;">You have marked this job as completed.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Pending Jobs</title>
+    <link rel="stylesheet" th:href="@{/css/cleaner.css}">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <div class="container">
+        <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+        <div class="main-content">
+            <h1>Pending Jobs</h1>
+
+            <div th:if="${jobMatches.isEmpty()}">
+                <p>No pending jobs found.</p>
+            </div>
+
+            <div th:if="${!jobMatches.isEmpty()}">
+                <div th:each="job : ${jobMatches}" class="user-entry-box">
+                    <span><strong>Service Date:</strong> <span th:text="${job.serviceDate}"></span></span><br/>
+                    <span><strong>Homeowner:</strong> <span th:text="${job.homeownerName}"></span></span><br/>
+                    <span><strong>Listing:</strong> <span th:text="${job.listingTitle}"></span></span><br/>
+                    <span><strong>Status:</strong> <span th:text="${job.status}"></span></span><br/>
+                    <a th:href="@{'/cleaner/jobDetails'(matchId=${job.id})}" class="btn" style="margin-top: 10px;">View Details</a>
+
+                    <div th:if="${job.status=='pending'}">
+                        <form th:action="@{/cleaner/confirmJob}" method="post" style="display:inline;">
+                            <input type="hidden" name="matchId" th:value="${job.id}" />
+                            <button type="submit" class="btn" style="margin-left:10px;">Confirm</button>
+                        </form>
+                    </div>
+ 
+                    <div th:if="${job.status=='confirmed'}">
+                        <form th:action="@{/cleaner/completeJob}" method="post" style="display:inline;">
+                            <input type="hidden" name="matchId" th:value="${job.id}" />
+                            <button type="submit" class="btn" style="margin-left:10px;">Complete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

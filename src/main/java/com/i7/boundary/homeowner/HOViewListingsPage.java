@@ -1,6 +1,7 @@
 package com.i7.boundary.homeowner;
 
 import com.i7.controller.homeowner.HOViewListingController;
+import com.i7.controller.homeowner.JobRequestController;
 import com.i7.controller.homeowner.ShortlistController;
 import com.i7.entity.UserAccount;
 import com.i7.utility.SessionHelper;
@@ -19,28 +20,30 @@ import java.util.Map;
 @RequestMapping("/homeowner")
 public class HOViewListingsPage {
     @Autowired
-    private HOViewListingController controller;
+    private HOViewListingController hoViewListingController;
     @Autowired
     private ShortlistController shortlistController;
+    @Autowired
+    private JobRequestController jobRequestController;
 
     @GetMapping("/viewListing")
-    public String viewListing(@RequestParam("listingId") int listingId, Model model, HttpSession session) {
+    public String viewListing(@RequestParam("listingId") String listingId, Model model, HttpSession session) {
         UserAccount user = SessionHelper.getLoggedInUser(session);
         if (user == null) {
             return "redirect:/login";
         }
-
-        Map<String, String> listing = controller.getCleanerListingDetails(listingId);
+    
+        Map<String, String> listing = hoViewListingController.getCleanerListingDetails(listingId);
         if (listing == null) {
             model.addAttribute("error", "Listing not found.");
             return "errorPage";
         }
-
+    
         model.addAttribute("user", user);
         model.addAttribute("activePage", "viewListing");
         model.addAttribute("listing", listing);
         return "homeowner/HOViewListing";
-    }
+    }    
 
     @PostMapping("/viewListing/shortlist")
     public String shortlistCleaner(@RequestParam("listingId") int listingId,
@@ -64,4 +67,26 @@ public class HOViewListingsPage {
 
     }
 
+    @PostMapping("/viewListing/requestJob")
+    public String requestJob(@RequestParam("listingId") String listingId,
+                            @RequestParam("cleanerId") String cleanerId,
+                            @RequestParam("serviceDate") String serviceDate,
+                            @RequestParam("from") String from,
+                            HttpSession session,
+                            RedirectAttributes redirectAttributes) {
+
+        UserAccount user = SessionHelper.getLoggedInUser(session);
+        if (user == null || !user.getProfileCode().equals("P003")) {
+            return "redirect:/login";
+        }
+
+        boolean success = jobRequestController.createJobRequest(listingId, user.getUid(), cleanerId, serviceDate);
+        if (success) {
+            redirectAttributes.addFlashAttribute("message", "Job request sent successfully.");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Failed to send job request.");
+        }
+
+        return "redirect:/homeowner/viewListing?listingId=" + listingId + "&from=" + from;
+    }
 }

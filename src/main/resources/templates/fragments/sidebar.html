@@ -2,7 +2,7 @@
     <div class="sidebar">
         <h2>Menu</h2>
         <p th:if="${user == null}">User is null</p>
-<p th:if="${user != null}" th:text="'User Profile Code: ' + ${user.profileCode}"></p>
+        <p th:if="${user != null}" th:text="'User Profile Code: ' + ${user.profileCode}"></p>
 
         <div th:if="${user != null}">
             <!-- Cleaner Links -->
@@ -11,6 +11,8 @@
                 <a href="/cleaner/createListing" th:classappend="${activePage == 'createListing'} ? 'active'">Create Listing</a>
                 <a href="/cleaner/viewListings" th:classappend="${activePage == 'viewListings'} ? 'active'">Manage Listings</a>
                 <a th:href="@{/cleaner/suspendListings}" th:classappend="${activePage == 'suspendListings'} ? ' active'">Suspend Listings</a>
+                <a href="/cleaner/jobRequests" th:classappend="${activePage == 'jobRequests'} ? 'active'">Pending Requests</a>
+                <a href="/cleaner/jobHistory" th:classappend="${activePage == 'jobHistory'} ? 'active'">Job History</a>
             </div>
 
             <!-- Admin Links -->
@@ -34,10 +36,9 @@
             <div th:if="${user.profileCode == 'P003'}">
                 <a href="/dashboard" th:classappend="${activePage == 'dashboard'} ? 'active'">Dashboard</a>
                 <a href="/homeowner/searchListings" th:classappend="${activePage == 'searchListings'} ? 'active'">Search Listings</a>
+                <a href="/homeowner/bookmarks" th:classappend="${activePage == 'bookmarks'} ? 'active'">My Bookmarks</a>
                 <a href="/homeowner/bookings" th:classappend="${activePage == 'bookings'} ? 'active'">My Bookings</a>
             </div>
-
-            <!-- Platform Manager Links -->
         </div>
     </div>
 </div>

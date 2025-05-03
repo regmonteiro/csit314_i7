@@ -46,7 +46,7 @@ public class ViewListingsPage {
     }
 
     @GetMapping("/viewListing")
-    public String viewSingleListing(@RequestParam("id") int id, Model model, HttpSession session) {
+    public String viewSingleListing(@RequestParam("id") String id, Model model, HttpSession session) {
         UserAccount user = SessionHelper.getLoggedInUser(session);
         if (user == null) {
             return "redirect:/login";
@@ -66,7 +66,7 @@ public class ViewListingsPage {
 
         // Show the update form
     @GetMapping("/updateListing")
-    public String showUpdateForm(@RequestParam("id") int id, Model model, HttpSession session) {
+    public String showUpdateForm(@RequestParam("id") String id, Model model, HttpSession session) {
     UserAccount user = SessionHelper.getLoggedInUser(session);
     if (user == null) {
         return "redirect:/login";

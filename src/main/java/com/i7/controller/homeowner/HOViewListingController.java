@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class HOViewListingController {
-    public Map<String, String> getCleanerListingDetails(int listingId) {
+    public Map<String, String> getCleanerListingDetails(String listingId) {
         return Listing.getCleanerListingDetails(listingId);
     }
 }

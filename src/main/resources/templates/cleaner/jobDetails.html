@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Job Details</title>
+    <link rel="stylesheet" href="/css/cleaner.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <div class="main-content">
+        <h1>Job Details</h1>
+
+        <div th:if="${message}" class="alert success" th:text="${message}"></div>
+        <div th:if="${error}" class="alert error" th:text="${error}"></div>        
+
+        <div class="user-list-box">
+            <div class="user-entry-box">
+                <span th:text="${job.listingTitle}" style="display: block; font-weight: bold; font-size: 1.5em; margin-bottom: 10px;">Listing Title</span>
+
+                <div style="margin-bottom: 10px;">
+                    <strong>Service Date:</strong>
+                    <span th:text="${job.serviceDate}">Service Date</span>
+                </div>
+
+                <div style="margin-bottom: 10px;">
+                    <strong>Status:</strong>
+                    <span th:text="${job.status}">Status</span> <!-- Corrected this part -->
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <strong>Homeowner Info</strong>
+                    <div><strong>Name:</strong> <span th:text="${job.homeownerName}">Homeowner Name</span></div>
+                    <div><strong>Email:</strong> <span th:text="${job.homeownerEmail}">homeowner@email.com</span></div>
+                </div>
+                <!-- Accept/Reject Buttons for Pending Jobs -->
+                <div th:if="${job.status == 'pending'}"> <!-- Corrected variable name here too -->
+                    <form th:action="@{/cleaner/confirmJob}" method="post">
+                        <input type="hidden" name="matchId" th:value="${job.id}">
+                        <button type="submit" class="btn">Confirm Job</button>
+                    </form>
+                </div>
+
+                <!-- Show complete button only if status is confirmed and not marked complete -->
+                <div th:if="${job.status == 'confirmed' and job.cleanerCompleted == 'false'}" style="margin-top: 20px;">
+                    <form th:action="@{/cleaner/completeJob}" method="post">
+                        <input type="hidden" name="matchId" th:value="${job.id}" />
+                        <button type="submit" class="btn">Mark as Completed</button>
+                    </form>
+                </div>
+
+                <!-- Show confirmation message if already marked complete -->
+                <div th:if="${job.status == 'confirmed' and job.cleanerCompleted == 'true'}" style="margin-top: 20px;">
+                    <p style="color: green;">You have already marked this job as completed.</p>
+                </div>
+
+
+                <div style="margin-top: 20px;">
+                    <a href="/cleaner/jobRequests" style="text-decoration: none; color: #6a0dad;">← Back to Job Requests</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

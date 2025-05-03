@@ -139,11 +139,11 @@ public class Listing {
         return suspendedListings;
     }
 
-    public static Listing getListingById(int id) {
+    public static Listing getListingById(String id) {
         Listing listing = null;
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM listings WHERE id = ?");
-            stmt.setInt(1, id);
+            stmt.setString(1, id);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -214,7 +214,7 @@ public class Listing {
     }
     
     
-    public static Map<String, String> getCleanerListingDetails(int listingId) {
+    public static Map<String, String> getCleanerListingDetails(String listingId) {
         Map<String, String> record = new HashMap<>();
     
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
@@ -224,7 +224,7 @@ public class Listing {
                 "JOIN user_accounts u ON l.cleaner_uid = u.uid " +
                 "WHERE l.id = ?"
             );
-            stmt.setInt(1, listingId);
+            stmt.setString(1, listingId);
     
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {

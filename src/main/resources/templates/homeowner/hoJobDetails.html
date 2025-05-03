@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Job Details</title>
+    <link rel="stylesheet" th:href="@{/css/homeowner.css}">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <div class="container">
+        <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+        <div class="main-content">
+            <h1>Job Details</h1>
+
+            <div th:if="${job != null}">
+                <p><strong>Listing:</strong> <span th:text="${job.listingTitle}"></span></p>
+                <p><strong>Service Date:</strong> <span th:text="${job.serviceDate}"></span></p>
+                <p><strong>Status:</strong> <span th:text="${job.status}"></span></p>
+                <p><strong>Cleaner:</strong> <span th:text="${job.cleanerName}"></span></p>
+            
+                <!-- Only show button if status is confirmed and user hasn't marked completed -->
+                <div th:if="${job.status == 'confirmed' and job.homeownerCompleted == 'false'}">
+                    <form th:action="@{/homeowner/completeJob}" method="post">
+                        <input type="hidden" name="matchId" th:value="${job.id}" />
+                        <button type="submit" class="btn">Mark as Completed</button>
+                    </form>
+                </div>
+            
+                <!-- Otherwise show confirmation message -->
+                <div th:if="${job.status == 'confirmed' and job.homeownerCompleted == 'true'}">
+                    <p style="color: green;">You have already marked this job as completed.</p>
+                </div>
+            </div>
+            
+            <div th:if="${job == null}">
+                <p>Job details not found.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

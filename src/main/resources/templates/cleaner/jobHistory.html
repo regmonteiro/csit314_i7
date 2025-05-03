@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Job History</title>
+    <link rel="stylesheet" th:href="@{/css/cleaner.css}">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <div class="container">
+        <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+        <div class="main-content">
+            <h1>Job History</h1>
+
+            <div th:if="${jobMatches.isEmpty()}">
+                <p>No completed jobs found yet.</p>
+            </div>
+
+            <div th:if="${!jobMatches.isEmpty()}">
+                <div th:each="job : ${jobMatches}" class="user-entry-box">
+                    <span><strong>Service Date:</strong> <span th:text="${job.serviceDate}"></span></span><br/>
+                    <span><strong>Homeowner:</strong> <span th:text="${job.homeownerName}"></span></span><br/>
+                    <span><strong>Listing:</strong> <span th:text="${job.listingTitle}"></span></span><br/>
+                    <a th:href="@{'/cleaner/jobDetails'(matchId=${job.id})}" class="btn" style="margin-top: 10px;">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
