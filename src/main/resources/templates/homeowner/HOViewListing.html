@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Listing Details</title>
+    <link rel="stylesheet" href="/css/homeowner.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
+</head>
+<body>
+
+<!-- Navbar + Sidebar -->
+<div th:insert="fragments/navbar :: navbar"></div>
+
+<div class="container">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <div class="main-content">
+        <h1>Listing Details</h1>
+
+        <div class="user-list-box">
+            <div class="user-entry-box" style="background-color: transparent; transform: none; box-shadow: none; cursor: default;">
+                <span th:text="${listing.title}" style="display: block; font-weight: bold; font-size: 1.5em; margin-bottom: 10px;">Listing Title</span>
+
+                <div style="margin-bottom: 10px;">
+                    <strong>Description:</strong>
+                    <span th:text="${listing.description}">Listing description</span>
+                </div>
+
+                <div style="margin-bottom: 10px;">
+                    <strong>Price:</strong>
+                    <span th:text="'$' + ${listing.price}">0.00</span>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <strong>Cleaner Info</strong>
+                    <div><strong>Name:</strong> <span th:text="${listing.cleanerName}">Cleaner Name</span></div>
+                    <div><strong>Email:</strong> <span th:text="${listing.email}">cleaner@email.com</span></div>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <a href="/homeowner/searchListings" style="text-decoration: none; color: #6a0dad;">← Back to Search</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

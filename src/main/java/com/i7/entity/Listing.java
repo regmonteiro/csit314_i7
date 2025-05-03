@@ -43,15 +43,31 @@ public class Listing {
         status = "active";
     }
 
+    private static String generateUniqueListingId(Connection conn) throws SQLException {
+        String id;
+        boolean isUnique;
+    
+        do {
+            id = String.format("%010d", (long)(Math.random() * 1_000_000_0000L));
+            PreparedStatement check = conn.prepareStatement("SELECT id FROM listings WHERE id = ?");
+            check.setString(1, id);
+            ResultSet rs = check.executeQuery();
+            isUnique = !rs.next();
+        } while (!isUnique);
+    
+        return id;
+    }    
+
     // Save Listing to DB
     public boolean saveListings() {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
-            String sql = "INSERT INTO listings (title, description, price, cleaner_uid) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO listings (id, title, description, price, cleaner_uid) VALUES (?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, title);
-            stmt.setString(2, description);
-            stmt.setDouble(3, price);
-            stmt.setString(4, cleanerUid); // ✅ Save cleaner's UID
+            stmt.setString(1, generateUniqueListingId(conn));
+            stmt.setString(2, title);
+            stmt.setString(3, description);
+            stmt.setDouble(4, price);
+            stmt.setString(5, cleanerUid); // ✅ Save cleaner's UID
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -176,38 +192,66 @@ public class Listing {
     
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
             String sql = """
-                SELECT l.id, l.title, l.description, l.price, u.first_name, u.last_name, u.email
+                SELECT l.id, l.title, l.price, u.first_name, u.last_name
                 FROM listings l
                 JOIN user_accounts u ON l.cleaner_uid = u.uid
-                WHERE l.title LIKE ? OR l.description LIKE ?
-            """;            
+                WHERE l.title LIKE ?
+            """;
     
-            String wildcard = "%" + searchQuery + "%";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, wildcard);
-            stmt.setString(2, wildcard);
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                String wildcard = "%" + searchQuery + "%";
+                stmt.setString(1, wildcard);
     
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                Map<String, String> record = new HashMap<>();
-                record.put("id", String.valueOf(rs.getInt("id")));
-                record.put("title", rs.getString("title") != null ? rs.getString("title") : "");
-                record.put("description", rs.getString("description") != null ? rs.getString("description") : "");
-                record.put("price", rs.getString("price") != null ? rs.getString("price") : "");
-            
-                String firstName = rs.getString("first_name");
-                String lastName = rs.getString("last_name");
-                record.put("cleanerName", (firstName != null ? firstName : "") + " " + (lastName != null ? lastName : ""));
-            
-                record.put("email", rs.getString("email") != null ? rs.getString("email") : "");
-                results.add(record);
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+                    Map<String, String> record = new HashMap<>();
+                    record.put("id", String.valueOf(rs.getInt("id")));
+                    record.put("title", rs.getString("title"));
+                    record.put("price", rs.getString("price"));
+                    record.put("cleanerName", rs.getString("first_name") + " " + rs.getString("last_name"));
+                    results.add(record);
+                }
             }
-            
         } catch (Exception e) {
             e.printStackTrace();
         }
     
         return results;
+    }
+    
+    public static Map<String, String> getCleanerListingDetails(int listingId) {
+        Map<String, String> record = new HashMap<>();
+    
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
+            String sql = """
+                SELECT l.id, l.title, l.description, l.price, u.first_name, u.last_name, u.email
+                FROM listings l
+                JOIN user_accounts u ON l.cleaner_uid = u.uid
+                WHERE l.id = ?
+            """;
+    
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, listingId);
+    
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+                    record.put("id", String.valueOf(rs.getInt("id")));
+                    record.put("title", rs.getString("title") != null ? rs.getString("title") : "");
+                    record.put("description", rs.getString("description") != null ? rs.getString("description") : "");
+                    record.put("price", rs.getString("price") != null ? rs.getString("price") : "");
+                    record.put("cleanerName", 
+                        (rs.getString("first_name") != null ? rs.getString("first_name") : "") + " " +
+                        (rs.getString("last_name") != null ? rs.getString("last_name") : ""));
+                    record.put("email", rs.getString("email") != null ? rs.getString("email") : "");
+                } else {
+                    return null;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    
+        return record;
     }
     
 }

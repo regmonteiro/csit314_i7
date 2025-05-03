@@ -36,7 +36,7 @@ public class SearchListingPage {
         if (searchQuery != null && !searchQuery.trim().isEmpty()) {
             results = hoSearchListingController.searchListings(searchQuery.trim());
         }
-
+        model.addAttribute("user", user);
         model.addAttribute("results", results);
         model.addAttribute("activePage", "searchListings");
         return "homeowner/searchListings";
