@@ -20,16 +20,16 @@
                 <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
                 <p><strong>UID:</strong> <span th:text="${user.uid}"></span></p>
             </div>
-    
-            <div class="dashboard-actions">
+            <br/>
+            <div class="section-box dashboard-actions">
                 <div class="card">
                     <h2>Find Cleaning Services</h2>
                     <p>Browse and compare services from verified cleaners.</p>
+                    <br/>
                     <a class="button" th:href="@{/homeowner/searchListings}">Search Listings</a>
                 </div>
             </div>
         </div>
     </div>
-    
 </body>
 </html>

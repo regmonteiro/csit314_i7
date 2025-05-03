@@ -66,39 +66,39 @@ body {
 }
 
 /* Form and Inputs */
-.search-form, .form-box {
+.search-form {
+    display: flex; 
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
     width: 100%;
     max-width: 600px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 20px;
 }
-.search-form input[type="text"],
-.form-box input[type="text"] {
-    padding: 15px;
+
+.search-form input[type="text"] {
+    flex-grow: 1;
+    padding: 15px 20px;
     border-radius: 25px;
     border: none;
     background-color: #f0f0f0;
     font-size: 16px;
     outline: none;
 }
-input::placeholder {
-    color: #999;
-}
-.search-form button, .form-box button {
-    padding: 15px;
-    border-radius: 25px;
-    border: 2px solid #6a11cb;
+
+.search-form button {
+    padding: 10px 20px;
+    font-size: 14px;
     background-color: white;
     color: #6a11cb;
+    border: 2px solid #6a11cb;
+    border-radius: 25px;
     font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
     transition: 0.3s;
 }
-.search-form button:hover, .form-box button:hover {
+
+.search-form button:hover {
     background-color: #f3e8ff;
+    cursor: pointer;
 }
 
 /* User List and Cards */
@@ -126,20 +126,14 @@ input::placeholder {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Detail View Box */
-.details-box {
-    width: 100%;
-    max-width: 600px;
-    background-color: #f9f9f9;
+.section-box {
+    border: 2px solid #ccc;
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-    font-size: 1.1rem;
-    color: #333;
-}
-.details-box p {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 600px;
 }
 
 /* Alerts & Messages */
