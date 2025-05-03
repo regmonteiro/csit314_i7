@@ -10,8 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
 
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
@@ -70,42 +69,8 @@ public class ViewListingsPage {
         return "cleaner/viewSingleListing";
     }
 
-        // Show the update form
-        @GetMapping("/updateListing")
-        public String showUpdateForm(@RequestParam("id") int id, Model model, HttpSession session) {
-        UserAccount user = SessionHelper.getLoggedInUser(session);
-        if (user == null) {
-            return "redirect:/login";
-        }
+    // @getMapping("/suspendLIsting")
+    // public void suspendLIsting(){
 
-        Listing listing = Listing.getListingById(id);
-        if (listing == null) {
-            model.addAttribute("error", "Listing not found.");
-            return "redirect:/cleaner/viewListings";
-        }
-        model.addAttribute("user", user);
-        model.addAttribute("activePage", "viewListings");
-        model.addAttribute("listing", listing);
-        return "cleaner/updateListingForm";
-    }
-        // Process the update submission
-        @PostMapping("/updateListing")
-        public String updateSingleListing(@ModelAttribute("listing") Listing listing,
-                                        HttpSession session,
-                                        Model model) {
-            UserAccount user = SessionHelper.getLoggedInUser(session);
-            if (user == null) {
-                return "redirect:/login";
-            }
-            boolean success = controller.updateListing(listing);
-            if (success) {
-                return "redirect:/cleaner/viewListings?success=updated";
-            } else {
-                model.addAttribute("error", "Failed to update listing.");
-                model.addAttribute("listing", listing);
-                model.addAttribute("user", user);
-                model.addAttribute("activePage", "viewListings");
-                return "cleaner/updateListingForm";
-            }
-    }
+    // }
 }

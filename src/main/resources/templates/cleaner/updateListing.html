@@ -1,34 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>Update Listing</title>
     <meta charset="UTF-8">
-    <title>Listing Details</title>
+    <title>My Listings</title>
     <link rel="stylesheet" href="/css/cleaner.css">
     <link rel="stylesheet" href="/css/navbar.css">
     <link rel="stylesheet" href="/css/sidebar.css">
 </head>
 <body>
-
-<div th:replace="~{fragments/navbar :: navbar}"></div>
-
-<div class="container">
-    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
-
-    <div class="main-content">
-        <div class="header">
-            <form>
-                
-            </form>
-        </div>
-
-        <div class="details-box">
-            <p><strong>Title:</strong> <span th:text="${listing.title}"></span></p>
-            <p><strong>Description:</strong> <span th:text="${listing.description}"></span></p>
-            <p><strong>Price:</strong> $<span th:text="${listing.price}"></span></p>
-        </div>
-
-    </div>
-</div>
-
+    <h1>Update Listing</h1>
+    <form th:object="${listing}" th:action="@{/cleaner/updateListing}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <input type="hidden" th:field="*{cleanerUid}" />
+        <label for="title">Title:</label>
+        <input type="text" id="title" th:field="*{title}" />
+        <br/>
+        <label for="description">Description:</label>
+        <textarea id="description" th:field="*{description}"></textarea>
+        <br/>
+        <label for="price">Price:</label>
+        <input type="number" step="0.01" id="price" th:field="*{price}" />
+        <br/>
+        <button type="submit">Update</button>
+    </form>
 </body>
 </html>
