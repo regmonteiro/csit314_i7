@@ -1,0 +1,9 @@
+<!-- fragments/loader.html -->
+<div th:fragment="searchLoader(type)">
+    <div th:if="${type == 'inline'}" id="loader" class="loader-inline" style="display: none;">
+        <div class="spinner-small"></div>
+    </div>
+    <div th:if="${type == 'block'}" id="loader" class="loader-below-btn" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+</div>
