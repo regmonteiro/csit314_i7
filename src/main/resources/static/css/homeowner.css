@@ -124,7 +124,7 @@ body {
 }
 
 .section-box {
-    background-color: #f0f0f0;
+    border: 2px solid #ccc;
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
