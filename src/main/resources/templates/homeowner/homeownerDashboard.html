@@ -15,13 +15,13 @@
         <div class="main-content">
             <h1>Welcome, <span th:text="${user.firstName}">Homeowner</span>!</h1>
     
-            <div class="user-details">
+            <div class="section-box user-details">
                 <p><strong>Full Name:</strong> <span th:text="${user.firstName + ' ' + user.lastName}"></span></p>
                 <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
                 <p><strong>UID:</strong> <span th:text="${user.uid}"></span></p>
             </div>
-    
-            <div class="dashboard-actions">
+
+            <div class="section-box dashboard-actions">
                 <div class="card">
                     <h2>Find Cleaning Services</h2>
                     <p>Browse and compare services from verified cleaners.</p>
@@ -30,6 +30,5 @@
             </div>
         </div>
     </div>
-    
 </body>
 </html>
