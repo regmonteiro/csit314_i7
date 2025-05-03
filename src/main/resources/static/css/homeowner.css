@@ -67,9 +67,12 @@ body {
 
 /* Form and Inputs */
 .search-form {
+    display: flex; 
     flex-direction: row;
     align-items: center;
     gap: 10px;
+    width: 100%;
+    max-width: 600px;
 }
 
 .search-form input[type="text"] {
