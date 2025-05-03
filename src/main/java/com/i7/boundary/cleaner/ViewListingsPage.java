@@ -25,27 +25,23 @@ public class ViewListingsPage {
     public String viewListings(Model model,
                                 HttpSession session,
                                 @RequestParam(value = "success", required = false) String success) {
-        UserAccount user = SessionHelper.getLoggedInUser(session);
+        UserAccount user = SessionHelper.getLoggedInUser(session); // Displays all listings (active and suspended)
         if (user == null) {
             return "redirect:/login";
         }
-
         model.addAttribute("user", user);
         model.addAttribute("activePage", "viewListings");
 
         String uid = user.getUid();
         List<Listing> listings = controller.getListings(uid);
-
         if (listings.isEmpty()) {
             model.addAttribute("message", "No active listings. Please create one!");
         } else {
             model.addAttribute("listings", listings);
         }
-
         if (success != null) {
             model.addAttribute("success", "Listing created successfully.");
         }
-
         return "cleaner/viewListings";
     }
 
@@ -61,7 +57,6 @@ public class ViewListingsPage {
             model.addAttribute("error", "Listing not found.");
             return "redirect:/cleaner/viewListings";
         }
-
         model.addAttribute("user", user);
         model.addAttribute("activePage", "viewListings");
         model.addAttribute("listing", listing);

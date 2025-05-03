@@ -16,6 +16,7 @@ public class Listing {
     private String description;
     private double price;
     private String cleanerUid;
+    private String status = "active";
 
     // Getters and Setters
     public int getId() {return id;  }
@@ -23,12 +24,14 @@ public class Listing {
     public String getDescription() {return description;}
     public double getPrice() {return price;}
     public String getCleanerUid() {return cleanerUid;}
+    public String getStatus() {return status;}
 
     public void setId(int id) {this.id = id;}
     public void setTitle(String title) {this.title = title;}
     public void setDescription(String description) {this.description = description;}
     public void setPrice(double price) {this.price = price;}
     public void setCleanerUid(String cleanerUid) {this.cleanerUid = cleanerUid;}
+    public void setStatus(String status) {this.status= status;}
 
     // Constructors
     public Listing() {}
@@ -37,6 +40,7 @@ public class Listing {
         this.title = title;
         this.description = description;
         this.price = price;
+        status = "active";
     }
 
     // Save Listing to DB
@@ -58,26 +62,66 @@ public class Listing {
 
     public static List<Listing> fetchListings(String uid) {
         List<Listing> listings = new ArrayList<>();
-
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
-            String sql = "SELECT id, title, description, price FROM listings WHERE cleaner_uid = ?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
+    
+        String sql = """
+            SELECT id, title, description, price, cleaner_uid, status 
+              FROM listings 
+             WHERE cleaner_uid = ? 
+               AND status <> 'suspended'
+        """;
+    
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+    
             stmt.setString(1, uid);
-
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Listing listing = new Listing();
-                listing.setId(rs.getInt("id"));
-                listing.setTitle(rs.getString("title"));
-                listing.setDescription(rs.getString("description"));
-                listing.setPrice(rs.getDouble("price"));
-                listings.add(listing);
+                Listing l = new Listing();
+                l.setId(rs.getInt("id"));
+                l.setTitle(rs.getString("title"));
+                l.setDescription(rs.getString("description"));
+                l.setPrice(rs.getDouble("price"));
+                l.setCleanerUid(rs.getString("cleaner_uid"));
+                l.setStatus(rs.getString("status"));
+                listings.add(l);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+    
         return listings;
+    }
+
+    public static List<Listing> fetchSuspendedListings(String uid) {
+        List<Listing> suspendedListings = new ArrayList<>();
+    
+        String sql = """
+            SELECT id, title, description, price, cleaner_uid, status
+              FROM listings
+             WHERE cleaner_uid = ?
+               AND status = 'suspended'
+        """;
+    
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+    
+            stmt.setString(1, uid);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Listing l = new Listing();
+                l.setId(rs.getInt("id"));
+                l.setTitle(rs.getString("title"));
+                l.setDescription(rs.getString("description"));
+                l.setPrice(rs.getDouble("price"));
+                l.setCleanerUid(rs.getString("cleaner_uid"));
+                l.setStatus(rs.getString("status"));
+                suspendedListings.add(l);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    
+        return suspendedListings;
     }
 
     public static Listing getListingById(int id) {
@@ -125,6 +169,7 @@ public class Listing {
             return false;
         }
     }
+
     // homeowner functions
     public static List<Map<String, String>> searchWithKeyword(String searchQuery) {
         List<Map<String, String>> results = new ArrayList<>();

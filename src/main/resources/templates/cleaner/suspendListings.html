@@ -15,7 +15,7 @@
     <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
     <div class="main-content">
-        <h1 class="view-account-header">My Listings</h1>
+        <h1 class="view-account-header">Suspend Listings</h1>
 
         <div class="user-list-box">
             <div th:if="${listings}">
@@ -27,10 +27,6 @@
                         <span th:text="'$' + ${listing.price}"></span>
                     </div>
                 </a>
-            </div>
-            <div th:if="${#lists.isEmpty(listings)}">
-                <p>No listings found. Please create one!</p>
-            </div>
         </div>
         <h1 class="view-account-header">Suspended Listings</h1>
         <div class="suspended-listings-box"></div>
@@ -45,6 +41,7 @@
                 </a>
             </div>
             <div th:if="${#lists.isEmpty(listings)}">
+                <p>There are no suspended listings</p>
             </div>
         </div>
 </div>
