@@ -1,6 +1,7 @@
 package com.i7.boundary.homeowner;
 
 import com.i7.controller.homeowner.HOViewListingController;
+import com.i7.controller.homeowner.ShortlistController;
 import com.i7.entity.UserAccount;
 import com.i7.utility.SessionHelper;
 
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Map;
 
@@ -18,6 +20,8 @@ import java.util.Map;
 public class HOViewListingsPage {
     @Autowired
     private HOViewListingController controller;
+    @Autowired
+    private ShortlistController shortlistController;
 
     @GetMapping("/viewListing")
     public String viewListing(@RequestParam("listingId") int listingId, Model model, HttpSession session) {
@@ -37,4 +41,27 @@ public class HOViewListingsPage {
         model.addAttribute("listing", listing);
         return "homeowner/HOViewListing";
     }
+
+    @PostMapping("/viewListing/shortlist")
+    public String shortlistCleaner(@RequestParam("listingId") int listingId,
+                                    @RequestParam("cleanerId") String cleanerId,
+                                    @RequestParam("from") String from,
+                                    HttpSession session,
+                                    RedirectAttributes redirectAttributes) {
+        UserAccount user = SessionHelper.getLoggedInUser(session);
+        if (user == null || !user.getProfileCode().equals("P003")) {
+            return "redirect:/login";
+        }
+
+        boolean success = shortlistController.addCleanerToShortlist(user.getUid(), cleanerId);
+        if (success) {
+            redirectAttributes.addFlashAttribute("message", "Cleaner successfully bookmarked.");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "This cleaner is already bookmarked.");
+        }
+
+        return "redirect:/homeowner/viewListing?listingId=" + listingId + "&from=" + from;
+
+    }
+
 }

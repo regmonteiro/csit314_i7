@@ -8,14 +8,16 @@
 </head>
 <body>
 
-<!-- Navbar + Sidebar -->
-<div th:insert="fragments/navbar :: navbar"></div>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
 <div class="container">
     <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
     <div class="main-content">
         <h1>Listing Details</h1>
+
+        <div th:if="${message}" class="alert success" th:text="${message}"></div>
+        <div th:if="${error}" class="alert error" th:text="${error}"></div>        
 
         <div class="user-list-box">
             <div class="user-entry-box" style="background-color: transparent; transform: none; box-shadow: none; cursor: default;">
@@ -36,6 +38,13 @@
                     <div><strong>Name:</strong> <span th:text="${listing.cleanerName}">Cleaner Name</span></div>
                     <div><strong>Email:</strong> <span th:text="${listing.email}">cleaner@email.com</span></div>
                 </div>
+      
+                <form th:action="@{/homeowner/viewListing/shortlist}" method="post" style="margin-top: 20px;">
+                    <input type="hidden" name="listingId" th:value="${listing['id']}">
+                    <input type="hidden" name="cleanerId" th:value="${listing['cleanerUid']}">
+                    <input type="hidden" name="from" th:value="${activePage}">
+                    <button type="submit" class="btn">Save to Shortlist</button>
+                </form>                
 
                 <div style="margin-top: 20px;">
                     <a href="/homeowner/searchListings" style="text-decoration: none; color: #6a0dad;">← Back to Search</a>

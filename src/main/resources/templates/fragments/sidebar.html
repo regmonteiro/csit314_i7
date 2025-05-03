@@ -1,6 +1,9 @@
 <div th:fragment="sidebar">
     <div class="sidebar">
         <h2>Menu</h2>
+        <p th:if="${user == null}">User is null</p>
+<p th:if="${user != null}" th:text="'User Profile Code: ' + ${user.profileCode}"></p>
+
         <div th:if="${user != null}">
             <!-- Cleaner Links -->
             <div th:if="${user.profileCode == 'P002'}">
@@ -8,6 +11,7 @@
                 <a href="/cleaner/createListing" th:classappend="${activePage == 'createListing'} ? 'active'">Create Listing</a>
                 <a href="/cleaner/viewListings" th:classappend="${activePage == 'viewListings'} ? 'active'">Manage Listings</a>
                 <a th:href="@{/cleaner/suspendListings}" th:classappend="${activePage == 'suspendListings'} ? ' active'">Suspend Listings</a>
+            </div>
 
             <!-- Admin Links -->
             <div th:if="${user.profileCode == 'P001'}">
