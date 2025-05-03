@@ -66,42 +66,40 @@ body {
 }
 
 /* Form and Inputs */
-form {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background-color: #f0f0f0;
-    padding: 5px;
-    border-radius: 25px;
+.search-form, .form-box {
+    width: 100%;
     max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
 }
-
-form input[type="text"] {
-    flex-grow: 1;
-    padding: 15px 20px;
-    border: none;
+.search-form input[type="text"],
+.form-box input[type="text"] {
+    padding: 15px;
     border-radius: 25px;
+    border: none;
+    background-color: #f0f0f0;
     font-size: 16px;
-    background-color: transparent;
     outline: none;
 }
-
-form button.button {
-    padding: 10px 20px;
-    font-size: 14px;
-    background: white;
-    color: purple;
-    border: 2px solid purple;
+input::placeholder {
+    color: #999;
+}
+.search-form button, .form-box button {
+    padding: 15px;
     border-radius: 25px;
+    border: 2px solid #6a11cb;
+    background-color: white;
+    color: #6a11cb;
     font-weight: bold;
-    transition: all 0.3s ease;
-}
-
-form button.button:hover {
-    background-color: #f3e8ff;
+    font-size: 16px;
     cursor: pointer;
+    transition: 0.3s;
 }
-
+.search-form button:hover, .form-box button:hover {
+    background-color: #f3e8ff;
+}
 
 /* User List and Cards */
 .user-list-box {
