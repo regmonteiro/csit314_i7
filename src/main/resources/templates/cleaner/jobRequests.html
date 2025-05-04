@@ -19,7 +19,7 @@
             </div>
 
             <div th:if="${!jobMatches.isEmpty()}">
-                <div th:each="job : ${jobMatches}" class="user-entry-box">
+                <div th:each="job : ${jobMatches}" class="job-listings">
                     <span><strong>Service Date:</strong> <span th:text="${job.serviceDate}"></span></span><br/>
                     <span><strong>Homeowner:</strong> <span th:text="${job.homeownerName}"></span></span><br/>
                     <span><strong>Listing:</strong> <span th:text="${job.listingTitle}"></span></span><br/>
