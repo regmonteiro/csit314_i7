@@ -19,18 +19,18 @@
             </div>
 
             <div th:if="${!jobMatches.isEmpty()}">
-                <div th:each="job : ${jobMatches}" class="user-entry-box" style="background-color: transparent; transform: none; box-shadow: none; cursor: default;">
+                <div th:each="job : ${jobMatches}" class="user-entry-box" style="transform: none; box-shadow: none; cursor: default;">
                     <span><strong>Service Date:</strong> <span th:text="${job.serviceDate}"></span></span><br/>
                     <span><strong>Cleaner:</strong> <span th:text="${job.cleanerName}"></span></span><br/>
                     <span><strong>Listing:</strong> <span th:text="${job.listingTitle}"></span></span><br/>
                     <span><strong>Status:</strong> <span th:text="${job.status}"></span></span><br/>
-                    <a th:href="@{'/homeowner/jobDetails'(matchId=${job.id})}" class="button" style="margin-top: 10px;">View Details</a>
+                    <a th:href="@{'/homeowner/jobDetails'(matchId=${job.id})}" class="button">View Details</a>
 
                     <!-- Show mark complete button only if cleaner already confirmed -->
                     <div th:if="${job.status == 'confirmed' and !job.homeownerCompleted}">
                         <form th:action="@{/homeowner/completeJob}" method="post" style="display:inline;">
                             <input type="hidden" name="matchId" th:value="${job.id}" />
-                            <button type="submit" class="button" style="margin-left:10px;">Mark as Completed</button>
+                            <button type="submit" class="button">Mark as Completed</button>
                         </form>
                     </div>
 
