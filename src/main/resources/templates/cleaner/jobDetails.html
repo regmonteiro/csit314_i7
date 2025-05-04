@@ -42,7 +42,7 @@
                 <div th:if="${job.status == 'pending'}"> <!-- Corrected variable name here too -->
                     <form th:action="@{/cleaner/confirmJob}" method="post">
                         <input type="hidden" name="matchId" th:value="${job.id}">
-                        <button type="submit" class="btn">Confirm Job</button>
+                        <button type="submit" class="button">Confirm Job</button>
                     </form>
                 </div>
 
@@ -50,7 +50,7 @@
                 <div th:if="${job.status == 'confirmed' and job.cleanerCompleted == 'false'}" style="margin-top: 20px;">
                     <form th:action="@{/cleaner/completeJob}" method="post">
                         <input type="hidden" name="matchId" th:value="${job.id}" />
-                        <button type="submit" class="btn">Mark as Completed</button>
+                        <button type="submit" class="button">Mark as Completed</button>
                     </form>
                 </div>
 
@@ -59,9 +59,10 @@
                     <p style="color: green;">You have already marked this job as completed.</p>
                 </div>
 
-
-                <div style="margin-top: 20px;">
-                    <a href="/cleaner/jobRequests" style="text-decoration: none; color: #6a0dad;">← Back to Job Requests</a>
+                <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
+                    <a href="/cleaner/jobRequests" style="text-decoration: none; color: #6a0dad;">
+                        ← Back to Job Requests
+                    </a>
                 </div>
             </div>
         </div>
