@@ -40,7 +40,6 @@ body {
     font-size: 1.1rem;
 }
 
-/* Header (optional utility) */
 .header {
     width: 100%;
     display: flex;
@@ -92,6 +91,19 @@ body {
 }
 
 /* Forms and Inputs */
+.form-box {
+    width: 100%;
+    max-width: 600px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+}
+
+.form-box button {
+    align-self: flex-end;
+    width: 150px;
+}
+
 .search-form {
     display: flex;
     flex-direction: row;
@@ -100,7 +112,7 @@ body {
     width: 100%;
     max-width: 600px;
 }
-.search-form input[type="text"], .user-entry-box input[type="date"] {
+input[type="text"], input[type="date"] {
     flex-grow: 1;
     padding: 15px 20px;
     border-radius: 25px;
