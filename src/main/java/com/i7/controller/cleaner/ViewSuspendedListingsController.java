@@ -31,5 +31,5 @@ public class ViewSuspendedListingsController {
         model.addAttribute("activePage", "suspendListings");
         model.addAttribute("user", user);
     return "cleaner/suspendListings";  // maps to src/main/resources/templates/cleaner/suspendListings.html
-}
+    }
 }

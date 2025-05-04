@@ -61,7 +61,7 @@ public class Listing {
     // Save Listing to DB
     public boolean createListing() {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO listings (id, title, description, price, cleaner_uid) VALUES (?, ?, ?, ?)");
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO listings (id, title, description, price, cleaner_uid) VALUES (?, ?, ?, ?,?)");
             stmt.setString(1, generateUniqueListingId(conn));
             stmt.setString(2, title);
             stmt.setString(3, description);
@@ -79,10 +79,10 @@ public class Listing {
         List<Listing> listings = new ArrayList<>();
     
         String sql = """
-            SELECT id, title, description, price, cleaner_uid, status 
+            SELECT id, title, description, price, cleaner_uid, status_code
               FROM listings 
              WHERE cleaner_uid = ? 
-               AND status <> 'suspended'
+               AND status_code <> 'suspended'
         """;
     
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
@@ -139,11 +139,11 @@ public class Listing {
         return suspendedListings;
     }
 
-    public static Listing getListingById(String id) {
+    public static Listing getListingById(String id2) {
         Listing listing = null;
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM listings WHERE id = ?");
-            stmt.setString(1, id);
+            stmt.setString(1, id2);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -182,6 +182,7 @@ public class Listing {
             return false;
         }
     }
+    // May need to put suspendListing here
 
     // homeowner functions
     public static List<Map<String, String>> searchWithKeyword(String searchQuery) {

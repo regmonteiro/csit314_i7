@@ -18,8 +18,8 @@
         <h1 class="view-account-header">My Listings</h1>
 
         <div class="user-list-box">
-            <div th:if="${listings}">
-                <a th:each="listing : ${listings}" 
+            <div th:if="${!#lists.isEmpty(listings)}">
+                <a th:each="listing : {listings}"
                    th:href="@{'/cleaner/viewListing'(id=${listing.id})}" 
                    class="user-link">
                     <div class="user-entry-box">

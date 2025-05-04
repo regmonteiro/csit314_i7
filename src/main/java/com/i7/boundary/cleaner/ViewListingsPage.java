@@ -34,11 +34,10 @@ public class ViewListingsPage {
 
         String uid = user.getUid();
         List<Listing> listings = controller.getListings(uid);
+        model.addAttribute("listings", listings);
         if (listings.isEmpty()) {
             model.addAttribute("message", "No active listings. Please create one!");
-        } else {
-            model.addAttribute("listings", listings);
-        }
+        } 
         if (success != null) {
             model.addAttribute("success", "Listing created successfully.");
         }
