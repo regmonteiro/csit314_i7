@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Job History</title>
-    <link rel="stylesheet" href="/css/LoginSignUpPage.css">
+    <link rel="stylesheet" href="/css/cleaner.css">
     <link rel="stylesheet" href="/css/navbar.css">
     <link rel="stylesheet" href="/css/sidebar.css">
     <link rel="stylesheet" href="/css/spinner.css">
@@ -21,6 +21,7 @@
         <form method="get" th:action="@{/cleaner/jobHistory/search}" class="search-form">
             <input type="text" name="keyword" placeholder="Search by homeowner or date..." required>
             <button type="submit">Search</button>
+            <div th:replace="~{fragments/loader :: searchLoader('inline')}"></div>
         </form>
 
         <div class="user-list-box" style="margin-top: 20px;">
