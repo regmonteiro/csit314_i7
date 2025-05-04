@@ -25,6 +25,7 @@
             <p><strong>Title:</strong> <span th:text="${listing.title}"></span></p>
             <p><strong>Description:</strong> <span th:text="${listing.description}"></span></p>
             <p><strong>Price:</strong> $<span th:text="${listing.price}"></span></p>
+            <p><strong>Views:</strong> <span th:text="${listing.views}">0</span></p>
             <a th:href="@{/cleaner/updateListing(id=${listing.id})}" …>Update Listing Details</a>
         </div>
 

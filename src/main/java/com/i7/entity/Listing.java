@@ -11,6 +11,7 @@ public class Listing {
     private static final String DB_USER = "i7db_admin";
     private static final String DB_PASS = "%qYyR92!N6E2";
 
+    private int views;
     private int id;
     private String title;
     private String description;
@@ -25,6 +26,7 @@ public class Listing {
     public double getPrice() {return price;}
     public String getCleanerUid() {return cleanerUid;}
     public String getStatus() {return status;}
+    public int getViews() {return views;}
 
     public void setId(int id) {this.id = id;}
     public void setTitle(String title) {this.title = title;}
@@ -32,7 +34,7 @@ public class Listing {
     public void setPrice(double price) {this.price = price;}
     public void setCleanerUid(String cleanerUid) {this.cleanerUid = cleanerUid;}
     public void setStatus(String status) {this.status= status;}
-
+    public void setViews(int views) {this.views= views;}
     // Constructors
     public Listing() {}
 
@@ -182,7 +184,17 @@ public class Listing {
             return false;
         }
     }
-    // May need to put suspendListing here
+    public static boolean incrementViewCount(int id) {
+        String sql = "UPDATE listings SET views = views + 1 WHERE id = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     // homeowner functions
     public static List<Map<String, String>> searchWithKeyword(String searchQuery) {
