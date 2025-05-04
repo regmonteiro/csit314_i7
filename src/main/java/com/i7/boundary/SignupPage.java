@@ -22,10 +22,10 @@ public class SignupPage {
     @GetMapping
     public String showSignupForm(Model model) {
         List<UserProfile> allProfiles = accountCreateController.getAllProfiles();
-        List<String> allowedCodes = accountCreateController.getAllowedSignupProfiles();
+        List<String> allowedCodes = List.of("P002", "P003");
 
         List<UserProfile> filteredProfiles = allProfiles.stream()
-            .filter(p -> allowedCodes.contains(p.getCode().toLowerCase()))
+            .filter(p -> allowedCodes.contains(p.getCode()))
             .collect(Collectors.toList());
 
         model.addAttribute("profiles", filteredProfiles);

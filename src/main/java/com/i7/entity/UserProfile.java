@@ -37,10 +37,6 @@ public class UserProfile {
     public void setDescription(String description) { this.description = description;}
     public void setStatus(String status_code) {this.status_code = status_code;}
 
-    public static List<String> getAllowedProfilesForSignup() {
-        return List.of("homeowner", "cleaner");
-    }
-
     public static UserProfile findByCode(String code) {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM user_profiles WHERE code = ?");
