@@ -100,8 +100,8 @@ body {
 }
 
 .form-box button {
-    align-self: flex-end;
     width: 150px;
+    margin: 0 auto;
 }
 
 .search-form {
