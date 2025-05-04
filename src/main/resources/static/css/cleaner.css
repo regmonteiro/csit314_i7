@@ -1,5 +1,4 @@
 /* global styles for cleaner */
-
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
@@ -41,7 +40,7 @@ body {
     font-size: 1.1rem;
 }
 
-/* Header (e.g. Back Button Header) */
+/* Header (optional utility) */
 .header {
     width: 100%;
     display: flex;
@@ -69,7 +68,6 @@ body {
 
 /* Buttons */
 .button {
-    width: 100%;
     padding: 15px;
     border: none;
     border-radius: 25px;
@@ -82,63 +80,51 @@ body {
     text-decoration: none;
     margin-top: 15px;
 }
-
 .button:hover {
     opacity: 0.9;
     transform: scale(1.05);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
-
 .button.secondary-button {
     background: transparent;
     border: 2px solid #6a11cb;
     color: #6a11cb;
 }
 
-form .button {
-    width: 150px;
-    align-self: flex-end;
-    justify-self: center;
-}
-/* ================= CREATE LISTING STYLES ================== */
-
-/* Form Layout */
-.form-box {
+/* Forms and Inputs */
+.search-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
     width: 100%;
     max-width: 600px;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 25px;
 }
-
-.form-box button {
-    align-self: flex-end;
-    width: 150px;
-}
-
-input[type="text"] {
-    width: 100%;
-    padding: 15px;
-    border: none;
+.search-form input[type="text"], .user-entry-box input[type="date"] {
+    flex-grow: 1;
+    padding: 15px 20px;
     border-radius: 25px;
+    border: none;
     background-color: #f0f0f0;
     font-size: 16px;
     outline: none;
 }
-
-input[type="text"]::placeholder {
-    color: #999;
+.search-form button {
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: white;
+    color: #6a11cb;
+    border: 2px solid #6a11cb;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.search-form button:hover {
+    background-color: #f3e8ff;
+    cursor: pointer;
 }
 
-/* Success + Error messages */
-p[style*="color:green"],
-p[style*="color:red"] {
-    margin-top: 20px;
-    font-size: 16px;
-    text-align: center;
-}
-
-/* ================= VIEW LISTING STYLES ================== */
+/* Listing Styles */
 .user-list-box {
     width: 100%;
     max-width: 600px;
@@ -164,11 +150,12 @@ p[style*="color:red"] {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
+/* Details Box */
 .details-box {
     width: 100%;
     max-width: 600px;
     text-align: left;
-    background-color: #f9f9f9; 
+    background-color: #f9f9f9;
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
@@ -178,4 +165,27 @@ p[style*="color:red"] {
 }
 .details-box p {
     margin-bottom: 15px;
+}
+
+/* Success & Error Messages */
+.success-message,
+.error-message {
+    text-align: center;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 600px;
+}
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+}
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+.success-message:empty,
+.error-message:empty {
+    display: none;
 }
