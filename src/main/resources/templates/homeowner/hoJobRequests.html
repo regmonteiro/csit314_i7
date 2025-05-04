@@ -24,7 +24,8 @@
                     <span><strong>Cleaner:</strong> <span th:text="${job.cleanerName}"></span></span><br/>
                     <span><strong>Listing:</strong> <span th:text="${job.listingTitle}"></span></span><br/>
                     <span><strong>Status:</strong> <span th:text="${job.status}"></span></span><br/>
-                    <a th:href="@{'/homeowner/jobDetails'(matchId=${job.id})}" class="button" style="margin-top: 20px;">View Details</a>
+                    <br/>
+                    <a th:href="@{'/homeowner/jobDetails'(matchId=${job.id})}" class="button">View Details</a>
 
                     <!-- Show mark complete button only if cleaner already confirmed -->
                     <div th:if="${job.status == 'confirmed' and !job.homeownerCompleted}">
