@@ -15,9 +15,9 @@ public class UpdateListingController {
   public List<Listing> getListings(String uid) {
         return Listing.fetchListings(uid);
   }
-  public Listing getListingById(int lid) { //might be STRING
-    return Listing.getListingById(lid);
-  }
-    
-
+  
+public Listing getListingById(String id2) {
+    int id = Integer.parseInt(id2);
+    return Listing.getListingById(id);
+}
 }

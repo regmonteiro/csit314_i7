@@ -25,8 +25,11 @@
             <p><strong>Title:</strong> <span th:text="${listing.title}"></span></p>
             <p><strong>Description:</strong> <span th:text="${listing.description}"></span></p>
             <p><strong>Price:</strong> $<span th:text="${listing.price}"></span></p>
+            <p><strong>Status:</strong> <span th:text="${listing.status}"></span></p>
             <p><strong>Views:</strong> <span th:text="${listing.views}">0</span></p>
-            <a th:href="@{/cleaner/updateListing(id=${listing.id})}" …>Update Listing Details</a>
+            <br/>
+            <a th:href="@{/cleaner/updateListing(id=${listing.id})}" class="button">Update Listing Details</a>
+            <a th:href="@{cleaner/suspendListing(id=${listing.id})}"class="button">Suspend Listing</a>
         </div>
 
     </div>
