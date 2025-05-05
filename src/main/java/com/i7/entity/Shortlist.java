@@ -33,6 +33,38 @@ public class Shortlist {
         }
     }
 
+    public static List<Map<String, String>> fetchAllShortlistedListings(String uid) {
+        List<Map<String, String>> results = new ArrayList<>();
+    
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
+            PreparedStatement stmt = conn.prepareStatement(
+                "SELECT l.id, l.title, l.description, l.price, ua.first_name, ua.last_name, ua.email " +
+                "FROM shortlist s " +
+                "JOIN listings l ON s.listing_id = l.id " +
+                "JOIN user_accounts ua ON l.cleaner_uid = ua.uid " +
+                "WHERE s.uid = ?"
+            );
+            stmt.setString(1, uid);
+            ResultSet rs = stmt.executeQuery();
+    
+            while (rs.next()) {
+                Map<String, String> record = new HashMap<>();
+                record.put("id", rs.getString("id"));
+                record.put("title", rs.getString("title"));
+                record.put("description", rs.getString("description"));
+                record.put("price", rs.getString("price"));
+                record.put("cleanerName", rs.getString("first_name") + " " + rs.getString("last_name"));
+                record.put("email", rs.getString("email"));
+                results.add(record);
+            }
+    
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    
+        return results;
+    }    
+
     public static List<Map<String, String>> searchShortlist(String uid, String keyword) {
         List<Map<String, String>> results = new ArrayList<>();
 

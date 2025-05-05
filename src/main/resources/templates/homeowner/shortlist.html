@@ -14,22 +14,22 @@
     <div class="main-content">
         <h1>My Bookmarks</h1>
 
-        <form method="post" th:action="@{/homeowner/searchShortlist}">
-            <input type="text" name="keyword" placeholder="Search by title or cleaner name" th:value="${keyword}">
-            <button type="submit">Search</button>
-        </form>
+        <form method="post" th:action="@{/homeowner/searchShortlist}" style="margin-bottom: 20px; display: flex; justify-content: center; gap: 10px;">
+            <input type="text" name="keyword" placeholder="Search by title or cleaner name..." th:value="${keyword}" class="search-bar">
+            <button type="submit" class="button">Search</button>
+        </form>        
 
         <div th:if="${error}" class="alert error" th:text="${error}"></div>
 
         <div th:if="${results != null}">
-            <div th:each="listing : ${results}" class="shortlist-card">
-                <div class="shortlist-box">
+            <div th:each="listing : ${results}" class="bookmark-card">
+                <div class="bookmark-details">
                     <p><strong>Title:</strong> <span th:text="${listing.title}"></span></p>
                     <p><strong>Cleaner:</strong> <span th:text="${listing.cleanerName}"></span></p>
                     <p><strong>Email:</strong> <span th:text="${listing.email}"></span></p>
-                    <a th:href="@{'/homeowner/bookmarkDetails'(listingId=${listing.id})}" class="view-button">View Details</a>
                 </div>
-            </div>
+                <a th:href="@{'/homeowner/bookmarkDetails'(listingId=${listing.id})}" class="view-button">View Details</a>
+            </div>            
         </div>
         
     </div>

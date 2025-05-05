@@ -12,8 +12,4 @@ public class ShortlistSearchController {
     public List<Map<String, String>> searchShortlist(String uid, String keyword) {
         return Shortlist.searchShortlist(uid, keyword);
     }
-
-    public Map<String, String> getListingDetails(String listingId) {
-        return Shortlist.getListingWithCleanerDetails(listingId);
-    }
 }
