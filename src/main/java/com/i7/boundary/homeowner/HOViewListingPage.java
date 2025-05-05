@@ -18,7 +18,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/homeowner")
-public class HOViewListingsPage {
+public class HOViewListingPage {
     @Autowired
     private HOViewListingController hoViewListingController;
     @Autowired
