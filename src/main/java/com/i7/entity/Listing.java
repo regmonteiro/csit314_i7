@@ -79,13 +79,11 @@ public class Listing {
 
     public static List<Listing> fetchListings(String uid) {
         List<Listing> listings = new ArrayList<>();
-<<<<<<< Updated upstream
-    
         String sql = """
             SELECT id, title, description, price, cleaner_uid, status_code
-              FROM listings 
-             WHERE cleaner_uid = ? 
-               AND status_code <> 'suspended'
+            FROM listings 
+            WHERE cleaner_uid = ? 
+            AND status_code <> 'suspended'
         """;
     
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
@@ -103,28 +101,6 @@ public class Listing {
                 l.setStatus(rs.getString("status"));
                 listings.add(l);
             }
-=======
-
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)){PreparedStatement stmt = conn.prepareStatement(
-            "SELECT id, title, description, price, cleaner_uid, status_code " +
-            "FROM listings "+
-            "WHERE status_code <> 'suspended' "+
-            "AND cleaner_uid =? "
-        );
-        stmt.setString(1, uid);
-        ResultSet rs = stmt.executeQuery();
-        while (rs.next()) {
-            Listing l = new Listing();
-            l.setId(rs.getInt("id"));
-            l.setTitle(rs.getString("title"));
-            l.setDescription(rs.getString("description"));
-            l.setPrice(rs.getDouble("price"));
-            l.setCleanerUid(rs.getString("cleaner_uid"));
-            l.setStatus(rs.getString("status_code"));
-            listings.add(l);
-        }
-
->>>>>>> Stashed changes
         } catch (SQLException e) {
             e.printStackTrace();
         }
