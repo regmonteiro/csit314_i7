@@ -83,7 +83,7 @@ public class JobMatch {
     
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
             PreparedStatement stmt = conn.prepareStatement(
-                "SELECT jm.id, jm.service_date, jm.status, " +
+                "SELECT jm.id, jm.service_date, jm.status, jm.cleaner_marked_complete, " + // ✅ added field
                 "ua.first_name AS homeowner_name, ua.last_name AS homeowner_last_name, ua.email AS homeowner_email, l.title AS listing_title " +
                 "FROM job_matches jm " +
                 "JOIN user_accounts ua ON jm.homeowner_uid = ua.uid " +
@@ -101,6 +101,7 @@ public class JobMatch {
                 record.put("homeownerName", rs.getString("homeowner_name") + " " + rs.getString("homeowner_last_name"));
                 record.put("homeownerEmail", rs.getString("homeowner_email"));
                 record.put("listingTitle", rs.getString("listing_title"));
+                record.put("cleanerCompleted", String.valueOf(rs.getBoolean("cleaner_marked_complete"))); // ✅ added
                 matches.add(record);
             }
         } catch (SQLException e) {
@@ -108,7 +109,7 @@ public class JobMatch {
         }
     
         return matches;
-    }
+    }    
     
     public static List<Map<String, String>> fetchCompletedJobs(String cleanerUid) {
         List<Map<String, String>> completedJobs = new ArrayList<>();

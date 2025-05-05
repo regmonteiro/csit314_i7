@@ -12,7 +12,7 @@ public class Listing {
     private static final String DB_PASS = "%qYyR92!N6E2";
 
     private int views;
-    private int id;
+    private String id;
     private String title;
     private String description;
     private double price;
@@ -20,7 +20,7 @@ public class Listing {
     private String status = "active";
 
     // Getters and Setters
-    public int getId() {return id;  }
+    public String getId() {return id;  }
     public String getTitle() {return title;}
     public String getDescription() {return description;}
     public double getPrice() {return price;}
@@ -28,7 +28,7 @@ public class Listing {
     public String getStatus() {return status;}
     public int getViews() {return views;}
 
-    public void setId(int id) {this.id = id;}
+    public void setId(String id) {this.id = id;}
     public void setTitle(String title) {this.title = title;}
     public void setDescription(String description) {this.description = description;}
     public void setPrice(double price) {this.price = price;}
@@ -94,7 +94,7 @@ public class Listing {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Listing l = new Listing();
-                l.setId(rs.getInt("id"));
+                l.setId(rs.getString("id"));
                 l.setTitle(rs.getString("title"));
                 l.setDescription(rs.getString("description"));
                 l.setPrice(rs.getDouble("price"));
@@ -126,7 +126,7 @@ public class Listing {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Listing l = new Listing();
-                l.setId(rs.getInt("id"));
+                l.setId(rs.getString("id"));
                 l.setTitle(rs.getString("title"));
                 l.setDescription(rs.getString("description"));
                 l.setPrice(rs.getDouble("price"));
@@ -150,7 +150,7 @@ public class Listing {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 listing = new Listing();
-                listing.setId(rs.getInt("id"));
+                listing.setId(rs.getString("id"));
                 listing.setTitle(rs.getString("title"));
                 listing.setDescription(rs.getString("description"));
                 listing.setPrice(rs.getDouble("price"));
@@ -175,7 +175,7 @@ public class Listing {
             stmt.setString(2, listing.getDescription());
             stmt.setDouble(3, listing.getPrice());
             stmt.setString(4, listing.getCleanerUid());
-            stmt.setInt(5, listing.getId());
+            stmt.setString(5, listing.getId());
             
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
@@ -212,7 +212,7 @@ public class Listing {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Map<String, String> record = new HashMap<>();
-                record.put("id", String.valueOf(rs.getInt("id")));
+                record.put("id", String.valueOf(rs.getString("id")));
                 record.put("title", rs.getString("title"));
                 record.put("price", rs.getString("price"));
                 record.put("cleanerName", rs.getString("first_name") + " " + rs.getString("last_name"));
@@ -241,7 +241,7 @@ public class Listing {
     
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                record.put("id", String.valueOf(rs.getInt("id")));
+                record.put("id", String.valueOf(rs.getString("id")));
                 record.put("title", rs.getString("title") != null ? rs.getString("title") : "");
                 record.put("description", rs.getString("description") != null ? rs.getString("description") : "");
                 record.put("price", rs.getString("price") != null ? rs.getString("price") : "");

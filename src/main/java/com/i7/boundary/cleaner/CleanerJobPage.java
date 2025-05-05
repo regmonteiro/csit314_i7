@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Map;
@@ -72,40 +73,39 @@ public class CleanerJobPage {
     }
 
     @PostMapping("/confirmJob")
-    public String confirmJob(@RequestParam("matchId") String matchId, HttpSession session, Model model) {
+    public String confirmJob(@RequestParam("matchId") String matchId, HttpSession session, RedirectAttributes redirectAttributes) {
         UserAccount user = SessionHelper.getLoggedInUser(session);
         if (user == null || !user.getProfileCode().equals("P002")) {
             return "redirect:/login";
         }
 
         boolean success = controller.confirmJob(matchId);
-        model.addAttribute("user", user);
         if (success) {
-            model.addAttribute("message", "Job confirmed successfully.");
+            redirectAttributes.addFlashAttribute("message", "Job confirmed successfully.");
         } else {
-            model.addAttribute("error", "Unable to confirm job.");
+            redirectAttributes.addFlashAttribute("error", "Unable to confirm job.");
         }
 
         return "redirect:/cleaner/jobRequests";
     }
 
     @PostMapping("/completeJob")
-    public String completeJob(@RequestParam("matchId") String matchId, HttpSession session, Model model) {
+    public String completeJob(@RequestParam("matchId") String matchId, HttpSession session, RedirectAttributes redirectAttributes) {
         UserAccount user = SessionHelper.getLoggedInUser(session);
         if (user == null || !user.getProfileCode().equals("P002")) {
             return "redirect:/login";
         }
-
+    
         boolean success = controller.completeJob(matchId, user.getUid());
-        model.addAttribute("user", user);
         if (success) {
-            model.addAttribute("message", "Job marked as completed.");
+            redirectAttributes.addFlashAttribute("message", "Job marked as completed.");
         } else {
-            model.addAttribute("error", "Unable to mark job as completed.");
+            redirectAttributes.addFlashAttribute("error", "Unable to mark job as completed.");
         }
-
+    
         return "redirect:/cleaner/jobRequests";
     }
+    
 
     @GetMapping("/jobHistory")
     public String showCompletedJobs(HttpSession session, Model model) {

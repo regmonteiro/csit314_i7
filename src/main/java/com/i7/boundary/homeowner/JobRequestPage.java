@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Map;
@@ -35,15 +36,17 @@ public class JobRequestPage {
     }
 
     @PostMapping("/completeJob")
-    public String completeJob(@RequestParam("matchId") String matchId, HttpSession session, Model model) {
+    public String completeJob(@RequestParam("matchId") String matchId, HttpSession session, Model model, RedirectAttributes redirectAttributes) {
         UserAccount user = SessionHelper.getLoggedInUser(session);
         if (user == null || !user.getProfileCode().equals("P003")) {
             return "redirect:/login";
         }
 
         boolean success = jobRequestController.markHomeownerCompleted(matchId, user.getUid());
-        if (!success) {
-            model.addAttribute("error", "Unable to mark job as completed.");
+        if (success) {
+            redirectAttributes.addFlashAttribute("message", "Job marked as completed.");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Unable to mark job as completed.");
         }
 
         return "redirect:/homeowner/bookings";

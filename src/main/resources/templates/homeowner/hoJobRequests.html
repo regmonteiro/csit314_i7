@@ -12,10 +12,13 @@
         <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
         <div class="main-content">
-            <h1>My Job Requests</h1>
+            <h1>My Bookings</h1>
+
+            <div th:if="${message}" class="alert success" th:text="${message}"></div>
+            <div th:if="${error}" class="alert error" th:text="${error}"></div>     
 
             <div th:if="${jobMatches.isEmpty()}">
-                <p>No job requests found.</p>
+                <p>No bookings found.</p>
             </div>
 
             <div th:if="${!jobMatches.isEmpty()}">
@@ -26,19 +29,23 @@
                     <span><strong>Status:</strong> <span th:text="${job.status}"></span></span><br/>
                     <a th:href="@{'/homeowner/jobDetails'(matchId=${job.id})}" class="button">View Details</a>
 
-                    <!-- Show mark complete button only if cleaner already confirmed -->
-                    <div th:if="${job.status == 'confirmed' and !job.homeownerCompleted}">
-                        <form th:action="@{/homeowner/completeJob}" method="post" style="display:inline;">
-                            <input type="hidden" name="matchId" th:value="${job.id}" />
-                            <button type="submit" class="button">Mark as Completed</button>
-                        </form>
-                    </div>
+                   <!-- Show mark complete button only if cleaner already confirmed -->
+                    <div th:if="${job.status == 'confirmed'}">
+                        <!-- If homeowner has NOT marked as complete -->
+                        <div th:if="${!job.homeownerCompleted}">
+                            <form th:action="@{/homeowner/completeJob}" method="post" style="display:inline;">
+                                <input type="hidden" name="matchId" th:value="${job.id}" />
+                                <button type="submit" class="button">Mark as Completed</button>
+                            </form>
+                        </div>
 
-                    <!-- Show note if already marked -->
-                    <div th:if="${job.status == 'confirmed' and job.homeownerCompleted}">
-                        <p style="margin-top: 10px;">You have marked this job as completed.</p>
+                        <!-- If homeowner already marked as complete -->
+                        <div th:if="${job.homeownerCompleted}">
+                            <button class="button" style="margin-top: 10px; background: #ccc; cursor: not-allowed;" disabled>
+                                Pending Completion
+                            </button>
+                        </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>

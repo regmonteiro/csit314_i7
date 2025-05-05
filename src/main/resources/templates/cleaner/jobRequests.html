@@ -14,6 +14,9 @@
         <div class="main-content">
             <h1>Pending Jobs</h1>
 
+            <div th:if="${message}" class="alert success" th:text="${message}"></div>
+            <div th:if="${error}" class="alert error" th:text="${error}"></div>            
+
             <div th:if="${jobMatches.isEmpty()}">
                 <p>No pending jobs found.</p>
             </div>
@@ -33,12 +36,23 @@
                         </form>
                     </div>
  
-                    <div th:if="${job.status=='confirmed'}">
-                        <form th:action="@{/cleaner/completeJob}" method="post" style="display:inline;">
-                            <input type="hidden" name="matchId" th:value="${job.id}" />
-                            <button type="submit" class="button" style="margin-left:10px;">Complete</button>
-                        </form>
+                    <div th:if="${job.status == 'confirmed'}">
+                        <!-- If cleaner has NOT marked as complete -->
+                        <div th:if="${job.cleanerCompleted == 'false'}">
+                            <form th:action="@{/cleaner/completeJob}" method="post" style="display:inline;">
+                                <input type="hidden" name="matchId" th:value="${job.id}" />
+                                <button type="submit" class="button" style="margin-left:10px;">Complete</button>
+                            </form>
+                        </div>
+                    
+                        <!-- If cleaner already marked as complete -->
+                        <div th:if="${job.cleanerCompleted == 'true'}">
+                            <button class="button" style="margin-left:10px; background: #ccc; cursor: not-allowed;" disabled>
+                                Pending Completion
+                            </button>
+                        </div>
                     </div>
+                    
                 </div>
             </div>
         </div>
