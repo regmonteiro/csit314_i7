@@ -46,8 +46,7 @@ public class HOViewListingPage {
     }    
 
     @PostMapping("/viewListing/shortlist")
-    public String shortlistCleaner(@RequestParam("listingId") int listingId,
-                                    @RequestParam("cleanerId") String cleanerId,
+    public String shortlistListing(@RequestParam("listingId") String listingId,
                                     @RequestParam("from") String from,
                                     HttpSession session,
                                     RedirectAttributes redirectAttributes) {
@@ -56,16 +55,16 @@ public class HOViewListingPage {
             return "redirect:/login";
         }
 
-        boolean success = shortlistController.addCleanerToShortlist(user.getUid(), cleanerId);
+        boolean success = shortlistController.addListingToShortlist(user.getUid(), listingId);
         if (success) {
-            redirectAttributes.addFlashAttribute("message", "Cleaner successfully bookmarked.");
+            redirectAttributes.addFlashAttribute("message", "Listing successfully bookmarked.");
         } else {
-            redirectAttributes.addFlashAttribute("error", "This cleaner is already bookmarked.");
+            redirectAttributes.addFlashAttribute("error", "This listing is already bookmarked.");
         }
 
         return "redirect:/homeowner/viewListing?listingId=" + listingId + "&from=" + from;
-
     }
+
 
     @PostMapping("/viewListing/requestJob")
     public String requestJob(@RequestParam("listingId") String listingId,

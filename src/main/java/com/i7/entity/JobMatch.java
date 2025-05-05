@@ -20,7 +20,7 @@ public class JobMatch {
                 "ua.first_name, ua.last_name, ua.email, l.title " +
                 "FROM job_matches jm " +
                 "JOIN user_accounts ua ON jm.homeowner_uid = ua.uid " +
-                "JOIN listings l ON jm.listing_id = l.id " +
+                "JOIN listings l ON jm.id = l.id " +
                 "WHERE jm.id = ?"
             );
             stmt.setString(1, matchId);
@@ -54,7 +54,7 @@ public class JobMatch {
                 "ua.first_name AS homeowner_name, ua.last_name AS homeowner_last_name, ua.email AS homeowner_email, l.title AS listing_title " +
                 "FROM job_matches jm " +
                 "JOIN user_accounts ua ON jm.homeowner_uid = ua.uid " +
-                "JOIN listings l ON jm.listing_id = l.id " +
+                "JOIN listings l ON jm.id = l.id " +
                 "WHERE jm.cleaner_uid = ? AND jm.status = 'pending'"
             );
     
@@ -87,7 +87,7 @@ public class JobMatch {
                 "ua.first_name AS homeowner_name, ua.last_name AS homeowner_last_name, ua.email AS homeowner_email, l.title AS listing_title " +
                 "FROM job_matches jm " +
                 "JOIN user_accounts ua ON jm.homeowner_uid = ua.uid " +
-                "JOIN listings l ON jm.listing_id = l.id " +
+                "JOIN listings l ON jm.id = l.id " +
                 "WHERE jm.cleaner_uid = ? AND jm.status = 'confirmed'"
             );
             stmt.setString(1, uid);
@@ -120,7 +120,7 @@ public class JobMatch {
                 "ua.first_name AS homeowner_name, ua.last_name AS homeowner_last_name, ua.email AS homeowner_email, l.title AS listing_title " +
                 "FROM job_matches jm " +
                 "JOIN user_accounts ua ON jm.homeowner_uid = ua.uid " +
-                "JOIN listings l ON jm.listing_id = l.id " +
+                "JOIN listings l ON jm.id = l.id " +
                 "WHERE jm.cleaner_uid = ? AND jm.status = 'complete'"
             );
     
@@ -187,7 +187,7 @@ public class JobMatch {
                 "ua.first_name AS homeowner_name, ua.last_name AS homeowner_last_name, l.title AS listing_title " +
                 "FROM job_matches jm " +
                 "JOIN user_accounts ua ON jm.homeowner_uid = ua.uid " +
-                "JOIN listings l ON jm.listing_id = l.id " +
+                "JOIN listings l ON jm.id = l.id " +
                 "WHERE jm.cleaner_uid = ? AND jm.status = 'complete' AND " +
                 "(ua.first_name LIKE ? OR ua.last_name LIKE ? OR jm.service_date LIKE ? OR l.title LIKE ?)"
             );            
@@ -221,7 +221,7 @@ public class JobMatch {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
             String matchId = generateUniqueMatchId(conn);
             PreparedStatement stmt = conn.prepareStatement(
-                "INSERT INTO job_matches (id, listing_id, homeowner_uid, cleaner_uid, service_date, status) " +
+                "INSERT INTO job_matches (id, id, homeowner_uid, cleaner_uid, service_date, status) " +
                 "VALUES (?, ?, ?, ?, ?, 'pending')"
             );
             stmt.setString(1, matchId);
@@ -246,7 +246,7 @@ public class JobMatch {
                 "ua.first_name AS cleaner_name, ua.last_name AS cleaner_last_name, l.title AS listing_title " +
                 "FROM job_matches jm " +
                 "JOIN user_accounts ua ON jm.cleaner_uid = ua.uid " +
-                "JOIN listings l ON jm.listing_id = l.id " +
+                "JOIN listings l ON jm.id = l.id " +
                 "WHERE jm.homeowner_uid = ?"
             );
     

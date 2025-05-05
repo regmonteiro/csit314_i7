@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Listing Details</title>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
+    <link rel="stylesheet" th:href="@{/css/cleaner.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="container">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <div class="main-content">
+        <h1>Listing Details</h1>
+
+        <p><strong>Title:</strong> <span th:text="${listing.title}"></span></p>
+        <p><strong>Description:</strong> <span th:text="${listing.description}"></span></p>
+        <p><strong>Price:</strong> $<span th:text="${listing.price}"></span></p>
+
+        <h3>Cleaner Information</h3>
+        <p><strong>Name:</strong> <span th:text="${listing.cleanerName}"></span></p>
+        <p><strong>Email:</strong> <span th:text="${listing.email}"></span></p>
+
+        <a href="/homeowner/bookmarks" class="button">Back to Bookmarks</a>
+    </div>
+</div>
+</body>
+</html>

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ShortlistController {
 
-    public boolean addCleanerToShortlist(String uid, String cleanerId) {
-        return Shortlist.saveToShortlist(uid, cleanerId);
+    public boolean addListingToShortlist(String uid, String listingId) {
+        return Shortlist.saveToShortlist(uid, listingId);
     }
 }

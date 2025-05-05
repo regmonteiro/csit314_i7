@@ -40,11 +40,10 @@
                 </div>
       
                 <form th:action="@{/homeowner/viewListing/shortlist}" method="post" style="margin-top: 20px;">
-                    <input type="hidden" name="listingId" th:value="${listing['id']}">
-                    <input type="hidden" name="cleanerId" th:value="${listing['cleanerUid']}">
-                    <input type="hidden" name="from" th:value="${activePage}">
+                    <input type="hidden" name="listingId" th:value="${listing.id}" />
+                    <input type="hidden" name="from" th:value="${activePage}" />
                     <button type="submit" class="button">Save to Shortlist</button>
-                </form>     
+                </form>
                 
                 <form th:action="@{/homeowner/viewListing/requestJob}" method="post" style="margin-top: 20px;">
                     <input type="hidden" name="listingId" th:value="${listing['id']}" />
