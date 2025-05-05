@@ -25,6 +25,10 @@
         </form>
 
         <div class="user-list-box" style="margin-top: 20px;">
+            <div th:if="${results.isEmpty()}">
+                <p class="alert error">No listings match your search.</p>
+            </div>
+
             <div th:if="${results}">
                 <a th:each="listing : ${results}" 
                    th:href="@{'/homeowner/viewListing'(listingId=${listing.id})}" 
