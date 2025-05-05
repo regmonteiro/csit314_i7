@@ -12,5 +12,7 @@ public class ViewListingsController {
     public List<Listing> getListings(String uid) {
         return Listing.fetchListings(uid);
     }
-    
+    public Listing getListingById(int id2){
+        return getListingById(id2);
+    }
 }

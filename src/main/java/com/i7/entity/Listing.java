@@ -106,32 +106,6 @@ public class Listing {
         return listings;
     }
 
-    public static List<Listing> fetchSuspendedListings(String uid) {
-        List<Listing> suspendedListings = new ArrayList<>();
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)){PreparedStatement stmt = conn.prepareStatement(
-            "SELECT id, title, description, price, cleaner_uid, status_code " +
-            "FROM listings "+
-            "WHERE status_code = 'suspended' "+
-            "AND cleaner_uid =? "
-        );
-            stmt.setString(1,uid);  
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                Listing l = new Listing();
-                l.setId(rs.getString("id"));
-                l.setTitle(rs.getString("title"));
-                l.setDescription(rs.getString("description"));
-                l.setPrice(rs.getDouble("price"));
-                l.setCleanerUid(rs.getString("cleaner_uid"));
-                l.setStatus(rs.getString("status_code"));
-                suspendedListings.add(l);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return suspendedListings;
-    }
-
     public static Listing getListingById(int id2) {
         Listing listing = null;
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
