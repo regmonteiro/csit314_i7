@@ -22,17 +22,23 @@
         </form>
         
         <div class="user-list-box">
-            <div th:if="${#lists.isEmpty(listings)}"><p>No listings found. Please create one!</p>
+            <!-- if empty -->
+            <div th:if="${#lists.isEmpty(listings)}">
+                <p>No listings found. Please create one!</p> 
+            </div>
+            <!-- if not empty -->
+            <div th:if="${!#lists.isEmpty(listings)}">
                 <a th:each="listing : ${listings}" 
-                   th:href="@{'/cleaner/viewListing'(id=${listing.id})}" 
-                   class="user-link">
+                th:href="@{'/cleaner/viewListing'(id=${listing.id})}" 
+                class="user-link">
                     <div class="user-entry-box">
                         <span th:text="${listing.title}">Listing Title</span>
                         <span th:text="'$' + ${listing.price}"></span>
                         <p><strong>Views:</strong> <span th:text="${listing.views}">0</span></p>
                     </div>
-                </a>
+                </a>    
             </div>
+
         </div>
         <h1 class="view-account-header">Suspended Listings</h1>
         <div class="suspended-listings-box">
