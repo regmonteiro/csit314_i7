@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>My Listings</title>
     <link rel="stylesheet" href="/css/cleaner.css">
     <link rel="stylesheet" href="/css/navbar.css">
@@ -17,9 +16,14 @@
     <div class="main-content">
         <h1 class="view-account-header">My Listings</h1>
 
+        <form th:action="@{/cleaner/viewListings}" method="get" class="search-form">
+            <input type="text" name="q" th:value="${param.q}" placeholder="Search by title or description…" />
+            <button type="submit">Search</button> 
+        </form>
+        
         <div class="user-list-box">
-            <div th:if="${!#lists.isEmpty(listings)}">
-                <a th:each="listing : ${listings}"
+            <div th:if="${#lists.isEmpty(listings)}"><p>No listings found. Please create one!</p>
+                <a th:each="listing : ${listings}" 
                    th:href="@{'/cleaner/viewListing'(id=${listing.id})}" 
                    class="user-link">
                     <div class="user-entry-box">
@@ -28,9 +32,6 @@
                         <p><strong>Views:</strong> <span th:text="${listing.views}">0</span></p>
                     </div>
                 </a>
-            </div>
-            <div th:if="${#lists.isEmpty(listings)}">
-                <p>No listings found. Please create one!</p>
             </div>
         </div>
         <h1 class="view-account-header">Suspended Listings</h1>

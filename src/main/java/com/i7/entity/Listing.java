@@ -79,6 +79,7 @@ public class Listing {
 
     public static List<Listing> fetchListings(String uid) {
         List<Listing> listings = new ArrayList<>();
+<<<<<<< Updated upstream
     
         String sql = """
             SELECT id, title, description, price, cleaner_uid, status_code
@@ -102,6 +103,28 @@ public class Listing {
                 l.setStatus(rs.getString("status"));
                 listings.add(l);
             }
+=======
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)){PreparedStatement stmt = conn.prepareStatement(
+            "SELECT id, title, description, price, cleaner_uid, status_code " +
+            "FROM listings "+
+            "WHERE status_code <> 'suspended' "+
+            "AND cleaner_uid =? "
+        );
+        stmt.setString(1, uid);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Listing l = new Listing();
+            l.setId(rs.getInt("id"));
+            l.setTitle(rs.getString("title"));
+            l.setDescription(rs.getString("description"));
+            l.setPrice(rs.getDouble("price"));
+            l.setCleanerUid(rs.getString("cleaner_uid"));
+            l.setStatus(rs.getString("status_code"));
+            listings.add(l);
+        }
+
+>>>>>>> Stashed changes
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -111,18 +134,13 @@ public class Listing {
 
     public static List<Listing> fetchSuspendedListings(String uid) {
         List<Listing> suspendedListings = new ArrayList<>();
-    
-        String sql = """
-            SELECT id, title, description, price, cleaner_uid, status
-              FROM listings
-             WHERE cleaner_uid = ?
-               AND status = 'suspended'
-        """;
-    
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-    
-            stmt.setString(1, uid);
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)){PreparedStatement stmt = conn.prepareStatement(
+            "SELECT id, title, description, price, cleaner_uid, status_code " +
+            "FROM listings "+
+            "WHERE status_code = 'suspended' "+
+            "AND cleaner_uid =? "
+        );
+            stmt.setString(1,uid);  
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Listing l = new Listing();
@@ -131,21 +149,20 @@ public class Listing {
                 l.setDescription(rs.getString("description"));
                 l.setPrice(rs.getDouble("price"));
                 l.setCleanerUid(rs.getString("cleaner_uid"));
-                l.setStatus(rs.getString("status"));
+                l.setStatus(rs.getString("status_code"));
                 suspendedListings.add(l);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    
         return suspendedListings;
     }
 
-    public static Listing getListingById(String id2) {
+    public static Listing getListingById(int id2) {
         Listing listing = null;
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM listings WHERE id = ?");
-            stmt.setString(1, id2);
+            stmt.setInt(1, id2);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -162,11 +179,6 @@ public class Listing {
         return listing;
     }
 
-    /**
-     * Update an existing listing in the database.
-     * @param listing the Listing object containing updated data (must include id)
-     * @return true if the update succeeded, false otherwise
-     */
     public static boolean updateListing(Listing listing) {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
              PreparedStatement stmt = conn.prepareStatement("UPDATE listings SET title = ?, description = ?, price = ?, cleaner_uid = ? WHERE id = ?")) {
@@ -177,6 +189,16 @@ public class Listing {
             stmt.setString(4, listing.getCleanerUid());
             stmt.setString(5, listing.getId());
             
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public static boolean suspendListing(Listing listing){
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+            PreparedStatement stmt = conn.prepareStatement("UPDATE listings SET status_code = 'suspended' WHERE id = ?")) {
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
@@ -195,11 +217,33 @@ public class Listing {
             return false;
         }
     }
-
+    public static List<Listing> searchListings(String uid, String q) {
+        List<Listing> results = new ArrayList<>();
+        String sql =
+          "SELECT id, title, description, price, cleaner_uid, views, status " +
+          "FROM listings " +
+          "WHERE cleaner_uid = ? " +
+          "  AND (LOWER(title) LIKE ? OR LOWER(description) LIKE ?)";
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, uid);
+            String pat = "%" + q.toLowerCase() + "%";
+            stmt.setString(2, pat);
+            stmt.setString(3, pat);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Listing l = new Listing();
+                // populate id, title, description, price, cleanerUid, views, status...
+                results.add(l);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return results;
+    }
     // homeowner functions
     public static List<Map<String, String>> searchWithKeyword(String searchQuery) {
         List<Map<String, String>> results = new ArrayList<>();
-    
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
             PreparedStatement stmt = conn.prepareStatement(
                 "SELECT l.id, l.title, l.price, u.first_name, u.last_name " +
@@ -225,7 +269,6 @@ public class Listing {
     
         return results;
     }
-    
     
     public static Map<String, String> getCleanerListingDetails(String listingId) {
         Map<String, String> record = new HashMap<>();

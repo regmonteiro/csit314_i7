@@ -10,7 +10,7 @@
                 <a href="/dashboard" th:classappend="${activePage == 'dashboard'} ? 'active'">Dashboard</a>
                 <a href="/cleaner/createListing" th:classappend="${activePage == 'createListing'} ? 'active'">Create Listing</a>
                 <a href="/cleaner/viewListings" th:classappend="${activePage == 'viewListings'} ? 'active'">Manage Listings</a>
-                <a th:href="@{/cleaner/suspendListings}" th:classappend="${activePage == 'suspendListings'} ? ' active'">Suspend Listings</a>
+                <a href="{/cleaner/suspendedListings}" th:classappend="${activePage == 'suspendedListings'} ? ' active'">Suspend Listing</a>
                 <a href="/cleaner/jobRequests" th:classappend="${activePage == 'jobRequests'} ? 'active'">Pending Requests</a>
                 <a href="/cleaner/jobHistory" th:classappend="${activePage == 'jobHistory'} ? 'active'">Job History</a>
             </div>
