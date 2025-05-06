@@ -14,8 +14,8 @@
     <div class="main-content">
         <h1>My Bookmarks</h1>
 
-        <form method="post" th:action="@{/homeowner/searchShortlist}" style="margin-bottom: 20px; display: flex; justify-content: center; gap: 10px;">
-            <input type="text" name="keyword" placeholder="Search by title or cleaner name..." th:value="${keyword}" class="search-bar">
+        <form method="post" th:action="@{/homeowner/searchShortlist}" class="search-form">
+            <input type="text" name="keyword" placeholder="Search by title or cleaner name..." th:value="${keyword}">
             <button type="submit" class="button">Search</button>
         </form>        
 
