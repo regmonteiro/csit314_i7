@@ -94,6 +94,17 @@ body {
     color: #6a11cb;
 }
 
+.button-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.button-group .button {
+    flex: 1;
+    text-align: center;
+}
+
 /* ================= ACCOUNT PAGE STYLES ================== */
 
 /* Form Layout */
