@@ -195,8 +195,8 @@ body {
     width: 100%;
     max-width: 600px;
     display: flex;
-    margin-bottom: 30px;
     gap: 10px;
+    margin-bottom: 30px;
 }
 .search-bar input[type="text"] {
     flex-grow: 1;
