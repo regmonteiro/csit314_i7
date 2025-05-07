@@ -33,7 +33,7 @@
             </p>
             
             <div class="button-group">
-                <a th:href="@{/admin/updateProfile(profileCode=${profile.code})}" class="update-button">Update Profile</a>
+                <a th:href="@{/admin/updateProfile(profileCode=${profile.code})}" class="button">Update Profile</a>
             
                 <form th:action="@{/admin/suspendProfile}" method="post" 
                 onsubmit="return confirm('Are you sure you want to suspend this profile?');">
