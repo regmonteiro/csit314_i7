@@ -104,6 +104,11 @@ body {
     gap: 25px;
 }
 
+.form-box label {
+    font-weight: 600;
+    margin: 10px 0 5px;
+}
+
 .search-form {
     display: flex;
     flex-direction: row;
