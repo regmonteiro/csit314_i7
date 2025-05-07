@@ -34,6 +34,7 @@ public class ViewShortlistPage {
         List<Map<String, String>> results = shortlistViewController.fetchAll(user.getUid());
         model.addAttribute("user", user);
         model.addAttribute("results", results);
+        model.addAttribute("activePage", "bookamarks");
     
         return "homeowner/shortlist";
     }
