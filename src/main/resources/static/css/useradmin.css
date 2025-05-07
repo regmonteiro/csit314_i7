@@ -100,8 +100,8 @@ body {
 }
 
 .button-group .button {
-    width: 120px;
-    height: 45px;
+    width: 100px;
+    height: 20px;
     text-align: center;
     justify-content: center;
     display: inline-flex;
