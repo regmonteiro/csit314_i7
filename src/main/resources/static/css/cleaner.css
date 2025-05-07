@@ -116,6 +116,7 @@ body {
     gap: 10px;
     width: 100%;
     max-width: 600px;
+    margin-bottom: 10px;
 }
 input[type="text"], input[type="date"] {
     flex-grow: 1;
