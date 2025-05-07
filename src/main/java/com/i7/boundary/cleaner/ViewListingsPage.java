@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/cleaner")
 public class ViewListingsPage {
-
     private ViewListingsController viewListingsController = new ViewListingsController();
 
     

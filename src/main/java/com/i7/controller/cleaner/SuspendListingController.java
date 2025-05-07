@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/cleaner")
 public class SuspendListingController {
     
-    public Listing getListingById(String id2){
-    return getListingById(id2);
+    public Listing getListingById(String id2) {
+        int id = Integer.parseInt(id2);
+        return Listing.getListingById(id);
     }
+    
 }
