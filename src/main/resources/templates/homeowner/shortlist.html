@@ -16,7 +16,7 @@
 
         <form method="post" th:action="@{/homeowner/searchShortlist}" class="search-form">
             <input type="text" name="keyword" placeholder="Search by title or cleaner name..." th:value="${keyword}">
-            <button type="submit" class="button">Search</button>
+            <button type="submit">Search</button>
         </form>        
 
         <div th:if="${error}" class="alert error" th:text="${error}"></div>
