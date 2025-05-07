@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="/css/cleaner.css">
     <link rel="stylesheet" href="/css/navbar.css">
     <link rel="stylesheet" href="/css/sidebar.css">
+    <link rel="stylesheet" href="/css/spinner.css">
 </head>
 <body>
 
@@ -19,6 +20,7 @@
         <form th:action="@{/cleaner/viewListings}" method="get" class="search-form">
             <input type="text" name="q" th:value="${param.q}" placeholder="Search by title or description…" />
             <button type="submit">Search</button> 
+            <div th:replace="~{fragments/loader :: searchLoader('inline')}"></div>
         </form>
         
         <div class="user-list-box">
