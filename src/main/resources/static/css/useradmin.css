@@ -101,6 +101,7 @@ body {
 
 .button-group .button {
     width: 120px;
+    height: 45px;
     text-align: center;
     justify-content: center;
     display: inline-flex;
