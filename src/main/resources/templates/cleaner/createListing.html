@@ -17,6 +17,9 @@
     <div class="main-content">
         <h1>Create a New Service Listing</h1>
 
+        <p th:if="${success}" class="success-message" th:text="${success}"></p>
+        <p th:if="${error}" class="error-message" th:text="${error}"></p>
+        
         <form th:action="@{/cleaner/createListing}" method="post" class="form-box">
             <input type="text" name="title" placeholder="Service Title" th:value="${listing.title}" required>
             <input type="text" name="description" placeholder="Description" th:value="${listing.description}" required>
@@ -24,9 +27,6 @@
 
             <button type="submit" class="button">Submit</button>
         </form>
-
-        <p style="color:green;" th:if="${success}" th:text="${success}"></p>
-        <p style="color:red;" th:if="${error}" th:text="${error}"></p>
     </div>
 </div>
 
