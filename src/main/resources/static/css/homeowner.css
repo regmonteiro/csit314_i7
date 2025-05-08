@@ -166,6 +166,23 @@ body {
     max-width: 600px;
 }
 
+/* Details Box */
+.details-box {
+    width: 100%;
+    max-width: 600px;
+    text-align: left;
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    font-size: 1.1rem;
+    color: #333;
+}
+.details-box p {
+    margin-bottom: 15px;
+}
+
 /* Success & Error Messages */
 .success-message,
 .error-message {
