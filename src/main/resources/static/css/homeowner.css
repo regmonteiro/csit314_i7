@@ -166,9 +166,9 @@ body {
     max-width: 600px;
 }
 
-/* Alerts & Messages */
-.alert success,
-.alert error {
+/* Success & Error Messages */
+.success-message,
+.error-message {
     text-align: center;
     margin-top: 10px;
     padding: 10px;
@@ -176,16 +176,15 @@ body {
     width: 100%;
     max-width: 600px;
 }
-.alert success {
+.success-message {
     background-color: #d4edda;
     color: #155724;
 }
-.alert error {
+.error-message {
     background-color: #f8d7da;
     color: #721c24;
 }
-.alert success:empty,
-.alert error:empty {
+.success-message:empty,
+.error-message:empty {
     display: none;
 }
-
