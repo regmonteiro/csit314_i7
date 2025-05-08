@@ -14,8 +14,11 @@
     <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
     <div class="main-content">
-        <h1>Listing Details</h1>
-
+        <div class="header">
+            <h1>Listing Details</h1>
+            <a href="/homeowner/searchListings" class="back-button">← Back to Search</a>
+        </div>
+        
         <div th:if="${message}" class="alert success" th:text="${message}"></div>
         <div th:if="${error}" class="alert error" th:text="${error}"></div>        
 
