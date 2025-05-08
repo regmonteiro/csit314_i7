@@ -14,8 +14,8 @@
         <div class="main-content">
             <h1>Pending Jobs</h1>
 
-            <div th:if="${message}" class="alert success" th:text="${message}"></div>
-            <div th:if="${error}" class="alert error" th:text="${error}"></div>            
+            <div th:if="${message}" class="success-message" th:text="${message}"></div>
+            <div th:if="${error}" class="error-message" th:text="${error}"></div>            
 
             <div th:if="${jobMatches.isEmpty()}">
                 <p>No pending jobs found.</p>
