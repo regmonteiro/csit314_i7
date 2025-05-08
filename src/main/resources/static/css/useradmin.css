@@ -177,7 +177,7 @@ body {
 .success-message,
 .error-message {
     text-align: center;
-    margin-top: 10px;
+    margin-top: 5px;
     padding: 10px;
     border-radius: 10px;
     width: 100%;
