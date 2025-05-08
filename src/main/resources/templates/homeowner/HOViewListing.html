@@ -19,8 +19,8 @@
             <a href="/homeowner/searchListings" class="back-button">← Back to Search</a>
         </div>
         
-        <div th:if="${message}" class="alert success" th:text="${message}"></div>
-        <div th:if="${error}" class="alert error" th:text="${error}"></div>        
+        <div th:if="${message}" class="success-message" th:text="${message}"></div>
+        <div th:if="${error}" class="error-message" th:text="${error}"></div>        
 
         <div class="user-list-box">
              <div class="user-entry-box" style="background-color: transparent; transform: none; box-shadow: none; cursor: default;">
@@ -59,12 +59,6 @@
                     <br/>
                     <button type="submit" class="button" style="margin-top: 10px;">Send Request</button>
                 </form>                
-
-                <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
-                    <a href="/homeowner/searchListings" style="text-decoration: none; color: #6a0dad;">
-                        ← Back to Search
-                    </a>
-                </div>
             </div>
         </div>
 
