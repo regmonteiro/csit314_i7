@@ -107,7 +107,7 @@ public class Listing {
     }
 
     public static Listing getListingById(String id2) {
-        Listing listing = null;
+        Listing listing = new Listing();
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM listings WHERE id = ?");
             stmt.setString(1, id2);

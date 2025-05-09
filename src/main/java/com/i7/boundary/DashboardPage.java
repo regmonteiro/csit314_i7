@@ -36,6 +36,8 @@ public class DashboardPage {
                 return "cleaner/cleanerDashboard";
             case "p003":
                 return "homeowner/homeownerDashboard";
+            case "p004":
+                return "manager/managerDashboard";
             default:
                 return "redirect:/login";
         }
