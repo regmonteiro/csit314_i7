@@ -129,7 +129,8 @@ public class Listing {
         return listing;
     }
 
-    public static boolean updateListing(Listing listing) {
+    public static boolean updateListing(String id) {
+        Listing listing = getListingById(id);
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
             PreparedStatement stmt = conn.prepareStatement("UPDATE listings SET title = ?, description = ?, price = ?, cleaner_uid = ? WHERE id = ?")) {
             
@@ -146,8 +147,9 @@ public class Listing {
             return false;
         }
     }
-    public static boolean suspendListing(Listing listing) {
+    public static boolean suspendListing(String id) {
         String sql = "UPDATE listings SET status_code = 'suspended' WHERE id = ?";
+        Listing listing = getListingById(id);
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, listing.getId());
@@ -158,9 +160,9 @@ public class Listing {
             return false;
         }
     }
-    public static boolean incrementViewCount(Listing listing) {
+    public static boolean incrementViewCount(String id) { // Changed argument to listing id
         String sql = "UPDATE listings SET views = views + 1 WHERE id = ?";
-        
+        Listing listing = getListingById(id);
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, listing.getId());

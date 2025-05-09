@@ -102,7 +102,7 @@ public class ViewListingsPage {
         }
         Listing listing = Listing.getListingById(id);
         if ("P003".equals(user.getProfileCode())) { // Choose homeowner code
-            Listing.incrementViewCount(listing);
+            Listing.incrementViewCount(id);
         }
         Listing refreshedListing = Listing.getListingById(id); // refresh for new view number
         

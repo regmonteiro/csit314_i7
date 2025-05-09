@@ -37,14 +37,15 @@ public class SuspendListingsPage {
         return "/cleaner/suspendListing";
     }
     @PostMapping("/suspendListing")
-    public String suspendListingPost(@ModelAttribute("listing") Listing listing,
+    public String suspendListingPost(@ModelAttribute("listing") String id,
                                 HttpSession session,
                                 Model model) {
         UserAccount user = SessionHelper.getLoggedInUser(session);
         if (user == null) {
             return "redirect:/login";
         }
-        boolean ok = SuspendedListingController.suspendListing(listing);
+        Listing listing = SuspendedListingController.getListingById(id);
+        boolean ok = SuspendedListingController.setSuspendListing(id);
         if (ok) {
             return "redirect:/cleaner/viewSingleListing?id="
                 + listing.getId()

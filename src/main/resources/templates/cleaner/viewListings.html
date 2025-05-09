@@ -59,27 +59,29 @@
                         <span th:text="'$' + ${listing.price}"></span>
                         <p><strong>Views:</strong> <span th:text="${listing.views}">0</span></p>
                     </div>
-                </a>    
+                </a>  
             </div>
 
         </div>
         <h1 class="view-account-header">Suspended Listings</h1>
         <div class="suspended-listings-box">
-        <!-- Non-empty list -->
-            <div th:if="${!#lists.isEmpty(suspendedListings)}">
-                <a th:each="listing : ${suspendedListings}"
-                th:href="@{/cleaner/viewListing(id=${listing.id})}"
-                class="user-link">
-                <div class="user-entry-box">
-                    <span th:text="${listing.title}">Listing Title</span>
-                    <span th:text="'$' + ${listing.price}"></span>
-                </div>
-                </a>
-            </div>
             <!-- Empty list -->
             <div th:if="${#lists.isEmpty(suspendedListings)}">
                 <p>No suspended listings.</p>
             </div>
+            <!-- Non-empty list -->
+            <div th:if="${!#lists.isEmpty(suspendedListings)}">
+                <a th:each="listing : ${suspendedListings}" 
+                th:href="@{'/cleaner/viewListing'(id=${listing.id})}" 
+                class="user-link">
+                    <div class="user-entry-box">
+                        <span th:text="${listing.title}">Listing Title</span>
+                        <span th:text="'$' + ${listing.price}"></span>
+                        <p><strong>Views:</strong> <span th:text="${listing.views}">0</span></p>
+                    </div>
+                </a>   
+            </div>
+            
         </div>
     </div>
 </div>

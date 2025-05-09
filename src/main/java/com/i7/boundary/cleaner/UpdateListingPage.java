@@ -38,14 +38,15 @@ public class UpdateListingPage {
         return "/cleaner/updateListing";
     }
     @PostMapping("/updateListing")
-    public String updateListingPost(@ModelAttribute("listing") Listing listing,
+    public String updateListingPost(@ModelAttribute("listing") String id,
                                 HttpSession session,
                                 Model model) {
         UserAccount user = SessionHelper.getLoggedInUser(session);
         if (user == null) {
             return "redirect:/login";
         }
-        boolean ok = updateListingController.updateListing(listing);
+        Listing listing = updateListingController.getListingById(id);
+        boolean ok = updateListingController.setListing(id);
         if (ok) {
             return "redirect:/cleaner/viewSingleListing?id="
                 + listing.getId()

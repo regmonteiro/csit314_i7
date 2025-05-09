@@ -12,8 +12,8 @@ public class SuspendListingController {
     public Listing getListingById(String id2) {
         return Listing.getListingById(id2);
     }
-    public boolean suspendListing(Listing listing)
+    public boolean setSuspendListing(String id2)
     {
-        return Listing.suspendListing(listing);
+        return Listing.suspendListing(id2);
     }
 }

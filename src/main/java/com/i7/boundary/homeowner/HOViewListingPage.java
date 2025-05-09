@@ -33,9 +33,8 @@ public class HOViewListingPage {
         if (user == null) {
             return "redirect:/login";
         }
-        Listing l = Listing.getListingById(listingId);
         if ("P003".equals(user.getProfileCode())) { // Choose homeowner code
-            Listing.incrementViewCount(l);
+            Listing.incrementViewCount(listingId);
         }
         Map<String, String> listing = hoViewListingController.getCleanerListingDetails(listingId);
         
