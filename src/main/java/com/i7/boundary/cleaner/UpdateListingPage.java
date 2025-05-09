@@ -35,16 +35,18 @@ public class UpdateListingPage {
         model.addAttribute("user", user);
         model.addAttribute("activePage", "viewListings");
         model.addAttribute("listing", listing);
-        return "cleaner/updateListing";
+        return "/cleaner/updateListing";
     }
     @PostMapping("/updateListing")
-    public String processUpdate(@ModelAttribute("listing") Listing listing,
+    public String updateListingPost(@ModelAttribute("listing") Listing listing,
                                 HttpSession session,
                                 Model model) {
-        // ownership + validation
-        boolean ok = Listing.updateListing(listing);
+        UserAccount user = SessionHelper.getLoggedInUser(session);
+        if (user == null) {
+            return "redirect:/login";
+        }
+        boolean ok = updateListingController.updateListing(listing);
         if (ok) {
-            // Redirect to the single-view page, passing id and a success flag
             return "redirect:/cleaner/viewSingleListing?id="
                 + listing.getId()
                 + "&success=updated";
@@ -53,5 +55,5 @@ public class UpdateListingPage {
             model.addAttribute("listing", listing);
             return "cleaner/viewSingleListing";
         }
-        }
     }
+}

@@ -25,8 +25,8 @@ public class SearchListingPage {
 
     @GetMapping("/searchListings")
     public String searchListings(@RequestParam(required = false) String searchQuery,
-                                 Model model,
-                                 HttpSession session) {
+                                Model model,
+                                HttpSession session) {
         UserAccount user = SessionHelper.getLoggedInUser(session);
         if (user == null || !user.getProfileCode().equals("P003")) {
             return "redirect:/login";

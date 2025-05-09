@@ -3,6 +3,7 @@ package com.i7.boundary.homeowner;
 import com.i7.controller.homeowner.HOViewListingController;
 import com.i7.controller.homeowner.JobRequestController;
 import com.i7.controller.homeowner.ShortlistController;
+import com.i7.entity.Listing;
 import com.i7.entity.UserAccount;
 import com.i7.utility.SessionHelper;
 
@@ -32,8 +33,12 @@ public class HOViewListingPage {
         if (user == null) {
             return "redirect:/login";
         }
-    
+        Listing l = Listing.getListingById(listingId);
+        if ("P003".equals(user.getProfileCode())) { // Choose homeowner code
+            Listing.incrementViewCount(l);
+        }
         Map<String, String> listing = hoViewListingController.getCleanerListingDetails(listingId);
+        
         if (listing == null) {
             model.addAttribute("error", "Listing not found.");
             return "errorPage";

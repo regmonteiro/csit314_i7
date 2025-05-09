@@ -4,20 +4,22 @@ import com.i7.entity.Listing;
 
 import java.util.List;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
-@Component
+@Controller
 @RequestMapping("/cleaner")
-public class UpdateListingController {
+  public class UpdateListingController {
 
-  public List<Listing> getListings(String uid) {
-        return Listing.fetchListings(uid);
+    public List<Listing> getListings(String uid) {
+          return Listing.fetchListings(uid);
+    }
+    
+  public Listing getListingById(String id2) {
+      return Listing.getListingById(id2);
+    }
+  public boolean updateListing(Listing listing){
+    return Listing.updateListing(listing);
   }
-  
-public Listing getListingById(String id2) {
-    int id = Integer.parseInt(id2);
-    return Listing.getListingById(id);
-}
 }

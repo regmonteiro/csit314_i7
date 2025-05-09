@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Update Listing</title>
+    <title>Suspend Listing</title>
     <meta charset="UTF-8">
     <title>My Listings</title>
     <link rel="stylesheet" href="/css/cleaner.css">
@@ -9,28 +9,25 @@
     <link rel="stylesheet" href="/css/sidebar.css">
 </head>
 <body>
-    <h1>Listing Details &amp; Actions</h1>
-    <div class="listing-info">
-        <p><strong>Title:</strong> <span th:text="${listing.title}">Title</span></p>
-        <p><strong>Description:</strong> <span th:text="${listing.description}">Description</span></p>
-        <p><strong>Price:</strong> $<span th:text="${listing.price}">0.00</span></p>
-        <p><strong>Status:</strong> <span th:text="${listing.status}"></span></p>
-    </div>
+    <h1>Suspend Listing</h1>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <form th:object="${listing}" method="post">
-        <input type="hidden" th:field="*{id}" />
-        <div class="form-actions">
-        <button th:if="${listing.status != 'suspended'}"
-                th:formaction="@{/cleaner/suspendListing(id=${listing.id})}"
-                type="submit">
-            Suspend
-        </button>
-        <button th:if="${listing.status == 'suspended'}"
-                th:formaction="@{/cleaner/activateListing(id=${listing.id})}"
-                type="submit">
-            Activate
-        </button>
-        </div>
-    </form>
+    <div class="container">
+        <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+    <div>
+        <form th:object="${listing}" th:action="@{/cleaner/suspendListing}" method="post" class="form-box">
+            <div class="details-box">
+                <p><strong>Title:</strong> <span th:text="${listing.title}"></span></p>
+                <p><strong>Description:</strong> <span th:text="${listing.description}"></span></p>
+                <p><strong>Price:</strong> $<span th:text="${listing.price}"></span></p>
+                <p><strong>Status:</strong> <span th:text="${listing.status}"></span></p>
+                <p><strong>Views:</strong> <span th:text="${listing.views}">0</span></p>
+                </br>
+                <p><strong>CURRENT STATUS : </strong> <span th:text="${listing.status}"></span></p>
+            </div>
+            <div><button type="submit">Suspend</button></div>
+            
+        </form>
+    </div>
 </body>
 </html>

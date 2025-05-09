@@ -81,10 +81,9 @@ public class Listing {
         List<Listing> listings = new ArrayList<>();
 
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)){PreparedStatement stmt = conn.prepareStatement(
-            "SELECT id, title, description, price, cleaner_uid, status_code " +
+            "SELECT id, title, description, price, cleaner_uid, status_code, views " +
             "FROM listings "+
-            "WHERE status_code <> 'suspended' "+
-            "AND cleaner_uid =? "
+            "WHERE cleaner_uid = ? "
         );
         stmt.setString(1, uid);
         ResultSet rs = stmt.executeQuery();
@@ -96,6 +95,7 @@ public class Listing {
             l.setPrice(rs.getDouble("price"));
             l.setCleanerUid(rs.getString("cleaner_uid"));
             l.setStatus(rs.getString("status_code"));
+            l.setViews(rs.getInt("views"));
             listings.add(l);
         }
 
@@ -106,11 +106,11 @@ public class Listing {
         return listings;
     }
 
-    public static Listing getListingById(int id2) {
+    public static Listing getListingById(String id2) {
         Listing listing = null;
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM listings WHERE id = ?");
-            stmt.setInt(1, id2);
+            stmt.setString(1, id2);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -120,6 +120,8 @@ public class Listing {
                 listing.setDescription(rs.getString("description"));
                 listing.setPrice(rs.getDouble("price"));
                 listing.setCleanerUid(rs.getString("cleaner_uid"));
+                listing.setViews(rs.getInt("views"));
+                listing.setStatus(rs.getString("status_code"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -129,7 +131,7 @@ public class Listing {
 
     public static boolean updateListing(Listing listing) {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-             PreparedStatement stmt = conn.prepareStatement("UPDATE listings SET title = ?, description = ?, price = ?, cleaner_uid = ? WHERE id = ?")) {
+            PreparedStatement stmt = conn.prepareStatement("UPDATE listings SET title = ?, description = ?, price = ?, cleaner_uid = ? WHERE id = ?")) {
             
             stmt.setString(1, listing.getTitle());
             stmt.setString(2, listing.getDescription());
@@ -144,9 +146,11 @@ public class Listing {
             return false;
         }
     }
-    public static boolean suspendListing(Listing listing){
+    public static boolean suspendListing(Listing listing) {
+        String sql = "UPDATE listings SET status_code = 'suspended' WHERE id = ?";
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-            PreparedStatement stmt = conn.prepareStatement("UPDATE listings SET status_code = 'suspended' WHERE id = ?")) {
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, listing.getId());
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
@@ -154,34 +158,41 @@ public class Listing {
             return false;
         }
     }
-    public static boolean incrementViewCount(int id) {
+    public static boolean incrementViewCount(Listing listing) {
         String sql = "UPDATE listings SET views = views + 1 WHERE id = ?";
+        
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, id);
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, listing.getId());
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
-    public static List<Listing> searchListings(String uid, String q) {
+    public static List<Listing> searchListings(String uid, String searchQuery) {
         List<Listing> results = new ArrayList<>();
         String sql =
-          "SELECT id, title, description, price, cleaner_uid, views, status " +
-          "FROM listings " +
-          "WHERE cleaner_uid = ? " +
-          "  AND (LOWER(title) LIKE ? OR LOWER(description) LIKE ?)";
+            "SELECT id, title, description, price, cleaner_uid, views, status_code " +
+            "FROM listings " +
+            "WHERE cleaner_uid = ? " +
+            "  AND (LOWER(title) LIKE ? OR LOWER(description) LIKE ?)";
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, uid);
-            String pat = "%" + q.toLowerCase() + "%";
-            stmt.setString(2, pat);
-            stmt.setString(3, pat);
+            String pattern = "%" + searchQuery.toLowerCase() + "%";
+            stmt.setString(2, pattern);
+            stmt.setString(3, pattern);    
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Listing l = new Listing();
-                // populate id, title, description, price, cleanerUid, views, status...
+                l.setId(rs.getString("id"));
+                l.setTitle(rs.getString("title"));
+                l.setDescription(rs.getString("description"));
+                l.setPrice(rs.getDouble("price"));
+                l.setCleanerUid(rs.getString("cleaner_uid"));
+                l.setViews(rs.getInt("views"));
+                l.setStatus(rs.getString("status_code"));
                 results.add(l);
             }
         } catch (SQLException e) {
@@ -189,6 +200,8 @@ public class Listing {
         }
         return results;
     }
+
+
     // homeowner functions
     public static List<Map<String, String>> searchWithKeyword(String searchQuery) {
         List<Map<String, String>> results = new ArrayList<>();

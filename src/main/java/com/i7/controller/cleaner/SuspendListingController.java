@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class SuspendListingController {
     
     public Listing getListingById(String id2) {
-        int id = Integer.parseInt(id2);
-        return Listing.getListingById(id);
+        return Listing.getListingById(id2);
     }
-    
+    public boolean suspendListing(Listing listing)
+    {
+        return Listing.suspendListing(listing);
+    }
 }
