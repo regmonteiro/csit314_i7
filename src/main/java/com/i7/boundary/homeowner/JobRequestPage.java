@@ -1,6 +1,7 @@
 package com.i7.boundary.homeowner;
 
 import com.i7.controller.homeowner.JobRequestController;
+import com.i7.controller.homeowner.JobSearchController;
 import com.i7.entity.UserAccount;
 import com.i7.utility.SessionHelper;
 
@@ -21,13 +22,16 @@ public class JobRequestPage {
     @Autowired
     private JobRequestController jobRequestController;
 
+    @Autowired
+    private JobSearchController jobSearchController;    
+
     @GetMapping("/bookings")
-    public String showPendingJobs(Model model, HttpSession session) {
+    public String showAllJobs(Model model, HttpSession session) {
         UserAccount user = SessionHelper.getLoggedInUser(session);
         if (user == null || !user.getProfileCode().equals("P003")) {
             return "redirect:/login";
         }
-
+    
         List<Map<String, String>> jobMatches = jobRequestController.getJobMatchesByHomeowner(user.getUid());
         model.addAttribute("user", user);
         model.addAttribute("jobMatches", jobMatches);
@@ -69,5 +73,21 @@ public class JobRequestPage {
         model.addAttribute("user", user);
         model.addAttribute("job", job);
         return "homeowner/hoJobDetails";
+    }
+
+    @GetMapping("/searchJobs")
+    public String searchJobs(@RequestParam("q") String query, Model model, HttpSession session) {
+        UserAccount user = SessionHelper.getLoggedInUser(session);
+        if (user == null || !user.getProfileCode().equals("P003")) {
+            return "redirect:/login";
+        }
+    
+        List<Map<String, String>> jobMatches = jobSearchController.searchPastJobsByHomeowner(user.getUid(), query.trim());
+    
+        model.addAttribute("user", user);
+        model.addAttribute("jobMatches", jobMatches);
+        model.addAttribute("activePage", "bookings");
+    
+        return "/homeowner/hoJobRequests";
     }
 }

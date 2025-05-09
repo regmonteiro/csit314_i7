@@ -94,6 +94,34 @@ body {
     color: #6a11cb;
 }
 
+.button-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.button-group .button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 140px;
+    height: 50px;
+    padding: 0; 
+    margin: 0; 
+    line-height: 1; 
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: white;
+    font-size: 16px;
+    font-family: inherit;
+    text-align: center;
+    text-decoration: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
 /* ================= ACCOUNT PAGE STYLES ================== */
 
 /* Form Layout */
@@ -149,7 +177,7 @@ body {
 .success-message,
 .error-message {
     text-align: center;
-    margin-top: 10px;
+    margin-top: 5px;
     padding: 10px;
     border-radius: 10px;
     width: 100%;
@@ -182,8 +210,8 @@ body {
     width: 100%;
     max-width: 600px;
     display: flex;
-    margin-bottom: 30px;
     gap: 10px;
+    margin-bottom: 30px;
 }
 .search-bar input[type="text"] {
     flex-grow: 1;

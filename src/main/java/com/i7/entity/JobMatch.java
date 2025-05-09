@@ -246,7 +246,7 @@ public class JobMatch {
                 "ua.first_name AS cleaner_name, ua.last_name AS cleaner_last_name, l.title AS listing_title " +
                 "FROM job_matches jm " +
                 "JOIN user_accounts ua ON jm.cleaner_uid = ua.uid " +
-                "JOIN listings l ON jm.id = l.id " +
+                "JOIN listings l ON jm.listing_id = l.id " +
                 "WHERE jm.homeowner_uid = ?"
             );
     
@@ -320,9 +320,46 @@ public class JobMatch {
             PreparedStatement check = conn.prepareStatement("SELECT id FROM job_matches WHERE id = ?");
             check.setString(1, id);
             ResultSet rs = check.executeQuery();
-            if (!rs.next()) break; // unique
+            if (!rs.next()) break;
         } while (true);
         return id;
     }    
 
+    public static List<Map<String, String>> searchPastJobsByHomeowner(String homeownerUid, String keyword) {
+        List<Map<String, String>> results = new ArrayList<>();
+    
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
+            PreparedStatement stmt = conn.prepareStatement(
+                "SELECT jm.id, jm.service_date, jm.status, jm.homeowner_marked_complete, " +
+                "ua.first_name AS cleaner_name, ua.last_name AS cleaner_last_name, l.title AS listing_title " +
+                "FROM job_matches jm " +
+                "JOIN user_accounts ua ON jm.cleaner_uid = ua.uid " +
+                "JOIN listings l ON jm.listing_id = l.id " +
+                "WHERE jm.homeowner_uid = ? AND " +
+                "(ua.first_name LIKE ? OR ua.last_name LIKE ? OR jm.service_date LIKE ? OR l.title LIKE ?)"
+            );
+            stmt.setString(1, homeownerUid);
+            stmt.setString(2, "%" + keyword + "%");
+            stmt.setString(3, "%" + keyword + "%");
+            stmt.setString(4, "%" + keyword + "%");
+            stmt.setString(5, "%" + keyword + "%");
+    
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Map<String, String> job = new HashMap<>();
+                job.put("id", rs.getString("id"));
+                job.put("serviceDate", rs.getString("service_date"));
+                job.put("status", rs.getString("status"));
+                job.put("homeownerCompleted", String.valueOf(rs.getBoolean("homeowner_marked_complete")));
+                job.put("cleanerName", rs.getString("cleaner_name") + " " + rs.getString("cleaner_last_name"));
+                job.put("listingTitle", rs.getString("listing_title"));
+                results.add(job);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    
+        return results;
+    }
+    
 }

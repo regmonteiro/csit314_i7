@@ -15,7 +15,7 @@
     <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
     <div class="main-content">
-        <div th:if="${message}" class="alert success">Update Success!</div>
+        <div th:if="${message}" class="success-message">Update Success!</div>
         <div class="header">
             <h1 class="view-account-header" th:text="${listing.title}">Listing Title</h1>
             <a href="/cleaner/viewListings" class="back-button">← Back to Listings</a>

@@ -104,6 +104,11 @@ body {
     gap: 25px;
 }
 
+.form-box label {
+    font-weight: 600;
+    margin: 10px 0 5px;
+}
+
 .search-form {
     display: flex;
     flex-direction: row;
@@ -111,6 +116,7 @@ body {
     gap: 10px;
     width: 100%;
     max-width: 600px;
+    margin-bottom: 30px;
 }
 input[type="text"], input[type="date"] {
     flex-grow: 1;
@@ -196,7 +202,7 @@ input[type="text"], input[type="date"] {
 .success-message,
 .error-message {
     text-align: center;
-    margin-top: 10px;
+    margin-top: 5px;
     padding: 10px;
     border-radius: 10px;
     width: 100%;

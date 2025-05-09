@@ -15,8 +15,8 @@
 
     <div class="main-content">
         <h1>Create User Account</h1>
-        <div th:if="${error}" style="color: red;" th:text="${error}"></div>
-        <div th:if="${success}" style="color: green;" th:text="${success}"></div>
+        <div th:if="${error}" class="error-message" th:text="${error}"></div>
+        <div th:if="${success}" class="success-message" th:text="${success}"></div>
 
         <form th:action="@{/admin/createUser}" th:object="${newUser}" method="post" class="form-box">
             <label for="firstName">First Name</label>

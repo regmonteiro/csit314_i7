@@ -5,6 +5,7 @@
     <link rel="stylesheet" th:href="@{/css/homeowner.css}">
     <link rel="stylesheet" href="/css/navbar.css">
     <link rel="stylesheet" href="/css/sidebar.css">
+    <link rel="stylesheet" href="/css/spinner.css">
 </head>
 <body>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
@@ -14,8 +15,14 @@
         <div class="main-content">
             <h1>My Bookings</h1>
 
-            <div th:if="${message}" class="alert success" th:text="${message}"></div>
-            <div th:if="${error}" class="alert error" th:text="${error}"></div>     
+            <form th:action="@{/homeowner/searchJobs}" method="get" class="search-form">
+                <input type="text" name="q" placeholder="Search by name, title or date..." />
+                <button type="submit">Search</button>
+                <div th:replace="~{fragments/loader :: searchLoader('inline')}"></div>
+            </form>    
+
+            <div th:if="${message}" class="success-message" th:text="${message}"></div>
+            <div th:if="${error}" class="error-message" th:text="${error}"></div>    
 
             <div th:if="${jobMatches.isEmpty()}">
                 <p>No bookings found.</p>
@@ -49,5 +56,6 @@
             </div>
         </div>
     </div>
+    <script src="/js/loader.js"></script>
 </body>
 </html>

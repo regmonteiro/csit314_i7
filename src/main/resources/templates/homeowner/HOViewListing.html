@@ -14,13 +14,16 @@
     <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
     <div class="main-content">
-        <h1>Listing Details</h1>
-
-        <div th:if="${message}" class="alert success" th:text="${message}"></div>
-        <div th:if="${error}" class="alert error" th:text="${error}"></div>        
+        <div class="header">
+            <h1>Listing Details</h1>
+            <a href="/homeowner/searchListings" class="back-button">← Back to Search</a>
+        </div>
+        
+        <div th:if="${message}" class="success-message" th:text="${message}"></div>
+        <div th:if="${error}" class="error-message" th:text="${error}"></div>        
 
         <div class="user-list-box">
-             <div class="user-entry-box" style="background-color: transparent; transform: none; box-shadow: none; cursor: default;">
+             <div class="details-box">
                 <span th:text="${listing.title}" style="display: block; font-weight: bold; font-size: 1.5em; margin-bottom: 10px;">Listing Title</span>
 
                 <div style="margin-bottom: 10px;">
@@ -52,16 +55,10 @@
                 
                     <label for="serviceDate"><strong>Propose Service Date:</strong></label>
                     <br/> <br/>
-                    <input type="date" name="serviceDate" required style="margin-left: 10px;" />
+                    <input type="date" name="serviceDate" required/>
                     <br/>
                     <button type="submit" class="button" style="margin-top: 10px;">Send Request</button>
                 </form>                
-
-                <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
-                    <a href="/homeowner/searchListings" style="text-decoration: none; color: #6a0dad;">
-                        ← Back to Search
-                    </a>
-                </div>
             </div>
         </div>
 

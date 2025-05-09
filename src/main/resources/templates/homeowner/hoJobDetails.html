@@ -30,7 +30,7 @@
             
                 <!-- Otherwise show confirmation message -->
                 <div th:if="${job.status == 'confirmed' and job.homeownerCompleted == 'true'}">
-                    <p style="color: green;">You have already marked this job as completed.</p>
+                    <p class="success-message">You have already marked this job as completed.</p>
                 </div>
             </div>
             

@@ -12,17 +12,20 @@
     <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
     <div class="main-content">
-        <h1>Listing Details</h1>
+        <div class="header">
+            <h1>Listing Details</h1>
+            <a href="/homeowner/bookmarks" class="back-button">← Back to Bookmarks</a>
+        </div>
 
-        <p><strong>Title:</strong> <span th:text="${listing.title}"></span></p>
-        <p><strong>Description:</strong> <span th:text="${listing.description}"></span></p>
-        <p><strong>Price:</strong> $<span th:text="${listing.price}"></span></p>
-
-        <h3>Cleaner Information</h3>
-        <p><strong>Name:</strong> <span th:text="${listing.cleanerName}"></span></p>
-        <p><strong>Email:</strong> <span th:text="${listing.email}"></span></p>
-
-        <a href="/homeowner/bookmarks" class="button">Back to Bookmarks</a>
+        <div class="details-box">
+            <p><strong>Title:</strong> <span th:text="${listing.title}"></span></p>
+            <p><strong>Description:</strong> <span th:text="${listing.description}"></span></p>
+            <p><strong>Price:</strong> $<span th:text="${listing.price}"></span></p>
+    
+            <h3>Cleaner Information</h3>
+            <p><strong>Name:</strong> <span th:text="${listing.cleanerName}"></span></p>
+            <p><strong>Email:</strong> <span th:text="${listing.email}"></span></p>
+        </div>
     </div>
 </div>
 </body>
