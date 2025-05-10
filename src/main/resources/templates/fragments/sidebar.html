@@ -35,6 +35,12 @@
                 <a href="/homeowner/bookmarks" th:classappend="${activePage == 'bookmarks'} ? 'active'">My Bookmarks</a>
                 <a href="/homeowner/bookings" th:classappend="${activePage == 'bookings'} ? 'active'">My Bookings</a>
             </div>
+
+            <!-- Platform Manager Links -->
+            <div th:if="${user.profileCode == 'P004'}">
+                <a href="/dashboard" th:classappend="${activePage == 'dashboard'} ? 'active'">Dashboard</a>
+                <a href="/manage/report/daily" th:classappend="${activePage == 'report'} ? 'active'">Generate Report</a>
+            </div>
         </div>
     </div>
 </div>

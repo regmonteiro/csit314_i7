@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Platform Report</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .report-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .report-tabs a {
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            background-color: #eee;
+            color: #333;
+            font-weight: bold;
+            transition: 0.3s ease;
+        }
+        .report-tabs a:hover {
+            background-color: #ddd;
+        }
+        .active-tab {
+            background-color: #6200ea;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="container">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <div class="main-content">
+        <h1 th:text="'Platform Report - ' + ${activeTab?.toUpperCase()}"></h1>
+
+        <div th:replace="~{fragments/reportTabs :: reportTabs(${activeTab})}"></div>
+
+        <div th:if="${report != null}">
+            <div class="job-request-listings">
+                <p><strong>New Users:</strong> <span th:text="${report.newUsers}"></span></p>
+                <p><strong>Listings Created:</strong> <span th:text="${report.newListings}"></span></p>
+                <p><strong>Jobs Completed:</strong> <span th:text="${report.completedJobs}"></span></p>
+            </div>
+        </div>
+
+        <div th:if="${activeTab == 'weekly'}">
+            <canvas id="weeklyChart" width="600" height="300"></canvas>
+            <script th:inline="javascript">
+                (function() {
+                    const usersData = /*[[${chart.newUsers}]]*/ [];
+                    const listingsData = /*[[${chart.newListings}]]*/ [];
+                    const jobsData = /*[[${chart.completedJobs}]]*/ [];
+                    const labels = /*[[${chart.days}]]*/ [];
+        
+                    new Chart(document.getElementById('weeklyChart'), {
+                        type: 'line',
+                        data: {
+                            labels: labels,
+                            datasets: [
+                                {
+                                    label: 'New Users',
+                                    data: usersData,
+                                    borderColor: '#42a5f5',
+                                    fill: false
+                                },
+                                {
+                                    label: 'New Listings',
+                                    data: listingsData,
+                                    borderColor: '#66bb6a',
+                                    fill: false
+                                },
+                                {
+                                    label: 'Completed Jobs',
+                                    data: jobsData,
+                                    borderColor: '#ffa726',
+                                    fill: false
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: { position: 'top' },
+                                title: { display: true, text: 'Daily Trends for This Week' }
+                            }
+                        }
+                    });
+                })();
+            </script>
+        </div>
+        
+        <div th:if="${activeTab == 'monthly'}">
+            <canvas id="monthlyChart" width="600" height="300"></canvas>
+            <script th:inline="javascript">
+                (function() {
+                    const usersData = /*[[${chart.newUsers}]]*/ [];
+                    const listingsData = /*[[${chart.newListings}]]*/ [];
+                    const jobsData = /*[[${chart.completedJobs}]]*/ [];
+                    const labels = /*[[${chart.weeks}]]*/ [];
+        
+                    new Chart(document.getElementById('monthlyChart'), {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [
+                                {
+                                    label: 'New Users',
+                                    data: usersData,
+                                    backgroundColor: '#42a5f5'
+                                },
+                                {
+                                    label: 'New Listings',
+                                    data: listingsData,
+                                    backgroundColor: '#66bb6a'
+                                },
+                                {
+                                    label: 'Completed Jobs',
+                                    data: jobsData,
+                                    backgroundColor: '#ffa726'
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: { position: 'top' },
+                                title: { display: true, text: 'Weekly Breakdown for This Month' }
+                            }
+                        }
+                    });
+                })();
+            </script>
+        </div>        
+
+        <div th:if="${report == null}">
+            <p>No data available.</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

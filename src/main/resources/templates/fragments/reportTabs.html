@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+<div th:fragment="reportTabs(activeTab)">
+    <div class="report-tabs">
+        <a th:href="@{/manage/report/daily}" th:classappend="${activeTab == 'daily'} ? 'active-tab'">Daily</a>
+        <a th:href="@{/manage/report/weekly}" th:classappend="${activeTab == 'weekly'} ? 'active-tab'">Weekly</a>
+        <a th:href="@{/manage/report/monthly}" th:classappend="${activeTab == 'monthly'} ? 'active-tab'">Monthly</a>
+    </div>
+</div>
+</body>
+</html>
