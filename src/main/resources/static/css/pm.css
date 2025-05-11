@@ -205,3 +205,37 @@ body {
 .error-message:empty {
     display: none;
 }
+
+/* Report Tabs*/
+.report-tabs {
+  display: flex;
+  gap: 0;
+  position: relative;
+  margin-bottom: 0;
+  border-bottom: 3px solid #ccc;
+}
+
+.report-tabs a {
+  padding: 10px 20px;
+  border: 3px solid #ccc;
+  border-bottom: none;
+  border-radius: 12px 12px 0 0;
+  background-color: #eee;
+  color: #333;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.3s ease, top 0.2s ease;
+  position: relative;
+  top: 3px; /* lift tab above bottom border */
+}
+
+.report-tabs a:hover {
+  background-color: #ddd;
+}
+
+.report-tabs .active-tab {
+  background-color: white;
+  border-color: #ccc;
+  color: #6200ea;
+  z-index: 2;
+}
