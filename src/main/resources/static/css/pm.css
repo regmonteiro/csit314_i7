@@ -209,24 +209,24 @@ body {
 /* Report Tabs*/
 .report-tabs {
   display: flex;
-  gap: 0;
   position: relative;
-  margin-bottom: 0;
-  border-bottom: 3px solid #ccc;
+  z-index: 2;
+  margin-bottom: -1px; /* overlap the border of the report box */
 }
 
 .report-tabs a {
   padding: 10px 20px;
-  border: 3px solid #ccc;
+  border: 2px solid #ccc;
   border-bottom: none;
   border-radius: 12px 12px 0 0;
   background-color: #eee;
   color: #333;
   font-weight: bold;
   text-decoration: none;
-  transition: background 0.3s ease, top 0.2s ease;
+  margin-right: 4px;
   position: relative;
-  top: 3px; /* lift tab above bottom border */
+  top: 2px;
+  z-index: 3;
 }
 
 .report-tabs a:hover {
@@ -235,7 +235,17 @@ body {
 
 .report-tabs .active-tab {
   background-color: white;
-  border-color: #ccc;
   color: #6200ea;
-  z-index: 2;
+  border-color: #ccc;
+  z-index: 4;
+}
+
+.report-box {
+  border: 2px solid #ccc;
+  border-radius: 0 0 12px 12px;
+  background-color: white;
+  padding: 30px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
 }
