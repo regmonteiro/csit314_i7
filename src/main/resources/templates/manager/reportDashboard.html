@@ -21,6 +21,7 @@
             <div th:if="${report != null}">
                     <p><strong>New Users:</strong> <span th:text="${report.newUsers}"></span></p>
                     <p><strong>Listings Created:</strong> <span th:text="${report.newListings}"></span></p>
+                    <p><strong>Completed Jobs:</strong> <span th:text="${report.completedJobs}"></span></p>
             </div>
 
             <div th:if="${activeTab == 'weekly'}">
