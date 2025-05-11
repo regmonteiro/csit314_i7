@@ -1,0 +1,207 @@
+/* Global Styles for pm */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Layout Container */
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 1000px;
+    margin-top: 90px;
+    padding: 20px;
+}
+
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    background: white;
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.main-content h1 {
+    color: #6a11cb;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.main-content p {
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+.header h1 {
+    color: #6a11cb;
+}
+.back-button {
+    color: #6a11cb;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 8px 16px;
+    background-color: rgba(106, 17, 203, 0.1);
+    border-radius: 25px;
+    transition: 0.3s;
+}
+.back-button:hover {
+    background-color: rgba(106, 17, 203, 0.2);
+    transform: scale(1.05);
+}
+
+/* Buttons */
+.button {
+    padding: 15px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 15px;
+}
+.button:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+.button.secondary-button {
+    background: transparent;
+    border: 2px solid #6a11cb;
+    color: #6a11cb;
+}
+
+/* Form and Inputs */
+.search-form {
+    display: flex; 
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 30px;
+}
+
+.search-form input[type="text"], .user-entry-box input[type="date"] {
+    flex-grow: 1;
+    padding: 15px 20px;
+    border-radius: 25px;
+    border: none;
+    background-color: #f0f0f0;
+    font-size: 16px;
+    outline: none;
+}
+
+.search-form button {
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: white;
+    color: #6a11cb;
+    border: 2px solid #6a11cb;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.search-form button:hover {
+    background-color: #f3e8ff;
+    cursor: pointer;
+}
+
+/* User List and Cards */
+.user-list-box, .bookmark-card {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.user-link {
+    text-decoration: none;
+}
+.user-entry-box, .bookmark-details {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 20px;
+    color: black;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    margin-bottom: 10px;
+}
+.user-entry-box:hover, .bookmark-details:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.section-box, .job-request-listings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #ccc;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Details Box */
+.details-box {
+    width: 100%;
+    max-width: 600px;
+    text-align: left;
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    font-size: 1.1rem;
+    color: #333;
+}
+.details-box p {
+    margin-bottom: 15px;
+}
+
+/* Success & Error Messages */
+.success-message,
+.error-message {
+    text-align: center;
+    margin-top: 5px;
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 600px;
+}
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+}
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+.success-message:empty,
+.error-message:empty {
+    display: none;
+}
