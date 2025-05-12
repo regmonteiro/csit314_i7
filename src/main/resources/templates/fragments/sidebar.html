@@ -39,8 +39,8 @@
             <!-- Platform Manager Links -->
             <div th:if="${user.profileCode == 'P004'}">
                 <a th:href="@{/dashboard}" th:classappend="${activePage == 'dashboard'} ? 'active'">Dashboard</a>
-                <a th:href="@{/manager/viewCategory}" th:classappend="${activePage == 'viewCategory'} ? 'active'">View Categories</a>
                 <a th:href="@{/manager/createCategory}" th:classappend="${activePage == 'createCategory'} ? 'active'">Create New Category</a>
+                <a th:href="@{/manager/viewCategory}" th:classappend="${activePage == 'viewCategory'} ? 'active'">View Categories</a>
                 <a th:href="@{/manage/report/daily}" th:classappend="${activePage == 'report'} ? 'active'">Generate Report</a>
             </div>
         </div>
