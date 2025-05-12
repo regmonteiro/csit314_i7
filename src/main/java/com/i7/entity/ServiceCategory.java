@@ -78,12 +78,30 @@ public class ServiceCategory {
         }
         return category;
     }
+    public static ServiceCategory getCategoryById(int id) {
+        ServiceCategory category = new ServiceCategory();
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM service_category WHERE id = ?");
+            stmt.setInt(1, id);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                category = new ServiceCategory();
+                category.setId(rs.getInt("id"));
+                category.setName(rs.getString("name"));
+                category.setDescription(rs.getString("description"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return category;
+    }
 
     public static List<ServiceCategory> fetchCategories (){
         List<ServiceCategory> categories = new ArrayList<>();
 
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)){PreparedStatement stmt = conn.prepareStatement(
-            "SELECT * FROM service_categories");
+            "SELECT * FROM service_category");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 categories.add(new ServiceCategory(
@@ -99,29 +117,30 @@ public class ServiceCategory {
     }
     
 
-    public static boolean updateCategory(String name, ServiceCategory updatedCategory) {
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-            PreparedStatement checkStmt = conn.prepareStatement("SELECT * FROM service_category WHERE name = ?")) {
-                ResultSet rs = checkStmt.executeQuery();
-                if (!rs.next()) return false;
-    
-                PreparedStatement stmt = conn.prepareStatement(
-                    "UPDATE service_categories SET name = ?, description = ?"
-                );
-                stmt.setString(1, updatedCategory.getName());
-                stmt.setString(2, updatedCategory.getDescription());
-                return stmt.executeUpdate() > 0;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return false;
-            }
-    }
-    public static boolean deleteCategory(String name){
-        ServiceCategory category = new ServiceCategory();
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-            PreparedStatement stmt = conn.prepareStatement("DELETE FROM service_category WHERE name = ?")) {
+    public static boolean updateCategory(int id, ServiceCategory category) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
+            PreparedStatement checkStmt = conn.prepareStatement("SELECT * FROM service_category WHERE id = ?");
+            checkStmt.setInt(1, id);
+            ResultSet rs = checkStmt.executeQuery();
+            if (!rs.next()) return false;
+            PreparedStatement stmt = conn.prepareStatement(
+                "UPDATE service_category SET name = ?, description = ? WHERE id = ?"
+            );
             stmt.setString(1, category.getName());
-            
+            stmt.setString(2, category.getDescription());
+            stmt.setInt(3,id);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean deleteCategory(int id, ServiceCategory category){
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM service_category WHERE id = ?")) {
+            stmt.setInt(1, id);
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {

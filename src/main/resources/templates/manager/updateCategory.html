@@ -25,15 +25,13 @@
         <div th:if="${error}" class="error-message" th:text="${error}"></div>
         <div th:if="${message}" class="success-message" th:text="${message}"></div>
 
-        <form th:action="@{/manager/updateCategory}" method="post" class="form-box" th:object="${category}">
-            <input type="hidden" th:field="*{name}" />
-        
+        <form th:action="@{/manager/updateCategory}" th:object="${category}" method="post">
+            <input type="hidden" th:field="*{id}" />
             <label for="name">Category Name</label>
-            <input type="text" id="name" th:field="*{name}"/>
-        
+            <input type="text" id="name" th:field="*{name}" />
             <label for="description">Description</label>
             <textarea id="description" th:field="*{description}"></textarea>
-            <button type="submit" class="button">Update Category Details</button>
+            <button type="submit">Update</button>
         </form>
     </div>
 </div>

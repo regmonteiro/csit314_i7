@@ -8,7 +8,7 @@ public class IncrementViewsController {
         return Listing.fetchListings(uid);
     }
     public Listing getListingById(String id2){
-        return getListingById(id2);
+        return Listing.getListingById(id2);
     }
     public boolean incrementViewCount(String id){
         return Listing.incrementViewCount(id);

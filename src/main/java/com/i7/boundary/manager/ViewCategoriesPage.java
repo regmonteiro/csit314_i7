@@ -1,7 +1,5 @@
 package com.i7.boundary.manager;
-import java.util.ArrayList;
 import java.util.List;
-
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,8 +23,7 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/manager")
 public class ViewCategoriesPage {
     private CreateCategoryController createCategoryController = new CreateCategoryController();
-    private ViewCategoryController viewCategoryController = new ViewCategoryController();
-
+    private ViewCategoryController viewCategoryController = new ViewCategoryController(); // for single category
     private SearchCategoryController searchCategoryController = new SearchCategoryController();
 
 
@@ -35,23 +32,23 @@ public class ViewCategoriesPage {
     public String showCreateCategoryForm(Model model, HttpSession session) {
         UserAccount user = (UserAccount) session.getAttribute("user");
         model.addAttribute("user", user);
-        model.addAttribute("service_category", new ServiceCategory());
+        model.addAttribute("category", new ServiceCategory());
         model.addAttribute("activePage", "createCategory");
         return "manager/createCategory";
     }    
-    @PostMapping
-    public String handleCreate(@ModelAttribute("newCategory") ServiceCategory newCategory, Model model, HttpSession session) {
+    @PostMapping("/createCategory")
+    public String handleCreate(@ModelAttribute("category") ServiceCategory category, Model model, HttpSession session) {
         UserAccount sessionUser = SessionHelper.getLoggedInUser(session);
         if (sessionUser == null) {
             return "redirect:/login";
         }
-        ServiceCategory category = createCategoryController.createServiceCategory(
-                newCategory.getId(), newCategory.getName(), newCategory.getDescription()
+        category = createCategoryController.createServiceCategory(
+                category.getId(), category.getName(), category.getDescription()
         );
     
         if (category != null) {
             model.addAttribute("success", "Category created successfully.");
-            model.addAttribute("newCategory", new ServiceCategory());
+            model.addAttribute("category", new ServiceCategory());
         } else {
             model.addAttribute("error", "Category creation failed.");
         }
@@ -65,39 +62,43 @@ public class ViewCategoriesPage {
     }   
 
     // VIEW
-    @GetMapping("/viewCategories")
-    public String viewCategories(@RequestParam("name") String name, Model model, HttpSession session) {
-        UserAccount sessionUser = SessionHelper.getLoggedInUser(session);
-        if (sessionUser == null) {
-            return "redirect:/login"; 
-        }
-    
-        session.setAttribute("tab", "categories");
-        model.addAttribute("user", sessionUser); 
-        model.addAttribute("activePage", "viewCategory");
-        ServiceCategory category = viewCategoryController.getCategoryByName(name);
-        model.addAttribute("category", category);
-        return "manager/viewCategory";
-    }
-
-    // SEARCH
-    @GetMapping("/searchCategory")
-    public String searchCategory(@RequestParam(required = false) String searchQuery,
-                                Model model,
-                                HttpSession session) {
+    @GetMapping("/viewCategory")
+    public String viewCategories(@RequestParam(value="searchQuery", required=false) String searchQuery, Model model, HttpSession session) {
         UserAccount user = SessionHelper.getLoggedInUser(session);
         if (user == null || !user.getProfileCode().equals("P004")) {
             return "redirect:/login";
         }
-    
-        List <ServiceCategory> results = new ArrayList<>();
-        if (searchQuery != null && !searchQuery.trim().isEmpty()) {
-            results = searchCategoryController.searchCategories(searchQuery.trim());
+        //search
+        List<ServiceCategory> categories;
+        if (searchQuery != null && !searchQuery.isBlank()) {
+            categories = searchCategoryController.searchCategories(searchQuery);
+        } else {
+            categories = searchCategoryController.getCategories();
         }
-    
-        model.addAttribute("user", user);
-        model.addAttribute("results", results);
-        model.addAttribute("activePage", "viewCategory");
+        model.addAttribute("categories", categories);
+        model.addAttribute("searchQuery", searchQuery);
         return "manager/viewCategory";
     }
+    // View Single Category
+    @GetMapping("/viewSingleCategory")
+    public String viewSingleCategory(@RequestParam("id") int id, Model model, HttpSession session) {
+        UserAccount user = SessionHelper.getLoggedInUser(session);
+        if (user == null) {
+            return "redirect:/login";
+        }
+        ServiceCategory category = viewCategoryController.getCategoryById(id);
+        
+        if (category == null) {
+            model.addAttribute("error", "Category not found.");
+            return "redirect:/manager/viewCategory";
+        }
+        
+        model.addAttribute("user", user);
+        model.addAttribute("activePage", "viewCategory");
+        model.addAttribute("category", category);
+
+        return "manager/viewSingleCategory";
+    }
+    
 }
+

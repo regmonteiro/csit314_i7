@@ -22,10 +22,18 @@
         <p th:if="${error}" class="error-message" th:text="${error}"></p>
 
         <div>
-            <form th:action="@{/manager/createCategory}" method="post" class="form-box">
-                <input type="text" name="name" placeholder="Category Name" th:value="${category.name}" required>
-                <input type="text" name="description" placeholder="Description" th:value="${category.description}" required>
-    
+            <form th:object="${category}" 
+                    th:action="@{/manager/createCategory}" 
+                    method="post" 
+                    class="form-box">
+                <input th:field="*{name}" 
+                        type="text" 
+                        placeholder="Category Name" 
+                        required />
+                <input th:field="*{description}" 
+                        type="text" 
+                        placeholder="Description" 
+                        required />
                 <button type="submit" class="button">Submit</button>
             </form>
         </div>

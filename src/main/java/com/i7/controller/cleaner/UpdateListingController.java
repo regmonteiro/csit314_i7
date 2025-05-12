@@ -15,4 +15,5 @@ public class UpdateListingController {
   public boolean setListing(String id2, Listing listingDetails){
     return Listing.updateListing(id2,listingDetails);
   }
+  
 }

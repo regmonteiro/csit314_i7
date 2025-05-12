@@ -6,7 +6,7 @@ import com.i7.entity.Listing;
 
 public class SearchListingsController {
     public static List<Listing> searchListings(String uid, String searchQuery){
-        return searchListings(uid, searchQuery);
+        return Listing.searchListings(uid, searchQuery);
     }
     public List<Listing> getListings(String uid) {
         return Listing.fetchListings(uid);

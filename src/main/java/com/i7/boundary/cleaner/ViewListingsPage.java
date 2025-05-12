@@ -1,5 +1,6 @@
 package com.i7.boundary.cleaner;
 
+import com.i7.controller.cleaner.IncrementViewsController;
 import com.i7.controller.cleaner.SearchListingsController;
 import com.i7.controller.cleaner.ViewListingsController;
 
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
 public class ViewListingsPage {
     private ViewListingsController viewListingsController = new ViewListingsController();
     private SearchListingsController searchListingsController = new SearchListingsController();
+    private IncrementViewsController incrementViewsController = new IncrementViewsController();
     
     // FOR ALL LISTINGS
     @GetMapping("/viewListings")
@@ -101,11 +103,11 @@ public class ViewListingsPage {
         if (user == null) {
             return "redirect:/login";
         }
-        Listing listing = Listing.getListingById(id);
+        Listing listing = incrementViewsController.getListingById(id);
         if ("P003".equals(user.getProfileCode())) { // Choose homeowner code
-            Listing.incrementViewCount(id);
+            incrementViewsController.incrementViewCount(id);
         }
-        Listing refreshedListing = Listing.getListingById(id); // refresh for new view number
+        Listing refreshedListing = incrementViewsController.getListingById(id); // refresh for new view number
         
         if (listing == null) {
             model.addAttribute("error", "Listing not found.");

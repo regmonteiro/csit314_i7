@@ -13,6 +13,9 @@ public class ViewCategoryController {
     }
 
     public ServiceCategory getCategoryByName(String name){
-        return getCategoryByName(name);
+        return ServiceCategory.getCategoryByName(name);
+    }
+    public ServiceCategory getCategoryById(int id){
+        return ServiceCategory.getCategoryById(id);
     }
 }
