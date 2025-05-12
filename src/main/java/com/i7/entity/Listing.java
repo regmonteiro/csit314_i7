@@ -106,6 +106,36 @@ public class Listing {
         return listings;
     }
 
+    public static List<Listing> fetchSuspendedListings(String uid) {
+        List<Listing> suspendedListings = new ArrayList<>();
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)){PreparedStatement stmt = conn.prepareStatement(
+            "SELECT id, title, description, price, cleaner_uid, status_code, views " +
+            "FROM listings "+
+            "WHERE cleaner_uid = ? "+
+            "AND status_code = 'suspended' "
+        );
+        stmt.setString(1, uid);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Listing l = new Listing();
+            l.setId(rs.getString("id"));
+            l.setTitle(rs.getString("title"));
+            l.setDescription(rs.getString("description"));
+            l.setPrice(rs.getDouble("price"));
+            l.setCleanerUid(rs.getString("cleaner_uid"));
+            l.setStatus(rs.getString("status_code"));
+            l.setViews(rs.getInt("views"));
+            suspendedListings.add(l);
+        }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    
+        return suspendedListings;
+    }
+
     public static Listing getListingById(String id2) {
         Listing listing = new Listing();
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
@@ -130,31 +160,35 @@ public class Listing {
     }
 
     public static boolean updateListing(String id, Listing ListingDetails) {
-        Listing listing = getListingById(id);
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-            PreparedStatement stmt = conn.prepareStatement("UPDATE listings SET title = ?, description = ?, price = ?, cleaner_uid = ? WHERE id = ?")) {
-            
-            stmt.setString(1, listing.getTitle());
-            stmt.setString(2, listing.getDescription());
-            stmt.setDouble(3, listing.getPrice());
-            stmt.setString(4, listing.getCleanerUid());
-            stmt.setString(5, listing.getId());
-            
-            int rowsAffected = stmt.executeUpdate();
-            return rowsAffected > 0;
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)){
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM listings WHERE id = ?");
+            stmt.setString(1,id);
+            ResultSet rs = stmt.executeQuery();
+            if (!rs.next()) return false;
+                PreparedStatement checkStmt = conn.prepareStatement("UPDATE listings SET title = ?, description = ?, price = ?, cleaner_uid = ? WHERE id = ?"
+                ); 
+                checkStmt.setString(1, ListingDetails.getTitle());
+                checkStmt.setString(2, ListingDetails.getDescription());
+                checkStmt.setDouble(3, ListingDetails.getPrice());
+                checkStmt.setString(4, ListingDetails.getCleanerUid());
+                checkStmt.setString(5, id);
+                return checkStmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
-    public static boolean suspendListing(String id) {
-        String sql = "UPDATE listings SET status_code = 'suspended' WHERE id = ?";
-        Listing listing = getListingById(id);
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, listing.getId());
-            int rowsAffected = stmt.executeUpdate();
-            return rowsAffected > 0;
+    public static boolean suspendListing(String id, Listing ListingDetails) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)){
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM listings WHERE id = ?");
+            stmt.setString(1,id);
+            ResultSet rs = stmt.executeQuery();
+            if (!rs.next()) return false;
+            if (!rs.next()) return false;
+                PreparedStatement checkStmt = conn.prepareStatement("UPDATE listings SET status_code = 'suspended' WHERE id = ?"
+                ); 
+                checkStmt.setString(1, id);
+                return checkStmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -172,6 +206,7 @@ public class Listing {
             return false;
         }
     }
+
     public static List<Listing> searchListings(String uid, String searchQuery) {
         List<Listing> results = new ArrayList<>();
         String sql =

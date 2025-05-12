@@ -36,7 +36,7 @@ public class UpdateListingPage {
         model.addAttribute("user", user);
         model.addAttribute("activePage", "viewListings");
         model.addAttribute("listing", listing);
-        return "/cleaner/updateListing";
+        return "cleaner/updateListing";
     }
     @PostMapping("/updateListing")
     public String updateListingPost(@ModelAttribute("listing") Listing listing, HttpSession session, RedirectAttributes redirectAttributes) {
