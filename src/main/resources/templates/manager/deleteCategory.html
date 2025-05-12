@@ -17,7 +17,20 @@
     <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
     <div class="main-content">
+        <div class="header">
+            <h1>Delete Category</h1>
+            <a href="/manager/viewCategory" class="back-button">← Back</a>
+        </div>
 
+        <div th:if="${error}" class="error-message" th:text="${error}"></div>
+        <div th:if="${message}" class="success-message" th:text="${message}"></div>
+
+        <p th:action="@{/manager/updateCategory}" method="post" class="form-box" th:object="${category}">
+            <input type="hidden" th:field="*{name}" />
+            <p><strong>Name: </strong><span th:text="${category.name}"></span></p>
+            <p><strong>Description: </strong><span th:text="${category.description}"></span></p>
+            <button type="submit" class="button">Delete</button>
+        </form>
     </div>
 </div>
 

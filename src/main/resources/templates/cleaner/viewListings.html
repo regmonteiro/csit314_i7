@@ -1,26 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<script>
-    (() => {
-        const input = document.getElementById('searchInput');
-        const container = document.getElementById('user-list-box');
-        let timeout = null;
-    
-        input.addEventListener('input', () => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
-            // fetch the filtered HTML fragment from your server
-            fetch(`/cleaner/viewListings?q=${encodeURIComponent(input.value)}`)
-            .then(res => res.text())
-            .then(html => {
-                // assume your controller returns a Thymeleaf fragment
-                // that contains only the <div th:each>…</div> block
-                container.innerHTML = html;
-            });
-        }, 200); // debounce so you don’t hammer the server on every keystroke
-        });
-    })();
-</script>
+
 <head>
     <title>My Listings</title>
     <link rel="stylesheet" href="/css/cleaner.css">

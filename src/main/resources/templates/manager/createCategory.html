@@ -17,9 +17,19 @@
     <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
     <div class="main-content">
+        <h1>Create a New Service Category</h1>
+        <p th:if="${success}" class="success-message" th:text="${success}"></p>
+        <p th:if="${error}" class="error-message" th:text="${error}"></p>
 
+        <div>
+            <form th:action="@{/manager/createCategory}" method="post" class="form-box">
+                <input type="text" name="name" placeholder="Category Name" th:value="${category.name}" required>
+                <input type="text" name="description" placeholder="Description" th:value="${category.description}" required>
+    
+                <button type="submit" class="button">Submit</button>
+            </form>
+        </div>
     </div>
 </div>
-
 </body>
 </html>

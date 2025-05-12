@@ -147,7 +147,6 @@ public class UserProfile {
         return code;
     }
     
-
     public static boolean updateProfile(String code, String newName, String newDescription) {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
             PreparedStatement stmt = conn.prepareStatement(

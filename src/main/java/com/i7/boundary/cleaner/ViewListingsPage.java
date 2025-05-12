@@ -1,5 +1,6 @@
 package com.i7.boundary.cleaner;
 
+import com.i7.controller.cleaner.SearchListingsController;
 import com.i7.controller.cleaner.ViewListingsController;
 
 import com.i7.entity.Listing;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/cleaner")
 public class ViewListingsPage {
     private ViewListingsController viewListingsController = new ViewListingsController();
-
+    private SearchListingsController searchListingsController = new SearchListingsController();
     
     // FOR ALL LISTINGS
     @GetMapping("/viewListings")
@@ -38,7 +39,7 @@ public class ViewListingsPage {
         model.addAttribute("activePage", "viewListings");
         String uid = user.getUid();
         // (for search bar portion)
-        List<Listing> listings = viewListingsController.getListings(uid);
+        List<Listing> listings = searchListingsController.getListings(uid);
         // filter by searchQuery if provided
         if (searchQuery != null && !searchQuery.isBlank()) {
             String lower = searchQuery.toLowerCase();
@@ -115,7 +116,7 @@ public class ViewListingsPage {
         model.addAttribute("activePage", "viewListings");
         model.addAttribute("listing", refreshedListing);
 
-        return "cleaner/viewSingleListing";
+        return "/cleaner/viewSingleListing";
     }
 
 }

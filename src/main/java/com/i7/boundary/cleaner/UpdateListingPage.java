@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpSession;
 
 
 @Controller
-@RequestMapping("cleaner")
+@RequestMapping("/cleaner")
 public class UpdateListingPage {
     private UpdateListingController updateListingController = new UpdateListingController();
     
@@ -46,15 +46,15 @@ public class UpdateListingPage {
             return "redirect:/login";
         }
         Listing listing = updateListingController.getListingById(id);
-        boolean ok = updateListingController.setListing(id);
+        boolean ok = updateListingController.setListing(id, listing);
         if (ok) {
-            return "redirect:/cleaner/viewSingleListing?id="
+            return "redirect:/cleaner/viewSingleListing"
                 + listing.getId()
                 + "&success=updated";
         } else {
             model.addAttribute("error", "Could not update listing—please try again.");
             model.addAttribute("listing", listing);
-            return "cleaner/viewSingleListing";
+            return "redirect:/cleaner/viewSingleListing";
         }
     }
 }

@@ -12,7 +12,7 @@ public class UpdateListingController {
   public Listing getListingById(String id2) {
     return Listing.getListingById(id2);
   }
-  public boolean setListing(String id2){
-    return Listing.updateListing(id2);
+  public boolean setListing(String id2, Listing listingDetails){
+    return Listing.updateListing(id2,listingDetails);
   }
 }
