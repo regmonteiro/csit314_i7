@@ -242,10 +242,12 @@ body {
 
 .report-box {
   border: 2px solid #ccc;
-  border-radius: 0 0 12px 12px;
+  border-radius: 12px;
   background-color: white;
   padding: 30px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
   position: relative;
+  min-height: 500px;
+  min-width: 700px;
   z-index: 1;
 }
