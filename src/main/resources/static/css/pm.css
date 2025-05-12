@@ -91,6 +91,19 @@ body {
 }
 
 /* Form and Inputs */
+.form-box {
+    width: 100%;
+    max-width: 600px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+}
+
+.form-box label {
+    font-weight: 600;
+    margin: 10px 0 5px;
+}
+
 .search-form {
     display: flex; 
     flex-direction: row;
@@ -101,7 +114,7 @@ body {
     margin-bottom: 30px;
 }
 
-.search-form input[type="text"], .user-entry-box input[type="date"] {
+input[type="text"] {
     flex-grow: 1;
     padding: 15px 20px;
     border-radius: 25px;
