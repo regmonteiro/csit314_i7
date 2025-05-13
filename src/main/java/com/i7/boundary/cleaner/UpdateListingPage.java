@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
 
 
 @Controller
-@RequestMapping("cleaner")
+@RequestMapping("/cleaner")
 public class UpdateListingPage {
     private UpdateListingController updateListingController = new UpdateListingController();
     
@@ -35,26 +36,20 @@ public class UpdateListingPage {
         model.addAttribute("user", user);
         model.addAttribute("activePage", "viewListings");
         model.addAttribute("listing", listing);
-        return "/cleaner/updateListing";
+        return "cleaner/updateListing";
     }
     @PostMapping("/updateListing")
-    public String updateListingPost(@ModelAttribute("listing") String id,
-                                HttpSession session,
-                                Model model) {
+    public String updateListingPost(@ModelAttribute("listing") Listing listing, HttpSession session, RedirectAttributes redirectAttributes) {
         UserAccount user = SessionHelper.getLoggedInUser(session);
         if (user == null) {
             return "redirect:/login";
         }
-        Listing listing = updateListingController.getListingById(id);
-        boolean ok = updateListingController.setListing(id);
+        boolean ok = updateListingController.setListing(listing.getId(), listing);
         if (ok) {
-            return "redirect:/cleaner/viewSingleListing?id="
-                + listing.getId()
-                + "&success=updated";
+            redirectAttributes.addFlashAttribute("message", "Update Successful");
         } else {
-            model.addAttribute("error", "Could not update listing—please try again.");
-            model.addAttribute("listing", listing);
-            return "cleaner/viewSingleListing";
+            redirectAttributes.addAttribute("error", "Could not update listing—please try again.");
         }
+        return "redirect:/cleaner/viewListing?id="+ listing.getId();
     }
 }

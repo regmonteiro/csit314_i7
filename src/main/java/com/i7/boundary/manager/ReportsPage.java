@@ -1,4 +1,4 @@
-package com.i7.boundary.platformManager;
+package com.i7.boundary.manager;
 
 import com.i7.controller.platformManager.DailyReportController;
 import com.i7.controller.platformManager.MonthlyReportController;

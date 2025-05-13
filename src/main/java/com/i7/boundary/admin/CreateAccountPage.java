@@ -44,7 +44,7 @@ public class CreateAccountPage {
         UserAccount acc = createAccountController.createAccount(
                 newUser.getFirstName(), newUser.getLastName(), newUser.getEmail(), newUser.getPassword(), newUser.getProfileCode()
         );
-    
+        
         if (acc != null) {
             model.addAttribute("success", "User account created successfully.");
             model.addAttribute("newUser", new UserAccount());

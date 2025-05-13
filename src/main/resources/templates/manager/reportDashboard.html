@@ -19,11 +19,9 @@
 
         <div class="report-box">
             <div th:if="${report != null}">
-                <div class="job-request-listings">
                     <p><strong>New Users:</strong> <span th:text="${report.newUsers}"></span></p>
                     <p><strong>Listings Created:</strong> <span th:text="${report.newListings}"></span></p>
-                    <p><strong>Jobs Completed:</strong> <span th:text="${report.completedJobs}"></span></p>
-                </div>
+                    <p><strong>Completed Jobs:</strong> <span th:text="${report.completedJobs}"></span></p>
             </div>
 
             <div th:if="${activeTab == 'weekly'}">
@@ -115,7 +113,7 @@
                 </script>
             </div>        
     
-            <div th:if="${report == null}">
+            <div th:if="${report != null and report.newUsers == 0 and report.newListings == 0 and report.completedJobs == 0}">
                 <p>No data available.</p>
             </div>
         </div>

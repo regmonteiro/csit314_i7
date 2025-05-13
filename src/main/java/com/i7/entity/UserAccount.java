@@ -173,18 +173,17 @@ public class UserAccount {
             checkStmt.setString(1, uid);
             ResultSet rs = checkStmt.executeQuery();
             if (!rs.next()) return false;
-
-            PreparedStatement stmt = conn.prepareStatement(
-                "UPDATE user_accounts SET email=?, password=?, profile_code=?, first_name=?, last_name=?, status_code=? WHERE uid=?"
-            );
-            stmt.setString(1, updatedDetails.getEmail());
-            stmt.setString(2, updatedDetails.getPassword());
-            stmt.setString(3, updatedDetails.getProfileCode());
-            stmt.setString(4, updatedDetails.getFirstName());
-            stmt.setString(5, updatedDetails.getLastName());
-            stmt.setString(6, updatedDetails.getStatus());
-            stmt.setString(7, uid);
-            return stmt.executeUpdate() > 0;
+                PreparedStatement stmt = conn.prepareStatement(
+                    "UPDATE user_accounts SET email=?, password=?, profile_code=?, first_name=?, last_name=?, status_code=? WHERE uid=?"
+                );
+                stmt.setString(1, updatedDetails.getEmail());
+                stmt.setString(2, updatedDetails.getPassword());
+                stmt.setString(3, updatedDetails.getProfileCode());
+                stmt.setString(4, updatedDetails.getFirstName());
+                stmt.setString(5, updatedDetails.getLastName());
+                stmt.setString(6, updatedDetails.getStatus());
+                stmt.setString(7, uid);
+                return stmt.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
             return false;

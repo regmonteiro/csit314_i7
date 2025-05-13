@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -37,24 +38,20 @@ public class SuspendListingsPage {
         return "/cleaner/suspendListing";
     }
     @PostMapping("/suspendListing")
-    public String suspendListingPost(@ModelAttribute("listing") String id,
+    public String suspendListingPost(@ModelAttribute("listing") Listing listing,
                                 HttpSession session,
-                                Model model) {
+                                RedirectAttributes redirectAttributes) {
         UserAccount user = SessionHelper.getLoggedInUser(session);
         if (user == null) {
             return "redirect:/login";
         }
-        Listing listing = SuspendedListingController.getListingById(id);
-        boolean ok = SuspendedListingController.setSuspendListing(id);
+        boolean ok = SuspendedListingController.setSuspendListing(listing.getId(),listing);
         if (ok) {
-            return "redirect:/cleaner/viewSingleListing?id="
-                + listing.getId()
-                + "&success=updated";
+            redirectAttributes.addAttribute("success", "Listing suspended successfully");
         } else {
-            model.addAttribute("error", "Could not update listing — please try again.");
-            model.addAttribute("listing", listing);
-            return "cleaner/viewSingleListing";
+            redirectAttributes.addAttribute("error", "Could not update listing — please try again.");
         }
+        return "cleaner/viewListings";
     }
 
 }
