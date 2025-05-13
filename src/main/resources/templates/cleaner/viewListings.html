@@ -23,6 +23,9 @@
             <button type="submit">Search</button>
             <div th:replace="~{fragments/loader :: searchLoader('inline')}"></div>
         </form>
+
+        <p th:if="${success}" class="success-message" th:text="${success}"></p>
+        <p th:if="${error}" class="error-message" th:text="${error}"></p>
         
         <div class="user-list-box">
             <!-- if empty -->
