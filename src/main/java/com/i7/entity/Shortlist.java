@@ -11,6 +11,27 @@ public class Shortlist {
     private static final String DB_USER = "i7db_admin";
     private static final String DB_PASS = "%qYyR92!N6E2";
 
+    private String uid;
+    private String listingId;
+    private Timestamp createdAt;
+
+    public Shortlist() {}
+
+    public Shortlist(String uid, String listingId, Timestamp createdAt) {
+        this.uid = uid;
+        this.listingId = listingId;
+        this.createdAt = createdAt;
+    }
+
+        public String getUid() { return uid; }
+        public void setUid(String uid) { this.uid = uid; }
+
+        public String getListingId() { return listingId; }
+        public void setListingId(String listingId) { this.listingId = listingId; }
+
+        public Timestamp getCreatedAt() { return createdAt; }
+        public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
+
     public static boolean saveToShortlist(String uid, String listingId) {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
             PreparedStatement check = conn.prepareStatement("SELECT uid FROM shortlist WHERE uid = ? AND listing_id = ?");

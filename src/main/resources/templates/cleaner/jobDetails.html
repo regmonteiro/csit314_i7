@@ -24,6 +24,11 @@
                 <span th:text="${job.listingTitle}" style="display: block; font-weight: bold; font-size: 1.5em; margin-bottom: 10px;">Listing Title</span>
 
                 <div style="margin-bottom: 10px;">
+                <strong>Category:</strong>
+                <span th:text="${job.category}">Cleaning</span>
+                </div>
+
+                <div style="margin-bottom: 10px;">
                     <strong>Service Date:</strong>
                     <span th:text="${job.serviceDate}">Service Date</span>
                 </div>

@@ -176,21 +176,6 @@ public class UserProfile {
             return false;
         }
     }
-
-    public static void viewProfiles() {
-        List<UserProfile> profiles = getAllProfiles();
-        if (profiles.isEmpty()) {
-            System.out.println("No profiles found.");
-        } else {
-            System.out.println("List of User Profiles:");
-            for (UserProfile profile : profiles) {
-                System.out.println("Code: " + profile.getCode());
-                System.out.println("Name: " + profile.getName());
-                System.out.println("Description: " + profile.getDescription());
-                System.out.println("-------------------------");
-            }
-        }
-    }
 }
 
 

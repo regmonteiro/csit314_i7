@@ -8,7 +8,7 @@ import com.i7.entity.UserProfile;
 
 @Component
 public class ViewProfileController {
-        public List<UserProfile> getProfiles() {
+    public List<UserProfile> getProfiles() {
         return UserProfile.getAllProfiles();
     }
 

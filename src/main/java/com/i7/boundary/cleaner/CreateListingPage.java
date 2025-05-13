@@ -22,9 +22,10 @@ public class CreateListingPage {
         UserAccount user = (UserAccount) session.getAttribute("user");
         model.addAttribute("user", user);
         model.addAttribute("listing", new Listing());
+        model.addAttribute("categories", controller.getAllCategories()); // ✅ added
         model.addAttribute("activePage", "createListing");
         return "cleaner/createListing";
-    }    
+    }
 
     @GetMapping("/createSuccess")
     public String showCreateSuccessPage(HttpSession session) {
@@ -35,26 +36,24 @@ public class CreateListingPage {
         return "cleaner/createListingSuccess";
     }
 
-
     @PostMapping("/createListing")
     public String handleCreateListing(@RequestParam String title,
                                     @RequestParam String description,
                                     @RequestParam String price,
+                                    @RequestParam String serviceCategoryId,
                                     Model model,
                                     HttpSession session) {
         UserAccount user = SessionHelper.getLoggedInUser(session);
-        if (user == null) {
-            return "redirect:/login";
-        }
+        if (user == null) return "redirect:/login";
 
-        if (title.isEmpty() || description.isEmpty() || price.isEmpty()) {
+        if (title.isEmpty() || description.isEmpty() || price.isEmpty() || serviceCategoryId.isEmpty()) {
             model.addAttribute("error", "All fields are required.");
             model.addAttribute("listing", new Listing());
             return "cleaner/createListing";
         }
 
         double priceVal = Double.parseDouble(price);
-        Listing listing = new Listing(title, description, priceVal);
+        Listing listing = new Listing(title, description, priceVal, serviceCategoryId);
         listing.setCleanerUid(user.getUid());
 
         boolean success = controller.createListing(listing);
@@ -66,5 +65,4 @@ public class CreateListingPage {
             return "cleaner/createListing";
         }
     }
-
 }

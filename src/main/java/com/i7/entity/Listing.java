@@ -18,6 +18,7 @@ public class Listing {
     private double price;
     private String cleanerUid;
     private String status = "active";
+    private String serviceCategoryId;
 
     // Getters and Setters
     public String getId() {return id;  }
@@ -27,6 +28,7 @@ public class Listing {
     public String getCleanerUid() {return cleanerUid;}
     public String getStatus() {return status;}
     public int getViews() {return views;}
+    public String getServiceCategoryId() { return serviceCategoryId; }
 
     public void setId(String id) {this.id = id;}
     public void setTitle(String title) {this.title = title;}
@@ -35,15 +37,19 @@ public class Listing {
     public void setCleanerUid(String cleanerUid) {this.cleanerUid = cleanerUid;}
     public void setStatus(String status) {this.status= status;}
     public void setViews(int views) {this.views= views;}
+    public void setServiceCategoryId(String serviceCategoryId) { this.serviceCategoryId = serviceCategoryId; }
+
     // Constructors
     public Listing() {}
 
-    public Listing(String title, String description, double price) {
+    public Listing(String title, String description, double price, String serviceCategoryId) {
         this.title = title;
         this.description = description;
         this.price = price;
-        status = "active";
+        this.serviceCategoryId = serviceCategoryId;
+        this.status = "active";
     }
+
 
     private static String generateUniqueListingId(Connection conn) throws SQLException {
         String id;
@@ -63,12 +69,15 @@ public class Listing {
     // Save Listing to DB
     public boolean createListing() {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO listings (id, title, description, price, cleaner_uid) VALUES (?, ?, ?, ?,?)");
+            PreparedStatement stmt = conn.prepareStatement(
+                "INSERT INTO listings (id, title, description, price, cleaner_uid, service_category_id) VALUES (?, ?, ?, ?, ?, ?)"
+            );
             stmt.setString(1, generateUniqueListingId(conn));
             stmt.setString(2, title);
             stmt.setString(3, description);
             stmt.setDouble(4, price);
             stmt.setString(5, cleanerUid);
+            stmt.setString(6, serviceCategoryId);
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -81,7 +90,7 @@ public class Listing {
         List<Listing> listings = new ArrayList<>();
 
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)){PreparedStatement stmt = conn.prepareStatement(
-            "SELECT id, title, description, price, cleaner_uid, status_code, views " +
+            "SELECT id, title, description, price, cleaner_uid, service_category_id, status_code, views " +
             "FROM listings "+
             "WHERE cleaner_uid = ? "+
             "AND status_code <> 'suspended' "
@@ -95,6 +104,7 @@ public class Listing {
             l.setDescription(rs.getString("description"));
             l.setPrice(rs.getDouble("price"));
             l.setCleanerUid(rs.getString("cleaner_uid"));
+            l.setServiceCategoryId(rs.getString("service_category_id"));
             l.setStatus(rs.getString("status_code"));
             l.setViews(rs.getInt("views"));
             listings.add(l);
@@ -153,6 +163,7 @@ public class Listing {
                 listing.setCleanerUid(rs.getString("cleaner_uid"));
                 listing.setViews(rs.getInt("views"));
                 listing.setStatus(rs.getString("status_code"));
+                listing.setServiceCategoryId(rs.getString("service_category_id"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

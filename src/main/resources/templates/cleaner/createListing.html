@@ -24,7 +24,15 @@
             <input type="text" name="title" placeholder="Service Title" th:value="${listing.title}" required>
             <input type="text" name="description" placeholder="Description" th:value="${listing.description}" required>
             <input type="text" name="price" placeholder="Price (e.g. 49.99)" th:value="${listing.price}" required>
-
+            <label for="serviceCategoryId">Category:</label>
+            <select id="serviceCategoryId" name="serviceCategoryId" required>
+                <option value="" disabled selected>Select a category</option>
+                <option th:each="category : ${categories}" 
+                        th:value="${category.id}" 
+                        th:text="${category.name}"
+                        th:selected="${listing.serviceCategoryId} == ${category.id}">
+                </option>
+            </select>
             <button type="submit" class="button">Submit</button>
         </form>
     </div>

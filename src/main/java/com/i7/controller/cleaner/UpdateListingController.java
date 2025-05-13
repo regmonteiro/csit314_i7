@@ -1,6 +1,9 @@
 package com.i7.controller.cleaner;
 
 import com.i7.entity.Listing;
+import com.i7.entity.ServiceCategory;
+
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -16,4 +19,7 @@ public class UpdateListingController {
     return Listing.updateListing(id2,listingDetails);
   }
   
+      public List<ServiceCategory> getAllCategories() {
+        return ServiceCategory.fetchCategories();
+    }
 }

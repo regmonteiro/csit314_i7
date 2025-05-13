@@ -2,6 +2,7 @@ package com.i7.boundary.cleaner;
 
 import com.i7.controller.cleaner.UpdateListingController;
 import com.i7.entity.Listing;
+import com.i7.entity.ServiceCategory;
 import com.i7.entity.UserAccount;
 import com.i7.utility.SessionHelper;
 
@@ -35,6 +36,7 @@ public class UpdateListingPage {
         }
         model.addAttribute("user", user);
         model.addAttribute("activePage", "viewListings");
+        model.addAttribute("categories", updateListingController.getAllCategories());
         model.addAttribute("listing", listing);
         return "cleaner/updateListing";
     }

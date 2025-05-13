@@ -36,6 +36,11 @@
                     <span th:text="'$' + ${listing.price}">0.00</span>
                 </div>
 
+                <div style="margin-bottom: 10px;">
+                <strong>Category:</strong>
+                <span th:text="${listing.category}">Cleaning</span>
+                </div>
+
                 <div style="margin-top: 20px;">
                     <strong>Cleaner Info</strong>
                     <div><strong>Name:</strong> <span th:text="${listing.cleanerName}">Cleaner Name</span></div>
