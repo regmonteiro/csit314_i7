@@ -75,6 +75,8 @@ public class ViewCategoriesPage {
         } else {
             categories = searchCategoryController.getCategories();
         }
+        model.addAttribute("user", user);
+        model.addAttribute("activePage", "viewCategory");
         model.addAttribute("categories", categories);
         model.addAttribute("searchQuery", searchQuery);
         return "manager/viewCategory";
