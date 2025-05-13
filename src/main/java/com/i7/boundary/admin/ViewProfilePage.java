@@ -40,7 +40,7 @@ public class ViewProfilePage {
         List<UserProfile> userProfiles;
     
         if (searchQuery != null && !searchQuery.trim().isEmpty()) { 
-            userProfiles = searchProfileController.searchProfiles(searchQuery);
+            userProfiles = searchProfileController.searchUserProfiles(searchQuery);
             if (userProfiles.isEmpty()) {
                 model.addAttribute("error", "No profiles found.");
             }

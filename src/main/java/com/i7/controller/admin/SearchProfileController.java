@@ -8,7 +8,7 @@ import com.i7.entity.UserProfile;
 
 @Component
 public class SearchProfileController {
-        public List<UserProfile> searchProfiles(String searchQuery) {
+        public List<UserProfile> searchUserProfiles(String searchQuery) {
         return UserProfile.findProfilesByQuery(searchQuery);
     }
 }

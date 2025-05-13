@@ -221,7 +221,7 @@ public class JobMatch {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
             String matchId = generateUniqueMatchId(conn);
             PreparedStatement stmt = conn.prepareStatement(
-                "INSERT INTO job_matches (id, id, homeowner_uid, cleaner_uid, service_date, status) " +
+                "INSERT INTO job_matches (id, listing_id, homeowner_uid, cleaner_uid, service_date, status) " +
                 "VALUES (?, ?, ?, ?, ?, 'pending')"
             );
             stmt.setString(1, matchId);
