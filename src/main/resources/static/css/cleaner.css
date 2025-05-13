@@ -118,6 +118,7 @@ body {
     max-width: 600px;
     margin-bottom: 30px;
 }
+
 input[type="text"], input[type="date"] {
     flex-grow: 1;
     padding: 15px 20px;
@@ -127,6 +128,25 @@ input[type="text"], input[type="date"] {
     font-size: 16px;
     outline: none;
 }
+
+.form-box select {
+    width: 100%; 
+    max-width: 500px;
+    padding: 15px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 25px;
+    background-color: #f0f0f0;
+    font-size: 16px;
+    outline: none;
+    box-sizing: border-box;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 15px center; 
+    background-size: 16px 16px;
+}
+
 .search-form button {
     padding: 10px 20px;
     font-size: 14px;
