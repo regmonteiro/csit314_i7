@@ -83,7 +83,7 @@ public class UpdateCategoriesPage {
         } else {
             redirectAttributes.addFlashAttribute("error", "Failed to delete category.");
         }
-        return "manager/viewCategory";
+        return "redirect:/manager/viewCategory";
     }
 
 }
