@@ -9,12 +9,12 @@
     <link rel="stylesheet" href="/css/sidebar.css">
 </head>
 <body>
-    <h1>Suspend Listing</h1>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
     <div class="container">
         <div th:replace="~{fragments/sidebar :: sidebar}"></div>
-    <div>
+        <h1>Suspend Listing</h1>
+        
         <form th:object="${listing}" th:action="@{/cleaner/suspendListing}" method="post" class="form-box">
             <div class="details-box">
                 <p><strong>Title:</strong> <span th:text="${listing.title}"></span></p>
@@ -25,8 +25,7 @@
                 </br>
                 <p><strong>CURRENT STATUS : </strong> <span th:text="${listing.status}"></span></p>
             </div>
-            <div><button type="submit">Suspend</button></div>
-            
+            <button type="submit" class="button">Suspend</button>
         </form>
     </div>
 </body>
