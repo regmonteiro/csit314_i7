@@ -27,7 +27,7 @@
         </form>
             
             <!-- Show different categories -->
-        <div class="categories-box">
+        <div class="categories-box" style="margin-top: 20px;">
             <a th:each="category : ${categories}" 
                     th:href="@{'/manager/viewSingleCategory'(id=${category.id})}" 
                     class="cat-link">
