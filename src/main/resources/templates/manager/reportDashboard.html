@@ -113,7 +113,7 @@
                 </script>
             </div>        
     
-            <div th:if="${report != null and report.newUsers == 0 and report.newListings == 0 and report.completedJobs == 0}">
+            <div th:if="${report == null}">
                 <p>No data available.</p>
             </div>
         </div>
