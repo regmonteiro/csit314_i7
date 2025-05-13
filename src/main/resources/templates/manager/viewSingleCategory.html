@@ -22,11 +22,11 @@
         </div>
 
         <div class="details-box">
-            <p><strong>Name</strong><span th:text="${category.name}"></span></p>
-            <p><strong>Description</strong><span th:text="${category.description}"></span></p>
+            <p><strong>Name:</strong> <span th:text="${category.name}"></span></p>
+            <p><strong>Description:</strong> <span th:text="${category.description}"></span></p>
             <br/>
-            <a th:href="@{/manager/updateCategory(name=${category.name})}" class="button">Update</a>
-            <a th:href="@{/manager/deleteCategory(id=${category.id})}" class="button">Delete</a>
+            <a th:href="@{/manager/updateCategory(name=${category.name})}" class="button">Update Service Category</a>
+            <a th:href="@{/manager/deleteCategory(id=${category.id})}" class="button">Delete Service Category</a>
         </div>
 
     </div>

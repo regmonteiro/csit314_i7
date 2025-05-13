@@ -33,25 +33,22 @@ public class SuspendListingsPage {
             return "redirect:/cleaner/viewListings";
         }
         model.addAttribute("user", user);
-        model.addAttribute("activePage", "viewSingleListings");
+        model.addAttribute("activePage", "viewSingleListing");
         model.addAttribute("listing", listing);
         return "/cleaner/suspendListing";
     }
     @PostMapping("/suspendListing")
-    public String suspendListingPost(@ModelAttribute("listing") Listing listing,
-                                HttpSession session,
-                                RedirectAttributes redirectAttributes) {
+    public String suspendListingPost(@ModelAttribute("listing") Listing listing, HttpSession session, RedirectAttributes redirectAttributes) {
         UserAccount user = SessionHelper.getLoggedInUser(session);
         if (user == null) {
             return "redirect:/login";
         }
         boolean ok = SuspendedListingController.setSuspendListing(listing.getId(),listing);
         if (ok) {
-            redirectAttributes.addAttribute("success", "Listing suspended successfully");
+            redirectAttributes.addAttribute("message", "Listing suspended successfully");
         } else {
             redirectAttributes.addAttribute("error", "Could not update listing — please try again.");
         }
-        return "cleaner/viewListings";
+        return "redirect:/cleaner/viewListings";
     }
-
 }

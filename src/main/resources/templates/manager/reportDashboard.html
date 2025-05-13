@@ -23,7 +23,7 @@
                     <p><strong>Listings Created:</strong> <span th:text="${report.newListings}"></span></p>
                     <p><strong>Completed Jobs:</strong> <span th:text="${report.completedJobs}"></span></p>
             </div>
-
+            
             <div th:if="${activeTab == 'weekly'}">
                 <canvas id="weeklyChart" width="600" height="300"></canvas>
                 <script th:inline="javascript">
