@@ -16,29 +16,27 @@
 <div class="container">
     <div th:replace="~{fragments/sidebar :: sidebar}"></div>
     <!-- + Search bar here -->
-    <h1 class="View-Categories">All Categories</h1>
-    <div>
+    <div class="main-content">
+        <h1 class="View-Categories">All Categories</h1>
+        
         <form action="#" method="get" th:action="@{/manager/viewCategory}" class="search-form">
             <input type="text" name="searchQuery" placeholder="Search by title" th:value="${searchQuery}" >
             <button type="submit">Search</button>
             <div th:replace="~{fragments/loader :: searchLoader('inline')}"></div>
         </form>
-    </div>
-    <div class="main-content">
-        <!-- Show different categories -->
+            
+            <!-- Show different categories -->
         <div class="categories-box">
-                <a th:each="category : ${categories}" 
-                th:href="@{'/manager/viewSingleCategory'(id=${category.id})}" 
-                class="user-link">
-                    <div class="user-entry-box"> 
+            <a th:each="category : ${categories}" 
+                    th:href="@{'/manager/viewSingleCategory'(id=${category.id})}" 
+                    class="cat-link">
+                    <div class="cat-entry-box"> 
                         <p><strong>Name</strong><span th:text="${category.name}"></span></p>
                         <p><strong>Description</strong><span th:text="${category.description}"></span></p>
                     </div>
-                </a>   
-            </div>
+            </a>   
         </div>
     </div>
 </div>
-
 </body>
 </html>
