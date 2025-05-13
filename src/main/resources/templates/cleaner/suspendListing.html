@@ -17,7 +17,7 @@
         <div class="main-content">
             <h1>Suspend Listing</h1>
 
-            <div class="details-box" style="margin-right: 40px;">
+            <div class="details-box">
                 <form th:object="${listing}" th:action="@{/cleaner/suspendListing}" method="post" class="form-box">
                         <input type="hidden" th:field="*{id}"/>
                         <p><strong>Title:</strong> <span th:text="${listing.title}"></span></p>
