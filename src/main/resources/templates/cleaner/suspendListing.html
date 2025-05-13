@@ -13,34 +13,23 @@
 
     <div class="container">
         <div th:replace="~{fragments/sidebar :: sidebar}"></div>
-    <div>
-        <form th:object="${listing}" th:action="@{/cleaner/suspendListing}" method="post" class="form-box">
-            <div class="details-box">
-                <input type="hidden" th:field="*{id}"/>
-                <p><strong>Title:</strong> <span th:text="${listing.title}"></span></p>
-                <p><strong>Description:</strong> <span th:text="${listing.description}"></span></p>
-                <p><strong>Price:</strong> $<span th:text="${listing.price}"></span></p>
-                <p><strong>Status:</strong> <span th:text="${listing.status}"></span></p>
-                <p><strong>Views:</strong> <span th:text="${listing.views}">0</span></p>
-                </br>
-                <p><strong>CURRENT STATUS : </strong> <span th:text="${listing.status}"></span></p>
-            </div>
-            <div><button type="submit">Suspend</button></div>
+
         <div class="main-content">
             <h1>Suspend Listing</h1>
-            
-            <form th:object="${listing}" th:action="@{/cleaner/suspendListing}" method="post" class="form-box">
-                <div class="details-box">
-                    <p><strong>Title:</strong> <span th:text="${listing.title}"></span></p>
-                    <p><strong>Description:</strong> <span th:text="${listing.description}"></span></p>
-                    <p><strong>Price:</strong> $<span th:text="${listing.price}"></span></p>
-                    <p><strong>Status:</strong> <span th:text="${listing.status}"></span></p>
-                    <p><strong>Views:</strong> <span th:text="${listing.views}">0</span></p>
-                    </br>
-                    <p><strong>CURRENT STATUS : </strong> <span th:text="${listing.status}"></span></p>
-                </div>
-                <button type="submit" class="button">Suspend</button>
-            </form>
+
+            <div class="details-box">
+                <form th:object="${listing}" th:action="@{/cleaner/suspendListing}" method="post">
+                        <input type="hidden" th:field="*{id}"/>
+                        <p><strong>Title:</strong> <span th:text="${listing.title}"></span></p>
+                        <p><strong>Description:</strong> <span th:text="${listing.description}"></span></p>
+                        <p><strong>Price:</strong> $<span th:text="${listing.price}"></span></p>
+                        <p><strong>Status:</strong> <span th:text="${listing.status}"></span></p>
+                        <p><strong>Views:</strong> <span th:text="${listing.views}">0</span></p>
+                        </br>
+                        <p><strong>CURRENT STATUS : </strong> <span th:text="${listing.status}"></span></p>
+                        <button type="submit" class="button">Suspend</button>
+                </form>
+            </div>
         </div>
     </div>
 </body>
