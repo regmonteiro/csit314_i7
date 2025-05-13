@@ -36,23 +36,26 @@ public class ServiceCategory {
         int id = 1;
         boolean exists;
         String sql = "SELECT id FROM service_category WHERE id = ?";
-        try (PreparedStatement check = conn.prepareStatement(sql)) {
-            check.setInt(1, id);
-            try (ResultSet rs = check.executeQuery()) {
-                exists = rs.next();
+        do {
+            try (PreparedStatement check = conn.prepareStatement(sql)) {
+                check.setInt(1, id);
+                try (ResultSet rs = check.executeQuery()) {
+                    exists = rs.next();
+                }
             }
-        }
-        if (exists) {
-            id++;
-        }while (exists);
+            if (exists) {
+                id++;
+            }
+        } while (exists);
         return id;
-        } 
+    }
 
     public static boolean createCategory(int id, String name, String description) {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO service_category (id, name, description) VALUES (?, ?, ?)");
             stmt.setInt(1, generateUniqueCategoryId(conn));
             stmt.setString(2, name);
+            stmt.setString(3, description);
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {

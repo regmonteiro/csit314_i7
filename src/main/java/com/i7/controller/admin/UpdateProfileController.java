@@ -8,7 +8,6 @@ import com.i7.entity.UserProfile;
 public class UpdateProfileController {
     public boolean updateProfile(String profileCode, String name, String description) {
         UserProfile profile = UserProfile.findByCode(profileCode);
-        
         if (profile != null) {
             return UserProfile.updateProfile(profileCode, name, description);
         }

@@ -58,7 +58,7 @@ public class ViewCategoriesPage {
         model.addAttribute("tab", "service_categories");
         model.addAttribute("category", createCategoryController.getCategories());
     
-        return "manager/createCategory";
+        return "redirect:/manager/viewCategory";
     }   
 
     // VIEW
