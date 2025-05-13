@@ -51,7 +51,6 @@ public class ReportsPage {
                 break;
             case "daily":
                 report = dailyReportController.getDailyReport();
-                model.addAttribute("chart", report.get("chart"));
             default:
                 report = dailyReportController.getDailyReport();
                 break;
