@@ -188,6 +188,7 @@ body {
 .error-message {
     text-align: center;
     margin-top: 5px;
+    margin-bottom: 5px;
     padding: 10px;
     border-radius: 10px;
     width: 100%;
