@@ -83,7 +83,8 @@ public class Listing {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)){PreparedStatement stmt = conn.prepareStatement(
             "SELECT id, title, description, price, cleaner_uid, status_code, views " +
             "FROM listings "+
-            "WHERE cleaner_uid = ? "
+            "WHERE cleaner_uid = ? "+
+            "AND status_code <> 'suspended' "
         );
         stmt.setString(1, uid);
         ResultSet rs = stmt.executeQuery();
@@ -183,7 +184,6 @@ public class Listing {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM listings WHERE id = ?");
             stmt.setString(1,id);
             ResultSet rs = stmt.executeQuery();
-            if (!rs.next()) return false;
             if (!rs.next()) return false;
                 PreparedStatement checkStmt = conn.prepareStatement("UPDATE listings SET status_code = 'suspended' WHERE id = ?"
                 ); 
