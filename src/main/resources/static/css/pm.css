@@ -90,6 +90,11 @@ body {
     color: #6a11cb;
 }
 
+.form-box button {
+    width: 150px;
+    margin: 0 auto;
+}
+
 /* Form and Inputs */
 .form-box {
     width: 100%;
