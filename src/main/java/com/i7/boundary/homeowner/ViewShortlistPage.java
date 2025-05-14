@@ -72,6 +72,6 @@ public class ViewShortlistPage {
 
         model.addAttribute("user", user);
         model.addAttribute("listing", listing);
-        return "homeowner/shortlistDetails";
+        return "homeowner/shortlistDetails?id="+listingId;
     }
 }

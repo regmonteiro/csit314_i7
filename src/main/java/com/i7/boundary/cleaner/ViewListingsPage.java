@@ -2,6 +2,7 @@ package com.i7.boundary.cleaner;
 
 import com.i7.controller.cleaner.SearchListingsController;
 import com.i7.controller.cleaner.ViewListingsController;
+import com.i7.controller.cleaner.ViewShortlistController;
 import com.i7.controller.cleaner.SuspendListingController;
 
 import com.i7.entity.Listing;
@@ -16,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 import jakarta.servlet.http.HttpSession;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -25,6 +29,7 @@ public class ViewListingsPage {
     private ViewListingsController viewListingsController = new ViewListingsController();
     private SearchListingsController searchListingsController = new SearchListingsController();
     private SuspendListingController suspendListingController = new SuspendListingController();
+    private ViewShortlistController viewShortlistController = new ViewShortlistController();
     
     // FOR ALL LISTINGS
     @GetMapping("/viewListings")
@@ -55,6 +60,16 @@ public class ViewListingsPage {
         model.addAttribute("listings", listings);
         model.addAttribute("suspendedListings", suspendedListings);
         model.addAttribute("searchQuery", searchQuery);
+
+        // implement here
+                // build a map of listing ID -> number of times it’s been shortlisted
+        Map<String, String> shortlistCount = new HashMap<>();
+        for (Listing l : listings) {
+            shortlistCount.put(l.getId(), viewShortlistController.getShortlistCount(l.getId()));
+        }
+
+        
+        model.addAttribute("shortlistCount", shortlistCount);
         if (activeSuccess != null) {
             model.addAttribute("activeMessage", "Listing created successfully!");
         }

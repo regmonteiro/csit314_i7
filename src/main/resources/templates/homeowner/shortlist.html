@@ -28,7 +28,7 @@
                 <p><strong>Title:</strong> <span th:text="${listing.title}"></span></p>
                 <p><strong>Cleaner:</strong> <span th:text="${listing.cleanerName}"></span></p>
                 <p><strong>Email:</strong> <span th:text="${listing.email}"></span></p>
-                <a th:href="@{'/homeowner/bookmarkDetails'(listingId=${listing.id})}" class="button">View Details</a>
+                <a th:href="@{'/homeowner/shortlistDetails'(listingId=${listing.id})}" class="button">View Details</a>
             </div>            
         </div>
         

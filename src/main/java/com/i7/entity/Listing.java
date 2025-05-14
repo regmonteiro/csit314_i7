@@ -12,6 +12,7 @@ public class Listing {
     private static final String DB_PASS = "%qYyR92!N6E2";
 
     private int views;
+    private int shortlistCount;
     private String id;
     private String title;
     private String description;
@@ -28,6 +29,7 @@ public class Listing {
     public String getCleanerUid() {return cleanerUid;}
     public String getStatus() {return status;}
     public int getViews() {return views;}
+    public int getShortlistCount(){return shortlistCount;}
     public String getServiceCategoryId() { return serviceCategoryId; }
 
     public void setId(String id) {this.id = id;}
@@ -37,6 +39,7 @@ public class Listing {
     public void setCleanerUid(String cleanerUid) {this.cleanerUid = cleanerUid;}
     public void setStatus(String status) {this.status= status;}
     public void setViews(int views) {this.views= views;}
+    public void setShortlistCount(int shortlistCount){this.shortlistCount=shortlistCount;}
     public void setServiceCategoryId(String serviceCategoryId) { this.serviceCategoryId = serviceCategoryId; }
 
     // Constructors
@@ -217,6 +220,25 @@ public class Listing {
             return false;
         }
     }
+    public static String getShortlistCount(String id) {
+        String sql = 
+            "SELECT COUNT(*) AS count " +
+            "FROM shortlist s " +
+            "WHERE s.listing_id = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS); 
+        PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("count");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     public static List<Listing> searchListings(String uid, String searchQuery) {
         List<Listing> results = new ArrayList<>();

@@ -40,6 +40,7 @@
                     <div class="user-entry-box">
                         <span th:text="${listing.title}">Listing Title</span>
                         <span th:text="'$' + ${listing.price}"></span>
+                        <p><strong>Shortlists:</strong> <span th:text="${shortlistCount[listing.id]}"></span></p> 
                         <p><strong>Views:</strong> <span th:text="${listing.views}">0</span></p>
                     </div>
                 </a>  
@@ -60,7 +61,7 @@
                     <div class="user-entry-box">
                         <span th:text="${listing.title}">Listing Title</span>
                         <span th:text="'$' + ${listing.price}"></span>
-                        <p><strong>Views:</strong> <span th:text="${listing.views}">0</span></p>
+                        <p><strong>Views:</strong> <span th:text="${listing.views}"></span></p>
                     </div>
                 </a>   
             </div>
