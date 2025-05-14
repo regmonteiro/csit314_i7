@@ -24,27 +24,27 @@
 
         <div class="user-list-box">
              <div class="details-box">
-                <span th:text="${listing.title}" style="display: block; font-weight: bold; font-size: 1.5em; margin-bottom: 10px;">Listing Title</span>
+                <span th:text="${listing['title']}" style="display: block; font-weight: bold; font-size: 1.5em; margin-bottom: 10px;">Listing Title</span>
 
                 <div style="margin-bottom: 10px;">
                     <strong>Description:</strong>
-                    <span th:text="${listing.description}">Listing description</span>
+                    <span th:text="${listing['description']}">Listing description</span>
                 </div>
 
                 <div style="margin-bottom: 10px;">
                     <strong>Price:</strong>
-                    <span th:text="'$' + ${listing.price}">0.00</span>
+                    <span th:text="'$' + ${listing['price']}">0.00</span>
                 </div>
 
                 <div style="margin-bottom: 10px;">
                 <strong>Category:</strong>
-                <span th:text="${listing.category}">Cleaning</span>
+                <span th:text="${listing['category']}">Cleaning</span>
                 </div>
 
                 <div style="margin-top: 20px;">
                     <strong>Cleaner Info</strong>
-                    <div><strong>Name:</strong> <span th:text="${listing.cleanerName}">Cleaner Name</span></div>
-                    <div><strong>Email:</strong> <span th:text="${listing.email}">cleaner@email.com</span></div>
+                    <div><strong>Name:</strong> <span th:text="${listing['cleanerName']}">Cleaner Name</span></div> <!--changed-->
+                    <div><strong>Email:</strong> <span th:text="${listing['email']}">cleaner@email.com</span></div>
                 </div>
       
                 <form th:action="@{/homeowner/viewListing/shortlist}" method="post" style="margin-top: 20px;">

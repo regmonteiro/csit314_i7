@@ -27,7 +27,7 @@ public class HOViewListingPage {
     @Autowired
     private JobRequestController jobRequestController;
 
-    @GetMapping("/viewListing")
+    @GetMapping("/HOViewListing") 
     public String viewListing(@RequestParam("listingId") String listingId, Model model, HttpSession session) {
         UserAccount user = SessionHelper.getLoggedInUser(session);
         if (user == null) {
@@ -44,9 +44,9 @@ public class HOViewListingPage {
         }
     
         model.addAttribute("user", user);
-        model.addAttribute("activePage", "viewListing");
+        model.addAttribute("activePage", "HoViewListing");
         model.addAttribute("listing", listing);
-        return "homeowner/HOViewListing";
+        return "homeowner/HOViewListing";   
     }    
 
     @PostMapping("/viewListing/shortlist")
@@ -66,7 +66,7 @@ public class HOViewListingPage {
             redirectAttributes.addFlashAttribute("error", "This listing is already bookmarked.");
         }
 
-        return "redirect:/homeowner/viewListing?listingId=" + listingId + "&from=" + from;
+        return "redirect:/homeowner/HOViewListing?listingId=" + listingId + "&from=" + from;
     }
 
 

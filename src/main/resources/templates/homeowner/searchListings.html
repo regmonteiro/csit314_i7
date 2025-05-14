@@ -31,7 +31,7 @@
 
             <div th:if="${results}">
                 <a th:each="listing : ${results}" 
-                   th:href="@{'/homeowner/viewListing'(listingId=${listing.id})}" 
+                   th:href="@{'/homeowner/HOViewListing'(listingId=${listing.id})}" 
                    class="user-link">
                     <div class="user-entry-box">
                         <span th:text="${listing.title}" style="display: block; font-weight: bold;">Service Type</span>
