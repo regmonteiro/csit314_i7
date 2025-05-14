@@ -90,6 +90,6 @@ public class HOViewListingPage {
             redirectAttributes.addFlashAttribute("error", "Failed to send job request.");
         }
 
-        return "redirect:/homeowner/viewListing?listingId=" + listingId + "&from=" + from;
+        return "redirect:/homeowner/HOViewListing?listingId=" + listingId + "&from=" + from;
     }
 }
