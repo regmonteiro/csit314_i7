@@ -31,7 +31,7 @@ public class CleanerJobPage {
             return "redirect:/login";
         }
 
-        List<Map<String, String>> pendingJobs = controller.getPendingAndConfirmedJobs(user.getUid());
+        List<Map<String, String>> pendingJobs = controller.getPendingJobs(user.getUid());
         model.addAttribute("user", user);
         model.addAttribute("jobMatches", pendingJobs);
         model.addAttribute("activePage", "jobRequests");

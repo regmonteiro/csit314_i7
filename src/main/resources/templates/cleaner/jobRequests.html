@@ -17,10 +17,6 @@
             <div th:if="${message}" class="success-message" th:text="${message}"></div>
             <div th:if="${error}" class="error-message" th:text="${error}"></div>            
 
-            <div th:if="${jobMatches.isEmpty()}">
-                <p>No pending jobs found.</p>
-            </div>
-
             <div th:if="${!jobMatches.isEmpty()}">
                 <div th:each="job : ${jobMatches}" class="job-listings">
                     <span><strong>Service Date:</strong> <span th:text="${job.serviceDate}"></span></span><br/>
@@ -35,7 +31,6 @@
                             <button type="submit" class="button" style="margin-left:10px;">Confirm</button>
                         </form>
                     </div>
- 
                     <div th:if="${job.status == 'confirmed'}">
                         <!-- If cleaner has NOT marked as complete -->
                         <div th:if="${job.cleanerCompleted == 'false'}">
@@ -44,7 +39,6 @@
                                 <button type="submit" class="button" style="margin-left:10px;">Complete</button>
                             </form>
                         </div>
-                        
                         <br/>
                         <!-- If cleaner already marked as complete -->
                         <div th:if="${job.cleanerCompleted == 'true'}">
@@ -55,6 +49,9 @@
                     </div>
                     
                 </div>
+            </div>
+            <div th:if="${jobMatches.isEmpty()}">
+                <p>No pending jobs found.</p>
             </div>
         </div>
     </div>
