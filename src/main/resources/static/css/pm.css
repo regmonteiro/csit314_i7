@@ -205,7 +205,8 @@ input[type="text"] {
 .success-message,
 .error-message {
     text-align: center;
-    margin-top: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     padding: 10px;
     border-radius: 10px;
     width: 100%;

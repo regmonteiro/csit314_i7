@@ -25,7 +25,10 @@
             <button type="submit">Search</button>
             <div th:replace="~{fragments/loader :: searchLoader('inline')}"></div>
         </form>
-            
+
+        <div th:if="${error}" class="error-message" th:text="${error}"></div>
+        <div th:if="${message}" class="success-message" th:text="${message}"></div>
+        
             <!-- Show different categories -->
         <div class="categories-box" style="margin-top: 20px;">
             <a th:each="category : ${categories}" 
