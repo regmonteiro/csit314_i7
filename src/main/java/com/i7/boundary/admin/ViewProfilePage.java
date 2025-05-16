@@ -23,7 +23,7 @@ public class ViewProfilePage {
     
     @Autowired
     private ViewProfileController viewProfileController;
-    private SearchProfileController searchProfileController;
+    SearchProfileController searchProfileController = new SearchProfileController();
 
     @GetMapping("/viewProfiles")
     public String showProfiles(@RequestParam(value = "searchQuery", required = false) String searchQuery, Model model, HttpSession session) {

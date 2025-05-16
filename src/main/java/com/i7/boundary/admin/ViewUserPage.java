@@ -20,7 +20,8 @@ public class ViewUserPage {
 
     @Autowired
     private ViewUserController viewUserController;
-    private SearchUserController searchUserController;
+    
+    SearchUserController searchUserController = new SearchUserController();
 
     @GetMapping("/viewUserAccounts")
     public String showUserList(@RequestParam(required = false) String search, Model model, HttpSession session) {

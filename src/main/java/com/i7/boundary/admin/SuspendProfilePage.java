@@ -34,6 +34,7 @@ public class SuspendProfilePage {
             redirectAttributes.addFlashAttribute("error", "Failed to suspend profile.");
         }
     
+        // return "redirect:/admin/viewUserAccounts";
         return "redirect:/admin/viewUserProfile?profileCode=" + profileCode;
     }
 }

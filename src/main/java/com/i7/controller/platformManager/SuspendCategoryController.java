@@ -6,9 +6,9 @@ import com.i7.entity.ServiceCategory;
 
 @Controller
 @RequestMapping("manager")
-public class DeleteCategoryController {
-    public boolean deleteCategory(int id, ServiceCategory category){
-        return ServiceCategory.deleteCategory(id, category);
+public class SuspendCategoryController {
+    public boolean suspendCategory(int id, ServiceCategory category){
+        return ServiceCategory.suspendCategory(id, category);
     }
     public ServiceCategory getCategoryByName(String name){
         return ServiceCategory.getCategoryByName(name);

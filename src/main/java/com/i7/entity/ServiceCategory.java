@@ -13,23 +13,28 @@ public class ServiceCategory {
     private int id;
     private String name;
     private String description;
+    private String status;
 
     // Getter and Setter
     public int getId(){return id ;}
     public String getName(){return name;}
     public String getDescription(){return description;}
+    public String getStatus(){return status;}
 
 
     public void setId(int id){this.id = id;}
     public void setName(String name){this.name = name;}
     public void setDescription(String description){this.description=description;}
+    public void setStatus(String status){this.status=status;}
 
     // constructors
     public ServiceCategory() {}
-    public ServiceCategory(int id, String name, String description){
+    public ServiceCategory(int id, String name, String description, String status){
         this.id = id;
         this.name = name;
         this.description=description;
+        this.status = status;
+
     }
 
     private static int generateUniqueCategoryId(Connection conn) throws SQLException {
@@ -110,7 +115,8 @@ public class ServiceCategory {
                 categories.add(new ServiceCategory(
                     rs.getInt("id"),
                     rs.getString("name"),
-                    rs.getString("description")
+                    rs.getString("description"),
+                    rs.getString("status")
                 ));
             }
         } catch (Exception e) {
@@ -139,13 +145,17 @@ public class ServiceCategory {
         }
     }
 
-    public static boolean deleteCategory(int id, ServiceCategory category){
-
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-            PreparedStatement stmt = conn.prepareStatement("DELETE FROM service_category WHERE id = ?")) {
+    public static boolean suspendCategory(int id, ServiceCategory category){
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
+            PreparedStatement checkStmt = conn.prepareStatement("SELECT * FROM service_category WHERE id = ?");
+            checkStmt.setInt(1, id);
+            ResultSet rs = checkStmt.executeQuery();
+            if (!rs.next()) return false;
+            PreparedStatement stmt = conn.prepareStatement(
+                "UPDATE service_category SET status = 'suspended' WHERE id = ?"
+            );
             stmt.setInt(1, id);
-            int rowsAffected = stmt.executeUpdate();
-            return rowsAffected > 0;
+            return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

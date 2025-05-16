@@ -57,7 +57,7 @@ public class ViewShortlistPage {
         return "homeowner/shortlist";
     }
 
-    @GetMapping("/bookmarkDetails")
+    @GetMapping("/shortlistDetails")
     public String viewBookmarkDetails(@RequestParam("listingId") String listingId, HttpSession session, Model model) {
         UserAccount user = SessionHelper.getLoggedInUser(session);
         if (user == null || !user.getProfileCode().equals("P003")) {
@@ -72,6 +72,7 @@ public class ViewShortlistPage {
 
         model.addAttribute("user", user);
         model.addAttribute("listing", listing);
-        return "homeowner/shortlistDetails?id="+listingId;
+        model.addAttribute("listingId", listingId);
+        return "homeowner/shortlistDetails=?" + listingId;
     }
 }

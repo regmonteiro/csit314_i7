@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>
-        Delete Service Category
+        Suspend Service Category
     </title>
     <link rel="stylesheet" href="/css/pm.css">
     <link rel="stylesheet" href="/css/navbar.css">
@@ -25,11 +25,11 @@
         <div th:if="${error}" class="error-message" th:text="${error}"></div>
         <div th:if="${message}" class="success-message" th:text="${message}"></div>
 
-        <form th:action="@{/manager/deleteCategory}" method="post" class="form-box" th:object="${category}">
+        <form th:action="@{/manager/suspendCategory}" method="post" class="form-box" th:object="${category}">
             <input type="hidden" th:field="*{id}" />
             <p><strong>Name: </strong><span th:text="${category.name}"></span></p>
             <p><strong>Description: </strong><span th:text="${category.description}"></span></p>
-            <button type="submit" class="button">Delete</button>
+            <button type="submit" class="button">Suspend</button>
         </form>
     </div>
 </div>

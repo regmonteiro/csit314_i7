@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.i7.controller.platformManager.DeleteCategoryController;
+import com.i7.controller.platformManager.SuspendCategoryController;
 import com.i7.controller.platformManager.UpdateCategoryController;
 import com.i7.entity.ServiceCategory;
 import com.i7.entity.UserAccount;
@@ -21,7 +21,7 @@ import jakarta.servlet.http.HttpSession;
 public class UpdateCategoriesPage {
 
     UpdateCategoryController updateCategoryController = new UpdateCategoryController();
-    DeleteCategoryController deleteCategoryController = new DeleteCategoryController();
+    SuspendCategoryController suspendCategoryController = new SuspendCategoryController();
 
     @GetMapping("/updateCategory")
     public String showUpdateForm(@RequestParam("name") String name,
@@ -58,8 +58,8 @@ public class UpdateCategoriesPage {
         }
         return "redirect:/manager/viewSingleCategory?id=" + category.getId();
     }
-    @GetMapping("/deleteCategory")
-    public String deleteCategory(@RequestParam("id") int id, Model model, HttpSession session){
+    @GetMapping("/suspendCategory")
+    public String suspendCategory(@RequestParam("id") int id, Model model, HttpSession session){
         UserAccount sessionUser = SessionHelper.getLoggedInUser(session);
         if (sessionUser == null) {
             return "redirect:/login"; // Redirect if no user is logged in
@@ -67,21 +67,21 @@ public class UpdateCategoriesPage {
         session.setAttribute("tab", "categories");
         model.addAttribute("user", sessionUser); 
         model.addAttribute("activePage", "deleteCategory");
-        ServiceCategory category = deleteCategoryController.getCategoryById(id);
+        ServiceCategory category = suspendCategoryController.getCategoryById(id);
         model.addAttribute("category", category);
-        return "manager/deleteCategory"; 
+        return "manager/suspendCategory"; 
     }
-    @PostMapping("/deleteCategory")
-    public String handleDelete(@ModelAttribute("category") ServiceCategory chosenCategory, HttpSession session, RedirectAttributes redirectAttributes) {
+    @PostMapping("/suspendCategory")
+    public String handleSuspend(@ModelAttribute("category") ServiceCategory chosenCategory, HttpSession session, RedirectAttributes redirectAttributes) {
         UserAccount sessionUser = SessionHelper.getLoggedInUser(session);
         if (sessionUser == null) {
             return "redirect:/login";
         }
-        boolean success = deleteCategoryController.deleteCategory(chosenCategory.getId(), chosenCategory);
+        boolean success = suspendCategoryController.suspendCategory(chosenCategory.getId(), chosenCategory);
         if (success) {
-            redirectAttributes.addFlashAttribute("message", "Category deleted successfully.");
+            redirectAttributes.addFlashAttribute("message", "Category suspended successfully.");
         } else {
-            redirectAttributes.addFlashAttribute("error", "Failed to delete category.");
+            redirectAttributes.addFlashAttribute("error", "Failed to suspend category.");
         }
         return "redirect:/manager/viewCategory";
     }

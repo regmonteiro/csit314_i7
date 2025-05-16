@@ -27,13 +27,14 @@ public class SuspendUserPage {
         if (sessionUser == null) {
             return "redirect:/login";
         }
- 
+
         boolean success = suspendUserController.suspendAccount(uid);
         if (success) {
             redirectAttributes.addFlashAttribute("message", "User suspended successfully.");
         } else {
             redirectAttributes.addFlashAttribute("error", "User is already suspended or an error occurred.");
         }
-        return "redirect:/admin/viewUser?uid=" + uid;
+        return "redirect:/admin/viewUserAccounts";
+        // return "redirect:/admin/viewUser?uid=" + uid;
     }
 }

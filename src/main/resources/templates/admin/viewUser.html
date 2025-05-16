@@ -33,8 +33,8 @@
       <p><b>Email:</b> <span th:text="${viewedUser.email}"></span></p>
       <p><b>Profile:</b> <span th:text="${profile.name}"></span></p>
       <p><strong>Status:</strong>
-        <span th:text="${user.status.toLowerCase() == 'suspended' ? 'Suspended' : 'Active'}"
-              th:classappend="${user.status.toLowerCase() == 'suspended'} ? 'status-suspended' : 'status-active'">
+        <span th:text="${viewedUser.status.toLowerCase() == 'suspended' ? 'Suspended' : 'Active'}"
+              th:classappend="${viewedUser.status.toLowerCase() == 'suspended'} ? 'status-suspended' : 'status-active'">
         </span>
       </p>
       
