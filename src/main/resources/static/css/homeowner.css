@@ -101,7 +101,7 @@ body {
     margin-bottom: 30px;
 }
 
-.search-form input[type="text"], .user-entry-box input[type="date"] {
+.search-form input[type="text"], .details-box input[type="date"] {
     flex-grow: 1;
     padding: 15px 20px;
     border-radius: 25px;
