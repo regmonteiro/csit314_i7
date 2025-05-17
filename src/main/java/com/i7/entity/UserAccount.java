@@ -245,7 +245,7 @@ public class UserAccount {
             e.printStackTrace();
             return false;
         }
-    }
+    } 
 
     public static List<UserAccount> searchByQuery(String searchQuery) {
         List<UserAccount> results = new ArrayList<>();
