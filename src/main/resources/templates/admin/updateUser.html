@@ -34,7 +34,9 @@
         
             <label for="lastName">Last Name</label>
             <input type="text" id="lastName" th:field="*{lastName}" placeholder="Last Name" required />
-        
+            
+            <input type="hidden" th:field="*{status}" />
+
             <label for="profileCode">Profile</label>
             <select id="profileCode" th:field="*{profileCode}">
                 <option th:each="p : ${profiles}" 
